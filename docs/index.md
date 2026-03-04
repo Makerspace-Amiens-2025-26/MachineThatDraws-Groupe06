@@ -28,7 +28,7 @@ Test Test
 
 <!-- Ici vous publierez le poster de votre projet. -->
 
-![Poster projet](images\image_1.png)
+![Poster projet](images/image_1.png)
 
 ## Vidéo
 
