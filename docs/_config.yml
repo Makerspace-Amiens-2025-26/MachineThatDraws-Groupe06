@@ -2,9 +2,7 @@ title: Doc Projet
 description: Documentation du projet
 favicon_ico: "/images/image.ico"
 
-# NE RIEN MODIFIER CI-DESSOUS SI VOUS N'ETES PAS CERTAINS DE CE QUE VOUS FAITES
-
-# Thème
+# NE RIEN MODIFIER CI-DESSOUS
 theme: bulma-clean-theme
 baseurl: "/MachineThatDraws-Groupe06"
-url: "https://Makerspace-Amiens-2025-2026.github.io"
+url: "https://makerspace-amiens-2025-26.github.io"
