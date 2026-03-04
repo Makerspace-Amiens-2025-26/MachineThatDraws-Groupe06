@@ -1,9 +1,11 @@
-title: "Documentation Groupe 06"
-remote_theme: "Makerspace-Amiens/bulma-clean-theme"
+title: "Doc Projet Groupe 06"
+description: "Documentation du projet Machine That Draws"
 
-# Configuration vitale
+# CONFIGURATION DE L'ADRESSE (Mise à jour suite au transfert)
+remote_theme: "Makerspace-Amiens/bulma-clean-theme"
 baseurl: "/MachineThatDraws-Groupe06"
 url: "https://makerspace-amiens-2025-26.github.io"
 
-# On reste basique pour forcer le passage
-markdown: kramdown
+# NE RIEN TOUCHER CI-DESSOUS
+plugins:
+  - jekyll-remote-theme
