@@ -9,23 +9,38 @@ nav_order: 1
 
 Cette section décrit la première étape du processus de fabrication : la préparation des matériaux.
 
+---
+
 ## Liste des Matériaux
 
-- Matériau A
-- Matériau B
-- Outils nécessaires
-
-## Procédure de Préparation
-
-1. **Nettoyage** : Nettoyez tous les matériaux pour enlever la poussière et les débris.
-2. **Découpe** : Découpez les matériaux A et B selon les dimensions spécifiées.
-3. **Prétraitement** : Appliquez un traitement de surface si nécessaire.
-
-## Conseils de Sécurité
-
-- Portez toujours l'équipement de protection individuelle.
-- Suivez les instructions de sécurité des outils utilisés.
+| Matériau | Quantité | Fournisseur | Coût |
+|----------|----------|-------------|------|
+| *(✏️ ex: Profilé alu 20x20)* | *(✏️)* | *(✏️)* | *(✏️)* |
+| *(✏️ ex: Contreplaqué 3mm)* | *(✏️)* | *(✏️)* | *(✏️)* |
+| *(✏️ ex: Courroie GT2)* | *(✏️)* | *(✏️)* | *(✏️)* |
 
 ---
 
-Une fois cette étape terminée, passez à l'[Assemblage](/assemblage).
+## Outils utilisés
+
+- *(✏️ ex: Perceuse)*
+- *(✏️ ex: Scie)*
+- *(✏️ ex: Clés Allen)*
+
+---
+
+## Procédure de Préparation
+
+1. **Découpe** : *(✏️ Décris comment vous avez découpé ou préparé les pièces)*
+2. **Vérification** : *(✏️ Comment vous avez vérifié les cotes avant assemblage)*
+3. **Organisation** : *(✏️ Comment vous avez organisé les pièces pour l'assemblage)*
+
+---
+
+## Conseils et erreurs à éviter
+
+> *(✏️ Note ici les erreurs que vous avez faites ou les choses à savoir avant de commencer cette étape.)*
+
+---
+
+Une fois cette étape terminée, passez à l'[Assemblage](etape_2.html).

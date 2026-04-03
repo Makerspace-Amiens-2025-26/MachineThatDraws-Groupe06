@@ -1,15 +1,30 @@
-title: "Doc Projet Groupe 06"
-description: "Documentation du projet Machine That Draws"
+title: "Machine That Draw"
+description: "Rapport de projet — Makerspace Amiens 2025-2026"
+baseurl: ""
+url: ""
 
-# NE RIEN MODIFIER CI-DESSOUS SI VOUS N'ETES PAS CERTAINS DE CE QUE VOUS FAITES
-
-# Thème
-# remote_theme: Makerspace-Amiens/CraftTheDocs-V1.0
 theme: just-the-docs
-url: https://github.com/Makerspace-Amiens
 
-# Paramètres optionnels de "Just the Docs"
-just_the_docs:
-  navigation_depth: 5
-  search_enabled: true
-  search_indexing: true
+
+
+# Logo dans la sidebar (optionnel)
+# logo: "/assets/images/logo.png"
+
+# Liens dans la sidebar
+aux_links:
+  "GitHub du projet":
+    - "https://github.com/Makerspace-Amiens-2025-26"
+
+aux_links_new_tab: true
+
+# Barre de recherche activée
+search_enabled: true
+
+# Pied de page
+footer_content: "Machine That Draw &mdash; Groupe 06 &mdash; Makerspace Amiens 2025-2026"
+
+plugins:
+  - jekyll-seo-tag
+
+# Ordre par défaut des pages dans la sidebar
+nav_sort: order

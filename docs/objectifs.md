@@ -1,33 +1,46 @@
 ---
 layout: default
-nav_order: 3
 title: Objectifs du projet
+nav_order: 2
 ---
 
-# Introduction
-Notre projet consiste à concevoir une machine automatisée capable d'écrire et de dessiner avec précision sur une surface plane. Ce projet combine mécanique, électronique et programmation.
+# Objectifs du projet
 
-{: .important }
-> **Notre Mission :** Transformer un simple fichier numérique en un tracé physique fluide et précis grâce à la "MachineThatDraw".
+## Introduction
 
-# Contexte du Projet
-Dans le cadre du module MakerSpace 2026, nous devons créer un outil fonctionnel répondant à une problématique de fabrication numérique. La "MachineThatDraw" est notre réponse pour explorer le contrôle des mouvements sur les axes X et Y.
+Notre projet consiste à concevoir une machine automatisée capable d'écrire et de dessiner avec précision sur une surface plane. Ce projet combine **mécanique**, **électronique** et **programmation**.
 
-# Objectifs du Projet
-* **Automatisation :** Créer un système capable de reproduire des caractères de manière autonome.
-* **Précision :** Assurer un mouvement fluide des moteurs pour un rendu propre.
-* **Polyvalence :** Permettre l'utilisation de différents types de stylos ou feutres.
+> **Notre Mission :** Transformer un simple fichier numérique en un tracé physique fluide et précis grâce à la MachineThatDraw.
 
-{: .note }
-> **Le petit plus :** Nous visons une compatibilité avec plusieurs types de supports (papier, carton, bois léger) pour maximiser les usages.
+---
 
-# Existant
-Il existe de nombreux traceurs (plotters) sur le marché, mais notre défi est d'en construire un de A à Z en utilisant des composants accessibles comme l'Arduino et des pièces imprimées en 3D.
+## Contexte du Projet
 
-# Cahier des Charges
-* **Structure :** Châssis rigide supportant les rails de guidage.
-* **Électronique :** Utilisation d'un microcontrôleur Arduino et de drivers de moteurs.
-* **Mouvement :** Système de courroies pour les axes horizontaux et servomoteur pour lever/baisser le stylo.
+Dans le cadre du module MakerSpace 2025-2026, nous devons créer un outil fonctionnel répondant à une problématique de fabrication numérique. La MachineThatDraw est notre réponse pour explorer le contrôle des mouvements sur les axes X et Y.
 
-{: .warning }
-> **Contrainte technique :** Le poids du chariot X ne doit pas dépasser une certaine limite pour ne pas faire sauter de pas aux moteurs Y.
+---
+
+## Objectifs techniques
+
+- **Automatisation** : Créer un système capable de reproduire des caractères et formes de manière autonome.
+- **Précision** : Assurer un mouvement fluide des moteurs pour un rendu propre.
+- **Polyvalence** : Permettre l'utilisation de différents types de stylos ou feutres.
+
+> **Le petit plus :** Nous visons une compatibilité avec plusieurs types de supports (papier, carton, bois léger...).
+
+---
+
+## Contraintes
+
+| Contrainte | Détail |
+|-----------|--------|
+| Budget | *(à compléter)* |
+| Dimensions max | *(à compléter)* |
+| Format dessin | Fichier G-code |
+| Microcontrôleur | Arduino |
+
+---
+
+## Ce qu'on a appris
+
+*(✏️ Raconte ici ce que vous avez découvert en faisant ce projet — les galères, les surprises, ce que vous referiez différemment.)*

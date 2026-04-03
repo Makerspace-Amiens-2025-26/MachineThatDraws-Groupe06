@@ -1,45 +1,79 @@
 ---
 layout: home
-nav_order: 1
 title: Accueil
+nav_order: 1
 permalink: /
 ---
 
-# Projet Machine that draws
+# Machine That Draw
 
-Bienvenue dans la documentation du projet "Machine that draws". Ce site a pour but de fournir toutes les informations nécessaires pour comprendre, utiliser et reproduire efficacement notre projet.
+**Bienvenue sur le rapport de projet du Groupe 06 — Makerspace Amiens 2025-2026.**
 
-[Notre projet sur Onshape](https://modelembedder.net/embed?did=8c814b0ab65beaae0eeaa526&wvm=v&wvmid=77be9413e076a704dc64824f&eid=a597e80902563e66ad237642&elementType=ASSEMBLY){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[Notre repo GitHub](https://github.com/Makerspace-Amiens/template-project){: .btn .fs-5 .mb-4 .mb-md-0 }
+Ce site documente la conception, la fabrication et la programmation de notre machine dessinatrice à commande numérique.
 
-<iframe height="600" width="100%" src="https://modelembedder.net/embed?did=8c814b0ab65beaae0eeaa526&wvm=v&wvmid=77be9413e076a704dc64824f&eid=a597e80902563e66ad237642&elementType=ASSEMBLY" frameborder="0"></iframe>
-
-{: .warning }
->Pour intégrer la visualisation de votre projet Onshape, utilisez le site https://modelembedder.net . Activez le partage par lien via l'outil de partage de Onshape. n'oubliez pas d'activer l'option "export". Puis completez l'iframe ci-dessus avec le lien généré par le site https://modelembedder.net. Vous pouvez mettre à jour également le bouton avec le lien de partage de votre modèle.
-
-
-## À propos du Projet
-
-Ce projet s'inscrit dans notre parcours scolaire, nous sommes un groupe de 5 étudiantes à Unilasalle Amiens. Il a pour but de nous former à la création et l'utilisation d'une machine à commande numérique. Il vise à concevoir une architecture système permettant de transformer une image numérique en un dessin physique, en passant par sa vectorisation et la génération de ses coordonnées G-code.
-
-## Poster
-
-Ici vous publierez le poster de votre projet.
-
-![Poster projet](images/poster.jpg)
-![Logo unilasalle](images/unilasalle amiens.png)
-
-## Vidéo
-
-Ici vous publierez la vidéo de votre projet. 
-- 1min30 au format vertical
-- Présentation du projet 
-- Des explication du fonctionnement du projet
-- Des vues du projet / Prototype / Application etc... 
-- Des plans du fonctionnement (même basique ou des éléments séparés)
-- Une conclusion
-- Si en stockage local : <50mo
-
-<video src="images/intro_amiens.mp4" controls title="Title"  style="width: 100%;"></video>
+[Notre projet sur OnShape](#){: .btn .btn-primary .mr-2 }
+[Notre repo GitHub](https://github.com/Makerspace-Amiens-2025-26){: .btn .btn-outline }
 
 ---
+
+## Le projet en résumé
+
+Notre machine, la **MachineThatDraw**, est capable de reproduire automatiquement un dessin vectoriel sur une surface plane. Elle fonctionne sur deux axes (X et Y) et utilise un servo-moteur pour lever et baisser le stylo.
+
+> **Mission :** Transformer un fichier numérique en tracé physique grâce à une architecture mécanique, électronique et logicielle conçue par notre équipe.
+
+---
+
+## Modèle 3D
+
+<!-- ✏️ Remplace le src ci-dessous par ton lien modelembedder.net -->
+<iframe
+  height="500"
+  width="100%"
+  src="https://modelembedder.net/embed?did=REMPLACE_PAR_TON_LIEN"
+  frameborder="0"
+  allowfullscreen>
+</iframe>
+
+> Pour intégrer ton modèle OnShape : va sur [modelembedder.net](https://modelembedder.net), colle le lien de partage OnShape, et remplace le `src` ci-dessus avec le lien généré.
+
+---
+
+## Vidéo de présentation
+
+<!-- ✏️ Remplace VOTRE_ID par l'ID de ta vidéo YouTube -->
+<iframe
+  width="100%"
+  height="450"
+  src="https://www.youtube.com/embed/VOTRE_ID"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
+La vidéo doit faire **1min30 au format vertical** et présenter :
+- Le projet et son contexte
+- Le fonctionnement de la machine
+- Des vues du prototype
+- Une conclusion
+
+---
+
+## Poster du projet
+
+<!-- ✏️ Remplace par le chemin vers ton image de poster -->
+<!-- ![Poster du projet](/assets/images/poster.png) -->
+
+*Le poster sera ajouté ici.*
+
+---
+
+## L'équipe
+
+| Prénom | Rôle |
+|--------|------|
+| Avsin | Mécanique & CAO |
+| Pierre | Électronique |
+| Djhaer | Programmation |
+| Emilien | Fabrication |
+| *(ton prénom)* | Chef de projet |
