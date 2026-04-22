@@ -1,0 +1,79 @@
+---
+layout: table_wrappers
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+{% include head.html %}
+<body class="top-nav-layout">
+  <a class="skip-to-main" href="#main-content">Aller au contenu</a>
+  {% include icons/icons.html %}
+
+  <!-- ── BARRE DE NAVIGATION HAUTE ── -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a href="{{ '/' | relative_url }}" class="topnav-logo">
+        <span class="topnav-logo-dot"></span>
+        {{ site.title }}
+      </a>
+
+      <button class="topnav-toggle" id="topnav-toggle" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="topnav-links" id="topnav-links">
+        {% assign nav_pages = site.pages | sort: 'nav_order' %}
+        {% for p in nav_pages %}
+          {% if p.nav_order and p.title and p.parent == nil and p.nav_exclude != true %}
+            <a href="{{ p.url | relative_url }}"
+               class="topnav-link{% if p.url == page.url %} active{% endif %}">
+              {{ p.title }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── CONTENU PRINCIPAL ── -->
+  <div class="main top-layout" id="top">
+    <div class="main-content-wrap">
+      {% include components/breadcrumbs.html %}
+      <div id="main-content" class="main-content">
+        <main>
+          {% if site.heading_anchors != false %}
+            {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#svg-link\"></use></svg>" anchorClass="anchor-heading" anchorAttrs="aria-labelledby=\"%html_id%\"" %}
+          {% else %}
+            {{ content }}
+          {% endif %}
+          {% if page.has_toc != false %}
+            {% include components/children_nav.html %}
+          {% endif %}
+        </main>
+        {% include components/footer.html %}
+      </div>
+    </div>
+    {% if site.search_enabled != false %}
+      {% include components/search_footer.html %}
+    {% endif %}
+  </div>
+
+  <!-- Menu mobile toggle script -->
+  <script>
+    const btn = document.getElementById('topnav-toggle');
+    const links = document.getElementById('topnav-links');
+    btn.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+  </script>
+
+  {% if site.mermaid %}
+    {% include components/mermaid.html %}
+  {% endif %}
+</body>
+</html>
