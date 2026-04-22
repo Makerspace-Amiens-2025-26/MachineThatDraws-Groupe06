@@ -26,7 +26,13 @@ Notre machine, la **MachineThatDraw**, est capable de reproduire automatiquement
 
 ## Modèle 3D
 
-<a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9?renderMode=0&uiState=69e8b76c98f18e0d22950a4f" target="_blank" class="btn btn-outline">Ouvrir le modèle 3D sur OnShape ↗</a>
+<iframe
+  src="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9?renderMode=0"
+  width="100%"
+  height="500"
+  frameborder="0"
+  allowfullscreen>
+</iframe>
 
 ---
 
