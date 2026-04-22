@@ -85,7 +85,9 @@ permalink: /
 
 ## Poster du projet
 
-*Le poster sera ajouté ici.*
+<div class="poster-wrap">
+  <img src="{{ '/assets/images/poster.svg' | relative_url }}" alt="Poster du projet Machine That Draw" style="width:100%;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);">
+</div>
 
 ---
 
