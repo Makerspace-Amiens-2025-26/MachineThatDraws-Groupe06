@@ -9,7 +9,7 @@ permalink: /
 
 **Bienvenue sur le rapport de projet du Groupe 06 — Makerspace Amiens 2025-2026.**
 
-Ce site documente la conception, la fabrication et la programmation de notre machine dessinatrice à commande numérique.
+Ce site documente toute la conception, la fabrication ainsi que la programmation de notre Machine That Draw.
 
 [Notre projet sur OnShape](#){: .btn .btn-primary .mr-2 }
 [Notre repo GitHub](https://github.com/Makerspace-Amiens-2025-26){: .btn .btn-outline }
@@ -72,8 +72,7 @@ La vidéo doit faire **1min30 au format vertical** et présenter :
 
 | Prénom | Rôle |
 |--------|------|
-| Avsin | Mécanique & CAO |
-| Pierre | Électronique |
-| Djhaer | Programmation |
-| Emilien | Fabrication |
-| *(ton prénom)* | Chef de projet |
+| Avsin ATAC | Mise en place du site/Rapport/Vidéo |
+| Pierre VILLAIN | Électronique |
+| Djhaer MADIALI | Programmation |
+| Emilien VITRY-LHOTTE | Fabrication |

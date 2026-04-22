@@ -8,7 +8,7 @@ nav_order: 2
 
 ## Introduction
 
-Notre projet consiste à concevoir une machine automatisée capable d'écrire et de dessiner avec précision sur une surface plane. Ce projet combine **mécanique**, **électronique** et **programmation**.
+Premièrement, notre projet consiste à concevoir une machine automatisée qui est capable d'écrire et de dessiner avec précision sur une surface plane ce qu'on lui programme. Il s'agit donc d'un projet qui va combiner de la mécanique, de l'électronique mais aussi de la programmation.
 
 > **Notre Mission :** Transformer un simple fichier numérique en un tracé physique fluide et précis grâce à la MachineThatDraw.
 
@@ -16,7 +16,7 @@ Notre projet consiste à concevoir une machine automatisée capable d'écrire et
 
 ## Contexte du Projet
 
-Dans le cadre du module MakerSpace 2025-2026, nous devons créer un outil fonctionnel répondant à une problématique de fabrication numérique. La MachineThatDraw est notre réponse pour explorer le contrôle des mouvements sur les axes X et Y.
+Dans le cadre du projet MakerSpace 2025-2026, nous devons créer un outil, une machine fonctionnel qui puisse répondre à une problématique de fabrication numérique. La MachineThatDraw est donc notre réponse pour explorer le contrôle des mouvements sur les axes X et Y.
 
 ---
 
