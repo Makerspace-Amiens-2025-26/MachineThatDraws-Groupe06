@@ -26,16 +26,13 @@ Notre machine, la **MachineThatDraw**, est capable de reproduire automatiquement
 
 ## Modèle 3D
 
-<!-- ✏️ Remplace le src ci-dessous par ton lien modelembedder.net -->
 <iframe
   height="500"
   width="100%"
-  src="https://modelembedder.net/embed?did=REMPLACE_PAR_TON_LIEN"
+  src="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9?renderMode=0&uiState=69e8b76c98f18e0d22950a4f"
   frameborder="0"
   allowfullscreen>
 </iframe>
-
-> Pour intégrer ton modèle OnShape : va sur [modelembedder.net](https://modelembedder.net), colle le lien de partage OnShape, et remplace le `src` ci-dessus avec le lien généré.
 
 ---
 
