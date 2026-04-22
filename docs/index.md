@@ -11,8 +11,8 @@ permalink: /
 
 Ce site documente toute la conception, la fabrication ainsi que la programmation de notre Machine That Draw.
 
-[Notre projet sur OnShape](#){: .btn .btn-primary .mr-2 }
-[Notre repo GitHub](https://github.com/Makerspace-Amiens-2025-26){: .btn .btn-outline }
+<a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9?renderMode=0&uiState=69e8b76c98f18e0d22950a4f" target="_blank" class="btn btn-primary mr-2">Notre projet sur OnShape</a>
+<a href="https://github.com/Makerspace-Amiens-2025-26" target="_blank" class="btn btn-outline">Notre repo GitHub</a>
 
 ---
 
