@@ -1,0 +1,22 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      observer.observe(el);
+    });
+
+    // Stagger les enfants des grilles
+    document.querySelectorAll('.feature-grid, .team-grid, .stats-row').forEach(function (grid) {
+      Array.from(grid.children).forEach(function (child, i) {
+        child.style.transitionDelay = (i * 0.08) + 's';
+      });
+    });
+  });
+</script>
