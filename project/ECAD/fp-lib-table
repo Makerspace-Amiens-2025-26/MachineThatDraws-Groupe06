@@ -1,6 +1,0 @@
-(fp_lib_table
-	(version 7)
-	(lib (name "makerspace-unilasalle") (type "KiCad") (uri "C:/Users/Madi Ali Djaher/Downloads/kicad-library-main/kicad-library-main/footprint/makerspace-unilasalle.pretty") (options "") (descr ""))
-	(lib (name "kicad-library-main") (type "KiCad") (uri "C:/Users/emili/Documents/I2/kicad-library-main") (options "") (descr "") (disabled))
-	(lib (name "makerspace-unilasalle-emi") (type "KiCad") (uri "C:/Users/emili/Documents/I2/kicad-library-main/footprint/makerspace-unilasalle.pretty") (options "") (descr ""))
-)
