@@ -623,12 +623,76 @@ h3:hover .anchor-heading { opacity: 1; }
   color: $text-muted;
 }
 
+// ── SCHEMA BLOC ──────────────────────────────────────────────
+.schema-block {
+  background: #f8fafc;
+  border: 1px solid $border;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow-x: auto;
+}
+
+// ── BOM CARDS ────────────────────────────────────────────────
+.bom-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.bom-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $indigo;
+    box-shadow: 0 6px 20px rgba(99,102,241,0.1);
+    transform: translateY(-2px);
+  }
+}
+
+.bom-ref {
+  background: $indigo-light;
+  color: $indigo-dark;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bom-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: $text-main;
+  margin-bottom: 0.25rem;
+}
+
+.bom-desc {
+  font-size: 0.8rem;
+  color: $text-muted;
+  line-height: 1.55;
+}
+
 // ── RESPONSIVE ───────────────────────────────────────────────
 @media (max-width: 800px) {
   .main-content { padding: 1.5rem !important; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .cards-grid { grid-template-columns: 1fr; }
   .team-grid  { grid-template-columns: repeat(2, 1fr); }
+  .bom-cards  { grid-template-columns: 1fr; }
   .hero-banner { padding: 2rem 1.25rem; }
   .hero-title { font-size: 2rem !important; }
 }
