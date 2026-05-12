@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Objectifs du projet
-nav_order: 2
+nav_exclude: true
 ---
 
 # Objectifs du projet
@@ -34,7 +34,7 @@ Dans le cadre du projet MakerSpace 2025-2026, nous devons créer un outil, une m
 
 | Contrainte | Détail |
 |-----------|--------|
-| Budget | *(à compléter)* |
+|  |  |
 | Dimensions max | *(à compléter)* |
 | Format dessin | Fichier G-code |
 | Microcontrôleur | Arduino |

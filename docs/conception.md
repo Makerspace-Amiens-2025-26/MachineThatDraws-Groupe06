@@ -1,26 +1,29 @@
 ---
 layout: default
-title: Conception et prototypage
-nav_order: 5
+title: Conception CAO
+nav_order: 3
 ---
 
-# Conception et prototypage
+# Conception CAO
+
+<div class="warn-box">
+  <p>✏️ <strong>À compléter</strong> — Décris ici comment vous avez conçu la machine sur OnShape.</p>
+</div>
+
+---
 
 ## Démarche de conception
 
-*(✏️ Décris ici comment vous avez abordé la conception — croquis initiaux, maquettes, itérations...)*
+*(✏️ Explique comment vous avez abordé la conception — croquis initiaux, contraintes, choix techniques...)*
 
 ---
 
 ## Modèle 3D OnShape
 
-Nous avons modélisé l'intégralité de la machine sur OnShape.
-
-<!-- ✏️ Colle ici l'iframe embed de ton document OnShape -->
 <iframe
   height="500"
   width="100%"
-  src="https://modelembedder.net/embed?did=REMPLACE_PAR_TON_LIEN"
+  src="https://modelembedder.net/embed?did=f85f35a7b123fd4b19e50d84&wvm=v&wvmid=2973a15f91d351ab53681340&eid=c8cf3c6fac028151a842f9c9&elementType=ASSEMBLY"
   frameborder="0"
   allowfullscreen>
 </iframe>
@@ -29,26 +32,16 @@ Nous avons modélisé l'intégralité de la machine sur OnShape.
 
 ## Pièces conçues
 
-| Pièce | Méthode de fabrication | Matériau | Fichier |
-|-------|----------------------|----------|---------|
-| *(✏️)* | Impression 3D | PLA | *(✏️)* |
-| *(✏️)* | Découpe laser | Contreplaqué | *(✏️)* |
-| *(✏️)* | Acheté | Aluminium | / |
+| Pièce | Méthode | Matériau |
+|-------|---------|----------|
+| *(✏️)* | Impression 3D | PLA |
+| *(✏️)* | Découpe laser | Contreplaqué |
+| *(✏️)* | Acheté | Aluminium |
 
 ---
 
-## Prototype
-
-*(✏️ Décris les étapes de prototypage — premier test, ajustements, version finale...)*
-
-<!-- ✏️ Ajoute des photos du prototype -->
-<!-- ![Photo prototype](/assets/images/prototype.jpg) -->
-
----
-
-## Problèmes rencontrés et solutions
+## Problèmes rencontrés
 
 | Problème | Solution apportée |
 |----------|------------------|
-| *(✏️)* | *(✏️)* |
 | *(✏️)* | *(✏️)* |

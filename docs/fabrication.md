@@ -1,49 +1,47 @@
 ---
 layout: default
-title: "🔧 Étapes de fabrication"
-nav_order: 4
+title: Étapes de fabrication
+nav_order: 2
 ---
 
 # Étapes de fabrication
 
-## Chronologie du projet
-
-> **Phase 1 :** Montage de la structure mécanique et test des moteurs pas-à-pas.
+<div class="warn-box">
+  <p>✏️ <strong>À compléter</strong> — Décris ici les différentes étapes de fabrication de la machine semaine par semaine.</p>
+</div>
 
 ---
 
 ## Semaine 1
 
-*(✏️ Décris ce que vous avez fait la première semaine — premières réunions, premières décisions, début de la conception...)*
-
-> **Attention :** *(✏️ Note ici les points importants ou les erreurs à éviter)*
+*(✏️ Décris ce que vous avez fait — premières réunions, premières décisions, début de la conception...)*
 
 ---
 
 ## Semaine 2
 
-*(✏️ Semaine 2 — par exemple : installation des courroies, câblage Arduino...)*
+*(✏️ Ex : installation des courroies, câblage, tests moteurs...)*
 
 ---
 
 ## Semaine 3
 
-*(✏️ Semaine 3)*
+*(✏️ à compléter)*
 
 ---
 
 ## Semaine 4
 
-*(✏️ Semaine 4)*
+*(✏️ à compléter)*
 
 ---
 
 ## Semaine 5
 
-*(✏️ Semaine 5)*
+*(✏️ à compléter)*
 
 ---
 
-## Bilan de fabrication
+## Bilan
 
-*(✏️ Ce qui a bien marché, ce qui était difficile, ce que vous avez dû refaire ou adapter en cours de route.)*
+*(✏️ Ce qui a bien marché, les difficultés, ce que vous referiez différemment.)*

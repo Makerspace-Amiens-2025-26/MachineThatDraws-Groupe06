@@ -15,81 +15,60 @@ permalink: /
   </div>
 </div>
 
-<div class="stats-grid fade-in-delay">
-  <div class="stat-item">
-    <span class="stat-num">2</span>
-    <span class="stat-lbl">Axes de déplacement</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">1</span>
-    <span class="stat-lbl">Servo-moteur stylo</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">4</span>
-    <span class="stat-lbl">Membres d'équipe</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">100%</span>
-    <span class="stat-lbl">Conçu et fabriqué</span>
-  </div>
-</div>
+---
 
-## Présentation du projet
+## Introduction
+
+Premièrement, notre projet consiste à concevoir une machine automatisée qui est capable d'écrire et de dessiner avec précision sur une surface plane ce qu'on lui programme. Il s'agit donc d'un projet qui va combiner de la mécanique, de l'électronique mais aussi de la programmation.
+
+> **Notre Mission :** Transformer un simple fichier numérique en un tracé physique fluide et précis grâce à la MachineThatDraw.
+
+---
+
+## Contexte du projet
+
+Dans le cadre du projet MakerSpace 2025-2026, nous devons créer une machine fonctionnelle qui puisse répondre à une problématique de fabrication numérique. La MachineThatDraw est notre réponse pour explorer le contrôle des mouvements sur les axes X et Y.
 
 <div class="cards-grid">
   <div class="info-card reveal">
     <div class="card-icon">⚙️</div>
     <h3>Mécanique</h3>
-    <p>Structure aluminium sur deux axes X/Y, guidages linéaires, courroies crantées et châssis imprimé en 3D.</p>
+    <p>Structure sur deux axes X/Y, guidages linéaires, courroies crantées et châssis.</p>
   </div>
   <div class="info-card reveal">
     <div class="card-icon">⚡</div>
     <h3>Électronique</h3>
-    <p>ESP32-S3, drivers A4988, régulateur 5V et PCB conçu sous KiCad pour piloter les moteurs pas-à-pas.</p>
+    <p>ESP32-S3, drivers A4988, PCB conçu sous KiCad pour piloter les moteurs pas-à-pas.</p>
   </div>
   <div class="info-card reveal">
     <div class="card-icon">💻</div>
     <h3>Logiciel</h3>
-    <p>Conversion de fichiers vectoriels en G-code, firmware Arduino et interface de contrôle de la machine.</p>
+    <p>Conversion de fichiers vectoriels en G-code et firmware pour contrôler la machine.</p>
   </div>
 </div>
 
-> **En résumé :** La MachineThatDraw transforme un fichier numérique en tracé physique. L'utilisateur fournit une image vectorielle, la machine la convertit en instructions de déplacement et reproduit fidèlement le dessin sur papier.
+---
+
+## Objectifs
+
+- **Automatisation** : Créer un système capable de reproduire des formes de manière autonome.
+- **Précision** : Assurer un mouvement fluide des moteurs pour un rendu propre.
+- **Polyvalence** : Permettre l'utilisation de différents types de stylos ou feutres.
+
+> **Le petit plus :** Nous visons une compatibilité avec plusieurs types de supports (papier, carton, bois léger...).
 
 ---
 
-## Modèle 3D interactif
+## Objectifs techniques
 
-<iframe
-  height="500"
-  width="100%"
-  src="https://modelembedder.net/embed?did=f85f35a7b123fd4b19e50d84&wvm=v&wvmid=2973a15f91d351ab53681340&eid=c8cf3c6fac028151a842f9c9&elementType=ASSEMBLY"
-  frameborder="0"
-  allowfullscreen>
-</iframe>
-
----
-
-## Vidéo de démonstration
-
-<div class="warn-box">
-  <p>✏️ <strong>À compléter</strong> — Remplace <code>VOTRE_ID</code> par l'identifiant de ta vidéo YouTube.</p>
-</div>
-
-<iframe width="100%" height="440"
-  src="https://www.youtube.com/embed/VOTRE_ID"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen>
-</iframe>
-
----
-
-## Poster du projet
-
-<div class="poster-wrap">
-  <img src="{{ '/assets/images/poster.svg' | relative_url }}" alt="Poster du projet Machine That Draw" style="width:100%;border-radius:12px;border:1px solid #e2e8f0;">
-</div>
+| Objectif | Description |
+|----------|-------------|
+| Axes de déplacement | 2 axes X/Y avec moteurs pas-à-pas |
+| Contrôle du stylo | Servo-moteur pour lever/baisser le stylo |
+| Format d'entrée | Fichier vectoriel converti en G-code |
+| Microcontrôleur | ESP32-S3-UNO |
+| Dimensions max | *(✏️ à compléter)* |
+| Vitesse de tracé | *(✏️ à compléter)* |
 
 ---
 

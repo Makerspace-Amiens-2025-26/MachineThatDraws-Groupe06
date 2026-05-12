@@ -28,3 +28,8 @@ plugins:
 
 # Ordre par défaut des pages dans la sidebar
 nav_sort: order
+
+# Pages exclues de la navigation
+exclude:
+  - premiers-pas/
+  - etapes/

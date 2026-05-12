@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Documentation Technique
-nav_order: 7
+nav_exclude: true
 ---
 
 # Documentation Technique

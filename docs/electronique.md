@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Électronique & PCB
+title: KiCad & PCB
 nav_order: 4
 ---
 
