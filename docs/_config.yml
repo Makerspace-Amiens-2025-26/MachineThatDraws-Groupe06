@@ -27,7 +27,7 @@ plugins:
   - jekyll-seo-tag
 
 # Ordre par défaut des pages dans la sidebar
-nav_sort: order
+nav_sort: case_sensitive
 
 # Pages exclues de la navigation
 exclude:
