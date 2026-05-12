@@ -1,6 +1,6 @@
 ---
 layout: default
-parent: Premiers pas sur le template
+nav_exclude: true
 nav_order: 3
 title: Guide de Syntaxe Markdown
 ---

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Assemblage
-parent: Etapes de fabrication
+nav_exclude: true
 nav_order: 2
 ---
 
