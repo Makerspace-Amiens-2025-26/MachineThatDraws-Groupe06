@@ -116,7 +116,8 @@ hs_err_pid*
 replay_pid*
 
 ### Jekyll ###
-Gemfile.lock
+# Gemfile.lock is committed so CI builds are reproducible
+# Gemfile.lock
 _site/
 .sass-cache/
 .jekyll-cache/
