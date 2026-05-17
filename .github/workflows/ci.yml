@@ -22,5 +22,11 @@ jobs:
           cache-version: 1 # Increment this number if you need to re-download cached gems
           working-directory: ${{env.working-directory}}
       - name: Build with Jekyll
-        run: bundle exec jekyll build --trace
+        run: |
+          bundle exec jekyll build --trace 2>&1 | tee /tmp/jekyll.log; EXIT=${PIPESTATUS[0]}
+          echo "## Jekyll Build Log" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat /tmp/jekyll.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          exit $EXIT
         working-directory: ${{env.working-directory}}
