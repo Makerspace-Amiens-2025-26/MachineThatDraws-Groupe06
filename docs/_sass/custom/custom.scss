@@ -32,16 +32,43 @@ body {
 }
 
 // ── SIDEBAR ───────────────────────────────────────────────────
+// Le thème force width:16.5rem sur .site-nav/.site-header à ≥66.5rem (1064px),
+// mais avec align-items:flex-end les items dépassent à gauche si la sidebar
+// est plus étroite. On fixe en forçant align-items:stretch + width:100% sur
+// les enfants.
 .side-bar {
   background: $sidebar-bg !important;
   border-right: none !important;
   box-shadow: 1px 0 0 rgba(0,0,0,0.2) !important;
   width: 230px !important;
   min-width: 230px !important;
+  align-items: stretch !important;  // empêche le débordement à gauche
+}
+
+// Les enfants du sidebar sont limités à 16.5rem par le thème : on écrase ça.
+.site-nav,
+.site-header,
+.side-bar .site-footer {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+// Le thème limite .main à max-width:50rem — on enlève cette contrainte.
+.main {
+  max-width: 100% !important;
 }
 
 @media (min-width: 800px) {
   .main {
+    margin-left: 230px !important;
+  }
+}
+
+// Override du calcul dynamique du thème à ≥66.5rem
+@media (min-width: 66.5rem) {
+  .side-bar + .main {
     margin-left: 230px !important;
   }
 }
