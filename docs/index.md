@@ -5,16 +5,18 @@ nav_order: 1
 permalink: /
 ---
 
-# Machine That Draw
-
-**Groupe 06 · Makerspace Amiens · 2025-2026**
-
-Machine dessinatrice à commande numérique conçue et fabriquée de A à Z — mécanique, électronique et logiciel.
-
-<a href="{{ site.baseurl }}/objectifs" class="btn btn-primary">Découvrir le projet →</a>
-<a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline" style="margin-left:0.5rem">GitHub ↗</a>
-
----
+<div class="home-hero">
+  <div class="home-hero-inner">
+    <span class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</span>
+    <h1 class="home-title">Machine That Draw</h1>
+    <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
+    <div class="home-btns">
+      <a href="{{ site.baseurl }}/objectifs" class="btn btn-primary">Découvrir le projet →</a>
+      <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
+      <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+</div>
 
 <div class="stats-grid">
   <div class="stat-item"><span class="stat-num">2</span><span class="stat-lbl">Axes X / Y</span></div>
