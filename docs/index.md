@@ -18,13 +18,6 @@ permalink: /
   </div>
 </div>
 
-<div class="stats-grid">
-  <div class="stat-item"><span class="stat-num">2</span><span class="stat-lbl">Axes X / Y</span></div>
-  <div class="stat-item"><span class="stat-num">1</span><span class="stat-lbl">Servo stylo</span></div>
-  <div class="stat-item"><span class="stat-num">4</span><span class="stat-lbl">Membres</span></div>
-  <div class="stat-item"><span class="stat-num">100%</span><span class="stat-lbl">Fait maison</span></div>
-</div>
-
 ---
 
 ## Le projet
