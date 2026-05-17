@@ -7,9 +7,9 @@ nav_order: 2
 
 # Objectifs du projet
 
-Notre mission : concevoir une machine automatisée capable d'écrire et de dessiner avec précision sur une surface plane, en combinant mécanique, électronique et programmation.
+Le projet nous a imposé de livrer une machine fonctionnelle en partant de zéro : aucun kit, aucune solution toute faite. Chaque sous-système — mécanique, électronique, firmware — a dû être dimensionné, conçu et validé par l'équipe.
 
-> **Notre Mission :** Transformer un simple fichier numérique en un tracé physique fluide et précis grâce à la MachineThatDraw.
+> **Défi du groupe :** Faire tenir l'ensemble de la chaîne de fabrication — de la modélisation 3D au premier tracé réel — dans le calendrier d'un projet académique d'un an.
 
 ---
 

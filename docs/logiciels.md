@@ -9,6 +9,4 @@ has_children: true
 
 Cette section décrit l'ensemble de la chaîne logicielle de la MachineThatDraw, de la conversion du fichier d'entrée jusqu'au tracé physique.
 
-```
-Fichier image/vectoriel → Conversion G-code → Firmware ESP32 → Moteurs → Dessin
-```
+Les pages suivantes couvrent les outils de conversion vectorielle en G-code, le firmware embarqué sur l'ESP32-S3-UNO, ainsi que l'architecture globale du pipeline de traitement.

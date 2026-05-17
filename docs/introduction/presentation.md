@@ -7,41 +7,13 @@ nav_order: 1
 
 # Présentation générale
 
-Bienvenue dans la documentation officielle du **Groupe 06** de MachineThatDraws. Ce projet est réalisé au sein du MakerSpace d'UniLaSalle Amiens dans le cadre d'un projet académique. Notre machine est un traceur vectoriel automatisé capable de dessiner sur une surface de travail.
+Le Groupe 06 a conçu et assemblé cette machine au MakerSpace d'UniLaSalle Amiens au cours de l'année 2025-2026. Toutes les pièces structurelles ont été modélisées sous OnShape puis imprimées en 3D, et le PCB de contrôle a été dessiné sur KiCad avant d'être fabriqué sur place.
 
 ---
 
 ## Qu'est-ce que la MachineThatDraw ?
 
-La MachineThatDraw est une machine à dessiner à commande numérique (CNC) de type cartésien. Elle déplace un stylo sur deux axes (X et Y) pour reproduire fidèlement n'importe quel fichier vectoriel ou image numérique sur une feuille de papier.
-
-Le flux de traitement est le suivant :
-
-```
-Fichier numérique → Conversion G-code → Firmware ESP32 → Moteurs → Tracé physique
-```
-
----
-
-## Architecture générale
-
-<div class="cards-grid">
-  <div class="info-card">
-    <div class="card-icon">🔩</div>
-    <h3>Structure mécanique</h3>
-    <p>Châssis cartésien avec deux axes indépendants. Les pièces structurelles sont imprimées en 3D.</p>
-  </div>
-  <div class="info-card">
-    <div class="card-icon">🖥️</div>
-    <h3>Contrôleur</h3>
-    <p>Microcontrôleur ESP32-S3-UNO couplé à deux drivers A4988 pour piloter les moteurs NEMA 17.</p>
-  </div>
-  <div class="info-card">
-    <div class="card-icon">📐</div>
-    <h3>Zone de dessin</h3>
-    <p>Surface de travail adaptée à la feuille A4. Le stylo est levé/baissé par un servo-moteur.</p>
-  </div>
-</div>
+La MachineThatDraw est une CNC cartésienne à deux axes pilotée par un ESP32-S3-UNO. Deux moteurs NEMA 17 déplacent le chariot en X et en Y, tandis qu'un servo-moteur lève ou abaisse le stylo pour contrôler le contact avec le papier.
 
 ---
 

@@ -7,6 +7,6 @@ has_children: true
 
 # Introduction
 
-Bienvenue dans la documentation du projet **Machine That Draw** — Groupe 06, réalisé au MakerSpace d'UniLaSalle Amiens dans le cadre du projet académique 2025-2026.
+Cette section rassemble les pages d'introduction du projet : présentation de la machine, objectifs fixés en début d'année et contraintes techniques imposées par le cahier des charges.
 
-Cette documentation couvre l'ensemble du projet : présentation générale, objectifs, choix techniques, étapes de fabrication, conception CAO, électronique et logiciels.
+Elle constitue le point de départ pour comprendre les choix qui ont guidé la conception mécanique, l'architecture électronique et le développement logiciel tout au long du projet 2025-2026.
