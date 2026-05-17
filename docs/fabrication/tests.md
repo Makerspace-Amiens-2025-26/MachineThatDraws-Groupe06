@@ -7,7 +7,7 @@ nav_order: 4
 
 # 4. Tests & Mise au point
 
-Une fois la machine assemblée, nous avons réalisé une série de tests pour valider son fonctionnement.
+Une fois la machine assemblée et câblée, nous avons validé le fonctionnement axe par axe avant de lancer les premiers tracés.
 
 ---
 
@@ -15,24 +15,37 @@ Une fois la machine assemblée, nous avons réalisé une série de tests pour va
 
 | Test | Résultat | Observations |
 |---|---|---|
-| Mouvement axe X | ✅ / ❌ | *(à compléter)* |
-| Mouvement axe Y | ✅ / ❌ | *(à compléter)* |
-| Lever/baisser stylo | ✅ / ❌ | *(à compléter)* |
-| Premier tracé G-code | ✅ / ❌ | *(à compléter)* |
-| Précision du tracé | ✅ / ❌ | *(à compléter)* |
+| Alimentation 12V / 5V | ✅ / ❌ | *(✏️ à compléter)* |
+| Mouvement axe X (aller-retour) | ✅ / ❌ | *(✏️ à compléter)* |
+| Mouvement axe Y (aller-retour) | ✅ / ❌ | *(✏️ à compléter)* |
+| Lever du stylo (M5) | ✅ / ❌ | *(✏️ à compléter)* |
+| Baisser du stylo (M3) | ✅ / ❌ | *(✏️ à compléter)* |
+| Tracé d'un carré G-code | ✅ / ❌ | *(✏️ à compléter)* |
+| Précision sur 100 mm | ✅ / ❌ | *(✏️ ex : erreur de ±1 mm)* |
 
 ---
 
 ## Calibration
 
-*(✏️ Décris comment vous avez calibré la machine — pas/mm, vitesse, accélération.)*
+| Paramètre | Valeur mesurée | Valeur cible |
+|---|---|---|
+| Pas/mm axe X | *(✏️)* pas/mm | *(✏️ ex : 80 pas/mm)* |
+| Pas/mm axe Y | *(✏️)* pas/mm | *(✏️ ex : 80 pas/mm)* |
+| Vitesse max (G1) | *(✏️)* mm/min | *(✏️ ex : 3000 mm/min)* |
+| Angle servo stylo levé | *(✏️)* ° | *(✏️ ex : 90°)* |
+| Angle servo stylo baissé | *(✏️)* ° | *(✏️ ex : 50°)* |
+
+> **Formule pas/mm :** `pas/mm = (pas_moteur × micro-pas) / (pas_courroie × dents_poulie)`
+> Exemple pour GT2 20 dents, 1/16 micro-pas, NEMA 200 pas/tour : `(200 × 16) / (2 × 20) = 80 pas/mm`
 
 ---
 
-## Résultats finaux
+## Résultats
 
-*(✏️ Montre les premiers dessins réalisés par la machine.)*
+*(✏️ Décris la qualité du premier tracé — trait régulier ? Dérive ? Saut de pas ?)*
 
 ---
 
-*(✏️ Ajoute des photos/vidéos des tests)*
+## Photos et vidéos des tests
+
+*(✏️ Ajoute ici des photos des premiers dessins réalisés et/ou une vidéo de la machine en fonctionnement)*

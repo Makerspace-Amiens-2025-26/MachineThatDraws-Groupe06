@@ -7,13 +7,13 @@ nav_order: 1
 
 # Structure générale
 
-La MachineThatDraw repose sur une architecture cartésienne en H. Le châssis principal supporte les deux axes de déplacement.
+Le châssis de la MachineThatDraw est une structure cartésienne ouverte. Il supporte les deux axes de déplacement et maintient la rigidité de l'ensemble pendant les tracés.
 
 ---
 
 ## Vue d'ensemble
 
-*(✏️ Ajoute ici une capture du modèle OnShape montrant la vue générale de la machine)*
+*(✏️ Ajoute ici une capture OnShape — vue isométrique de la machine complète)*
 
 ---
 
@@ -21,13 +21,25 @@ La MachineThatDraw repose sur une architecture cartésienne en H. Le châssis pr
 
 | Dimension | Valeur |
 |---|---|
-| Longueur totale | *(à compléter)* mm |
-| Largeur totale | *(à compléter)* mm |
-| Hauteur totale | *(à compléter)* mm |
-| Zone de dessin | *(à compléter)* × *(à compléter)* mm |
+| Longueur totale | *(✏️)* mm |
+| Largeur totale | *(✏️)* mm |
+| Hauteur totale | *(✏️)* mm |
+| Zone de dessin (X) | *(✏️)* mm |
+| Zone de dessin (Y) | *(✏️)* mm |
+| Format papier supporté | *(✏️ ex : A4, A3)* |
+
+---
+
+## Matériaux du châssis
+
+| Élément | Matériau | Justification |
+|---|---|---|
+| Pièces structurelles | PLA imprimé 3D | Légèreté, fabrication rapide sur site |
+| Tiges de guidage | Acier Ø6 mm | Rigidité, précision du guidage |
+| Fixations | Vis M3 / M4 acier | Standard, facilement remplaçables |
 
 ---
 
 ## Choix de conception
 
-*(✏️ Explique les choix structurels — pourquoi cette forme, ces dimensions, ces matériaux.)*
+*(✏️ Pourquoi cette architecture ? Alternatives écartées ? Contraintes de taille, de poids, d'encombrement ?)*

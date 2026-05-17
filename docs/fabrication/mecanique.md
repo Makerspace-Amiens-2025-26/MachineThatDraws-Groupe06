@@ -7,7 +7,7 @@ nav_order: 2
 
 # 2. La Mécanique
 
-L'assemblage mécanique de la MachineThatDraw repose sur une architecture cartésienne avec deux axes indépendants.
+L'assemblage mécanique repose sur une structure cartésienne : deux axes indépendants guidés par des tiges linéaires et entraînés par des courroies GT2.
 
 ---
 
@@ -15,24 +15,47 @@ L'assemblage mécanique de la MachineThatDraw repose sur une architecture carté
 
 | Composant | Quantité | Rôle |
 |---|---|---|
-| Tiges linéaires 6mm | 4 | Guidage axes X et Y |
-| Courroies GT2 | 2 | Transmission du mouvement |
-| Poulies GT2 20 dents | 2 | Montées sur les moteurs |
-| Bagues LM6UU | 4 | Guidage sur les tiges |
-| Vis M3/M4 | — | Assemblage général |
+| Tiges linéaires Ø6 mm | *(✏️ ex : 4)* | Guidage axes X et Y |
+| Courroies GT2 (2 mm) | 2 | Transmission du mouvement |
+| Poulies GT2 20 dents | 2 | Montées sur l'arbre des moteurs |
+| Bagues linéaires LM6UU | *(✏️ ex : 4)* | Glissement sur les tiges |
+| Moteurs NEMA 17 | 2 | Entraînement X et Y |
+| Servo-moteur SG90 / MG90S | 1 | Levée/abaissement du stylo |
+| Vis M3 | *(✏️ ex : ~30)* | Fixation générale |
+| Vis M4 | *(✏️ ex : ~10)* | Fixation moteurs et châssis |
+| Écrous M3 / M4 | *(✏️)* | *(✏️)* |
 
 ---
 
-## Assemblage
+## Étapes d'assemblage
 
-*(✏️ Décris étape par étape comment vous avez assemblé la mécanique — montage des tiges, fixation des moteurs, tension des courroies, etc.)*
+1. **Montage du châssis** — *(✏️ Comment les pieds et les supports principaux ont été assemblés)*
+2. **Pose des tiges axe Y** — *(✏️ Fixation et alignement des tiges sur le châssis)*
+3. **Installation du moteur Y** — *(✏️ Fixation, alignement de la poulie)*
+4. **Montage du chariot axe X sur les tiges Y** — *(✏️ Insertion des bagues LM6UU, vérification du glissement)*
+5. **Pose des tiges axe X** — *(✏️ Fixation sur le chariot Y)*
+6. **Installation du moteur X** — *(✏️ Fixation, alignement)*
+7. **Pose des courroies GT2** — *(✏️ Enfilement, tension, fixation sur les chariots)*
+8. **Fixation de la tête porte-stylo** — *(✏️ Montage du servo et du support stylo)*
+
+---
+
+## Réglages et mise au point
+
+| Réglage | Méthode |
+|---|---|
+| Tension des courroies | *(✏️ ex : vérification à la main, fréquence de vibration)* |
+| Alignement des tiges | *(✏️ ex : équerrage, vérification au comparateur)* |
+| Jeu dans les bagues | *(✏️ ex : acceptable / nécessite ajustement)* |
 
 ---
 
 ## Difficultés rencontrées
 
-*(✏️ Quels problèmes avez-vous eu ? Comment les avez-vous résolus ?)*
+*(✏️ Quels problèmes avez-vous eus ? Mauvais alignement, courroie qui glisse, chariot qui frotte ?)*
 
 ---
 
-*(✏️ Ajoute des photos de l'assemblage mécanique)*
+## Photos de l'assemblage
+
+*(✏️ Ajoute des photos étape par étape de l'assemblage mécanique)*

@@ -7,7 +7,7 @@ nav_order: 2
 
 # Firmware ESP32
 
-Le firmware est le programme qui tourne sur l'ESP32-S3-UNO et interprète les commandes G-code pour piloter les moteurs.
+Le firmware tourne sur l'ESP32-S3-UNO et interprète les commandes G-code reçues en série pour piloter les deux drivers A4988 et le servo.
 
 ---
 
@@ -16,9 +16,10 @@ Le firmware est le programme qui tourne sur l'ESP32-S3-UNO et interprète les co
 | Commande | Action |
 |---|---|
 | `G0 X__ Y__` | Déplacement rapide sans tracé (stylo levé) |
-| `G1 X__ Y__` | Déplacement avec tracé (stylo baissé) |
+| `G1 X__ Y__ F__` | Déplacement avec tracé (stylo baissé) |
 | `M3` | Baisser le stylo |
 | `M5` | Lever le stylo |
+| `G28` | *(✏️ Retour à l'origine — si implémenté)* |
 
 ---
 
@@ -52,8 +53,29 @@ void loop() {
 }
 ```
 
+*(✏️ Ajoute ici la fonction `parseGCode()` avec votre implémentation réelle)*
+
 ---
 
-## Calibration
+## Paramètres de calibration
 
-*(✏️ Paramètres de calibration — pas/mm, vitesse, accélération.)*
+| Paramètre | Valeur |
+|---|---|
+| Pas/mm axe X | *(✏️ ex : 80 pas/mm)* |
+| Pas/mm axe Y | *(✏️ ex : 80 pas/mm)* |
+| Vitesse déplacement rapide (G0) | *(✏️ ex : 5000 mm/min)* |
+| Vitesse tracé (G1) | *(✏️ ex : 2000 mm/min)* |
+| Angle servo stylo levé | *(✏️ ex : 90°)* |
+| Angle servo stylo baissé | *(✏️ ex : 50°)* |
+| Délai après commande servo | *(✏️ ex : 200 ms)* |
+
+---
+
+## Environnement de développement
+
+| Outil | Version |
+|---|---|
+| IDE | *(✏️ ex : Arduino IDE 2.x / PlatformIO)* |
+| Bibliothèque Stepper | *(✏️ ex : Arduino built-in)* |
+| Bibliothèque Servo | *(✏️ ex : Arduino built-in)* |
+| Port série | 115200 bauds |

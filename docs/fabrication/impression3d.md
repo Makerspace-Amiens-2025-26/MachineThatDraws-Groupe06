@@ -7,29 +7,53 @@ nav_order: 1
 
 # 1. Impression 3D
 
-Toutes les pièces structurelles de la MachineThatDraw ont été conçues sous OnShape et imprimées en 3D.
+Toutes les pièces structurelles de la MachineThatDraw ont été modélisées sous OnShape puis imprimées au Makerspace d'UniLaSalle Amiens.
 
 ---
 
 ## Matériaux utilisés
 
-| Matériau | Usage | Justification |
+| Matériau | Pièces concernées | Justification |
 |---|---|---|
-| PLA | Pièces de structure | Rigidité, facilité d'impression |
-| PETG | Pièces mécaniques sollicitées | Résistance à la chaleur et aux contraintes |
+| PLA | *(✏️ ex : châssis, supports fixes)* | Rigide, facile à imprimer, bon marché |
+| PETG | *(✏️ ex : chariots, tête stylo)* | Résistance mécanique et à la chaleur |
 
 ---
 
-## Pièces imprimées
+## Liste des pièces imprimées
 
-*(✏️ Liste ici les pièces imprimées avec leur rôle — chariots, supports moteurs, tête porte-stylo, etc.)*
+| Pièce | Qté | Matériau | Rôle |
+|---|---|---|---|
+| *(✏️ ex : Chariot axe X)* | *(✏️)* | PLA | *(✏️)* |
+| *(✏️ ex : Support moteur X)* | *(✏️)* | PLA | *(✏️)* |
+| *(✏️ ex : Support moteur Y)* | *(✏️)* | PLA | *(✏️)* |
+| *(✏️ ex : Tête porte-stylo)* | *(✏️)* | PETG | *(✏️)* |
+| *(✏️ ex : Tendeur courroie)* | *(✏️)* | PLA | *(✏️)* |
+| *(✏️ ex : Pied de châssis)* | *(✏️)* | PLA | *(✏️)* |
 
 ---
 
 ## Paramètres d'impression
 
-*(✏️ Remplis les paramètres : remplissage, hauteur de couche, support, etc.)*
+| Paramètre | Valeur |
+|---|---|
+| Imprimante | *(✏️ ex : Prusa MK4, Bambu Lab X1C...)* |
+| Hauteur de couche | *(✏️ ex : 0.2 mm)* |
+| Remplissage | *(✏️ ex : 20 %)* |
+| Périmètres | *(✏️ ex : 3)* |
+| Température buse (PLA) | *(✏️ ex : 215 °C)* |
+| Température plateau | *(✏️ ex : 60 °C)* |
+| Supports | *(✏️ oui / non — pour quelles pièces ?)* |
+| Logiciel de découpe | *(✏️ ex : PrusaSlicer, Bambu Studio, Cura)* |
 
 ---
 
-*(✏️ Ajoute des photos des pièces imprimées)*
+## Difficultés rencontrées
+
+*(✏️ Y a-t-il eu des pièces à réimprimer ? Problèmes de warping, de fit, d'ajustement des tolérances ?)*
+
+---
+
+## Photos des pièces
+
+*(✏️ Ajoute des photos des pièces imprimées — sur le plateau et après enlèvement des supports)*
