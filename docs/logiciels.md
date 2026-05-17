@@ -1,45 +1,14 @@
 ---
 layout: default
 title: Fonctionnement des logiciels
-nav_order: 5
+nav_order: 6
+has_children: true
 ---
 
 # Fonctionnement des logiciels
 
-<div class="warn-box">
-  <p>✏️ <strong>À compléter</strong> — Explique ici comment fonctionnent les différents logiciels utilisés dans le projet.</p>
-</div>
-
----
-
-## Architecture logicielle
-
-*(✏️ Décris comment les différents logiciels s'enchaînent — de l'image d'entrée jusqu'au dessin physique.)*
+Cette section décrit l'ensemble de la chaîne logicielle de la MachineThatDraw, de la conversion du fichier d'entrée jusqu'au tracé physique.
 
 ```
-Image vectorielle → Conversion G-code → Firmware Arduino → Moteurs
+Fichier image/vectoriel → Conversion G-code → Firmware ESP32 → Moteurs → Dessin
 ```
-
----
-
-## Conversion du fichier
-
-*(✏️ Explique comment un fichier image est transformé en instructions de mouvement.)*
-
----
-
-## Firmware Arduino
-
-*(✏️ Explique comment le code Arduino interprète le G-code et pilote les moteurs.)*
-
-### Code principal
-
-```cpp
-// ✏️ Colle ici votre code Arduino
-```
-
----
-
-## Interface de contrôle
-
-*(✏️ Décris l'interface utilisée pour envoyer les fichiers à la machine.)*
