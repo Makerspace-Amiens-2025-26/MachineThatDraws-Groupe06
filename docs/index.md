@@ -54,20 +54,26 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
 const container = document.getElementById('viewer3d');
+const camera = new THREE.PerspectiveCamera(75, container.clientWidth / 500, 0.1, 10000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(container.clientWidth, 500);
 container.appendChild(renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-scene.add(new THREE.AmbientLight(0xffffff, 1));
+scene.add(new THREE.AmbientLight(0xffffff, 1.5));
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 10, 5);
 scene.add(light);
 const loader = new THREE.OBJLoader();
 loader.load('/MachineThatDraws-Groupe06/assets/images/models/machine.obj', obj => {
   scene.add(obj);
-  camera.position.z = 5;
+  const box = new THREE.Box3().setFromObject(obj);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z);
+  camera.position.set(center.x, center.y, center.z + maxDim * 2);
+  controls.target.copy(center);
+  controls.update();
 });
 (function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); })();
 </script>
