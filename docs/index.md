@@ -17,6 +17,16 @@ permalink: /
     </div>
   </div>
 </div>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<model-viewer
+  src="/MachineThatDraws-Groupe06/assets/images/machine.gltf"
+  alt="Machine That Draws - Groupe 06"
+  auto-rotate
+  camera-controls
+  shadow-intensity="1"
+  style="width: 100%; height: 500px;">
+</model-viewer>
 
 ---
 
