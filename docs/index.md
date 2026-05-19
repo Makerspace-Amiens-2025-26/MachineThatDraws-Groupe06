@@ -47,16 +47,30 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 
 ## Modèle 3D
 
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<div id="viewer3d" style="width:100%; height:500px; background:#1a1a2e;"></div>
 
-<model-viewer
-  src="/MachineThatDraws-Groupe06/assets/images/models/machine.gltf"
-  alt="Machine That Draws - Groupe 06"
-  auto-rotate
-  camera-controls
-  shadow-intensity="1"
-  style="width: 100%; height: 500px;">
-</model-viewer>
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+const container = document.getElementById('viewer3d');
+renderer.setSize(container.clientWidth, 500);
+container.appendChild(renderer.domElement);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+scene.add(new THREE.AmbientLight(0xffffff, 1));
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 10, 5);
+scene.add(light);
+const loader = new THREE.OBJLoader();
+loader.load('/MachineThatDraws-Groupe06/assets/images/models/machine.obj', obj => {
+  scene.add(obj);
+  camera.position.z = 5;
+});
+(function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); })();
+</script>
 ---
 
 ## L'équipe
