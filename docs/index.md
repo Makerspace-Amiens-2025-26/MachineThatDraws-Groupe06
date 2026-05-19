@@ -17,16 +17,7 @@ permalink: /
     </div>
   </div>
 </div>
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-<model-viewer
-  src="/MachineThatDraws-Groupe06/assets/images/models/machine.gltf"
-  alt="Machine That Draws - Groupe 06"
-  auto-rotate
-  camera-controls
-  shadow-intensity="1"
-  style="width: 100%; height: 500px;">
-</model-viewer>
 
 ---
 
@@ -56,15 +47,16 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 
 ## Modèle 3D
 
-<div class="model-viewer">
-  <iframe
-    src="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9"
-    allowfullscreen
-    loading="lazy"
-    title="Modèle 3D — Machine That Draw">
-  </iframe>
-</div>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
+<model-viewer
+  src="/MachineThatDraws-Groupe06/assets/images/models/machine.gltf"
+  alt="Machine That Draws - Groupe 06"
+  auto-rotate
+  camera-controls
+  shadow-intensity="1"
+  style="width: 100%; height: 500px;">
+</model-viewer>
 ---
 
 ## L'équipe
