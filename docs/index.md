@@ -20,7 +20,7 @@ permalink: /
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <model-viewer
-  src="/MachineThatDraws-Groupe06/assets/images/machine.gltf"
+  src="/MachineThatDraws-Groupe06/assets/images/models/machine.gltf"
   alt="Machine That Draws - Groupe 06"
   auto-rotate
   camera-controls
