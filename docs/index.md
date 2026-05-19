@@ -4,7 +4,6 @@ title: Accueil
 nav_order: 1
 permalink: /
 ---
-
 <div class="home-hero">
   <div class="home-hero-inner">
     <span class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</span>
@@ -17,9 +16,6 @@ permalink: /
     </div>
   </div>
 </div>
-
-
----
 
 ## Le projet
 
@@ -43,8 +39,6 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
   </div>
 </div>
 
----
-
 ## Modèle 3D
 
 <div id="viewer3d" style="width:100%; height:500px; background:#1a1a2e;"></div>
@@ -57,6 +51,7 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
   }
 }
 </script>
+
 <script type="module">
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -85,7 +80,6 @@ loader.load('/MachineThatDraws-Groupe06/assets/images/models/machine.obj', obj =
 });
 (function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); })();
 </script>
----
 
 ## L'équipe
 
