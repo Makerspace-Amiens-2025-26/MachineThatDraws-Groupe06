@@ -49,22 +49,30 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 
 <div id="viewer3d" style="width:100%; height:500px; background:#1a1a2e;"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/loaders/OBJLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/examples/js/controls/OrbitControls.js"></script>
-<script>
-const scene = new THREE.Scene();
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const container = document.getElementById('viewer3d');
+const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, container.clientWidth / 500, 0.1, 10000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(container.clientWidth, 500);
 container.appendChild(renderer.domElement);
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 scene.add(new THREE.AmbientLight(0xffffff, 1.5));
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 10, 5);
 scene.add(light);
-const loader = new THREE.OBJLoader();
+const loader = new OBJLoader();
 loader.load('/MachineThatDraws-Groupe06/assets/images/models/machine.obj', obj => {
   scene.add(obj);
   const box = new THREE.Box3().setFromObject(obj);
