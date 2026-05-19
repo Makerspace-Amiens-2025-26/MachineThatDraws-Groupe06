@@ -41,7 +41,7 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 
 ## Modèle 3D
 
-<div id="viewer3d" style="width:100%; height:500px; background:#1a1a2e;"></div>
+<div id="viewer3d" style="width:100%; height:500px; background:#2a2a2a;"></div>
 
 <script type="importmap">
 {
@@ -55,6 +55,7 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 <script type="module">
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const container = document.getElementById('viewer3d');
 const scene = new THREE.Scene();
@@ -63,20 +64,27 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(container.clientWidth, 500);
 container.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
 scene.add(new THREE.AmbientLight(0xffffff, 1.5));
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 10, 5);
 scene.add(light);
-const loader = new OBJLoader();
-loader.load('/MachineThatDraws-Groupe06/assets/images/models/machine.obj', obj => {
-  scene.add(obj);
-  const box = new THREE.Box3().setFromObject(obj);
-  const center = box.getCenter(new THREE.Vector3());
-  const size = box.getSize(new THREE.Vector3());
-  const maxDim = Math.max(size.x, size.y, size.z);
-  camera.position.set(center.x, center.y, center.z + maxDim * 2);
-  controls.target.copy(center);
-  controls.update();
+const mtlLoader = new MTLLoader();
+mtlLoader.setPath('/MachineThatDraws-Groupe06/assets/images/models/');
+mtlLoader.load('machine.mtl', materials => {
+  materials.preload();
+  const objLoader = new OBJLoader();
+  objLoader.setMaterials(materials);
+  objLoader.load('/MachineThatDraws-Groupe06/assets/images/models/machine.obj', obj => {
+    scene.add(obj);
+    const box = new THREE.Box3().setFromObject(obj);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    camera.position.set(center.x, center.y, center.z + maxDim * 1.5);
+    controls.target.copy(center);
+    controls.update();
+  });
 });
 (function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); })();
 </script>
