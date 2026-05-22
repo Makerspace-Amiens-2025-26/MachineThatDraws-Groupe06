@@ -4,7 +4,6 @@ title: Accueil
 nav_order: 1
 permalink: /
 ---
-
 <div class="home-hero">
   <div class="home-hero-inner">
     <span class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</span>
@@ -17,8 +16,6 @@ permalink: /
     </div>
   </div>
 </div>
-
----
 
 ## Le projet
 
@@ -42,13 +39,11 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
   </div>
 </div>
 
----
-
 ## Modèle 3D
 
 <div class="model-viewer-wrap">
   <model-viewer
-    src="https://makerspace-amiens-2025-26.github.io/MachineThatDraws-Groupe06/assets/models/machine.gltf"
+    src="https://makerspace-amiens-2025-26.github.io/MachineThatDraws-Groupe06/assets/images/models/machine%20(2).gltf"
     camera-controls
     auto-rotate
     auto-rotate-delay="1000"
@@ -59,8 +54,6 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
     style="width:100%;height:520px;border-radius:12px;background:#0d1117;">
   </model-viewer>
 </div>
-
----
 
 ## L'équipe
 
