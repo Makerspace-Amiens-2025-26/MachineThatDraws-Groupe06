@@ -48,12 +48,11 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
     auto-rotate
     auto-rotate-delay="1000"
     rotation-per-second="20deg"
-    shadow-intensity="0"
-    tone-mapping="neutral"
-    exposure="2.2"
-    environment-image="neutral"
+    shadow-intensity="0.8"
+    tone-mapping="aces"
+    exposure="1.0"
     alt="Modèle 3D Machine That Draw"
-    style="width:100%;height:520px;border-radius:12px;background:#7a7a7a;">
+    style="width:100%;height:520px;border-radius:12px;background:#808080;">
   </model-viewer>
 </div>
 
