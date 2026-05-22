@@ -5,6 +5,8 @@ nav_order: 2
 has_children: true
 ---
 
+<script>window.location.replace("{{ '/introduction/presentation/' | relative_url }}");</script>
+
 # Introduction
 
 Cette section rassemble les pages d'introduction du projet : présentation de la machine, objectifs fixés en début d'année et contraintes techniques imposées par le cahier des charges.

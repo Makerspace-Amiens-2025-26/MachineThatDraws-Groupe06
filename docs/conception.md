@@ -5,6 +5,8 @@ nav_order: 4
 has_children: true
 ---
 
+<script>window.location.replace("{{ '/conception/structure/' | relative_url }}");</script>
+
 # Conception CAO
 
 La conception mécanique de la MachineThatDraw a été entièrement réalisée sous **OnShape**. Cette section détaille les différentes pièces et sous-ensembles modélisés.

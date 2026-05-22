@@ -5,6 +5,8 @@ nav_order: 6
 has_children: true
 ---
 
+<script>window.location.replace("{{ '/logiciels/architecture/' | relative_url }}");</script>
+
 # Fonctionnement des logiciels
 
 Cette section décrit l'ensemble de la chaîne logicielle de la MachineThatDraw, de la conversion du fichier d'entrée jusqu'au tracé physique.
