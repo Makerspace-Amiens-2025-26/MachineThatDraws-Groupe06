@@ -31,54 +31,66 @@ body {
   line-height: 1.65;
 }
 
-// ── SIDEBAR ───────────────────────────────────────────────────
-// Le thème force width:16.5rem sur .site-nav/.site-header à ≥66.5rem (1064px),
-// combiné avec align-items:flex-end les items débordent à gauche.
-// Fix : align-items:stretch + width:100% sur les enfants.
+// ── TOP NAV ───────────────────────────────────────────────────
+$topnav-h: 56px;
+
 .side-bar {
   background: $sidebar-bg !important;
-  border-right: 1px solid $sidebar-line !important;
+  border-right: none !important;
+  border-bottom: 1px solid $sidebar-line !important;
   box-shadow: none !important;
-  width: 240px !important;
-  min-width: 240px !important;
-  align-items: stretch !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  height: $topnav-h !important;
+  min-height: $topnav-h !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  overflow: visible !important;
+  padding: 0 2rem !important;
+  z-index: 200;
 }
 
 .site-nav,
-.site-header,
 .side-bar .site-footer {
-  width: 100% !important;
+  width: auto !important;
   min-width: 0 !important;
-  max-width: 100% !important;
+  max-width: none !important;
   box-sizing: border-box !important;
 }
 
-// Le thème limite .main à max-width:50rem — on supprime cette contrainte.
 .main {
   max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-top: $topnav-h !important;
 }
 
 @media (min-width: 800px) {
-  .main {
-    margin-left: 240px !important;
-  }
+  .main { margin-left: 0 !important; margin-top: $topnav-h !important; }
 }
 
 @media (min-width: 66.5rem) {
-  .side-bar + .main {
-    margin-left: 240px !important;
-  }
+  .side-bar + .main { margin-left: 0 !important; }
 }
 
-// ── EN-TÊTE SIDEBAR ───────────────────────────────────────────
+// ── EN-TÊTE (LOGO/TITRE) ──────────────────────────────────────
 .site-header {
-  padding: 1.25rem 1rem !important;
-  border-bottom: 1px solid $sidebar-line !important;
+  padding: 0 2rem 0 0 !important;
+  border-bottom: none !important;
   background: transparent !important;
   box-shadow: none !important;
+  height: $topnav-h !important;
   min-height: auto !important;
-  height: auto !important;
   max-height: none !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
 }
 
 .site-title {
@@ -86,71 +98,101 @@ body {
   font-size: 0.82rem !important;
   font-weight: 700 !important;
   color: #fff !important;
-  letter-spacing: 0;
   display: flex !important;
   align-items: center !important;
-  gap: 0.65rem !important;
   text-decoration: none !important;
-  line-height: 1.35 !important;
+  white-space: nowrap !important;
   padding: 0 !important;
   height: auto !important;
 
   &::before { display: none !important; }
-
   &:hover { color: $accent-mid !important; }
 }
 
-.site-button { color: rgba(255,255,255,0.3) !important; }
+.site-button { display: none !important; }
 
-// ── RECHERCHE ─────────────────────────────────────────────────
-.search { padding: 0.65rem 0.9rem !important; }
+// ── RECHERCHE — cachée en top nav ─────────────────────────────
+.search { display: none !important; }
 
-.search-input-wrap {
-  background: rgba(255,255,255,0.05) !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
-  border-radius: 8px !important;
-  transition: all 0.2s;
+.side-bar .site-footer { display: none !important; }
 
-  &:focus-within {
-    background: rgba(255,255,255,0.08) !important;
-    border-color: rgba(99,102,241,0.5) !important;
-    box-shadow: 0 0 0 3px rgba(99,102,241,0.12) !important;
-  }
+// ── NAVIGATION HORIZONTALE ────────────────────────────────────
+.site-nav {
+  flex: 1 !important;
+  height: $topnav-h !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
 }
 
-.search-input {
-  color: #fff !important;
-  font-family: 'Inter', sans-serif !important;
-  font-size: 0.82rem !important;
-  background: transparent !important;
-  &::placeholder { color: rgba(255,255,255,0.22) !important; }
+.nav-list {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0.1rem !important;
+  flex-wrap: nowrap !important;
+  height: $topnav-h;
+  list-style: none !important;
 }
-
-.search-icon { color: rgba(255,255,255,0.22) !important; }
-
-// ── NAVIGATION ────────────────────────────────────────────────
-.nav-list { padding: 0.35rem 0 !important; }
 
 .nav-list .nav-list-item {
-  margin: 1px 0.6rem !important;
-}
+  margin: 0 !important;
+  position: relative !important;
+  height: $topnav-h;
+  display: flex !important;
+  align-items: center !important;
 
-.nav-list .nav-list-item .nav-list-link {
-  font-size: 0.8rem !important;
-  font-weight: 500 !important;
-  color: rgba(255,255,255,0.45) !important;
-  border-radius: 7px !important;
-  padding: 0.45rem 0.85rem !important;
-  transition: all 0.15s !important;
-  text-decoration: none !important;
+  &:hover > .nav-list { display: flex !important; }
 
-  &:hover {
-    color: rgba(255,255,255,0.85) !important;
-    background: rgba(255,255,255,0.06) !important;
+  > .nav-list {
+    display: none !important;
+    position: absolute !important;
+    top: $topnav-h !important;
+    left: 0 !important;
+    background: #161c24 !important;
+    border: 1px solid $sidebar-line !important;
+    border-top: none !important;
+    border-radius: 0 0 10px 10px !important;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.45) !important;
+    min-width: 210px !important;
+    padding: 0.4rem !important;
+    z-index: 500 !important;
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 1px !important;
+
+    .nav-list-item {
+      height: auto !important;
+      width: 100% !important;
+      display: block !important;
+    }
   }
 }
 
-.nav-list .nav-list-item .nav-list-link.active {
+.nav-list > .nav-list-item > .nav-list-link {
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,0.55) !important;
+  border-radius: 7px !important;
+  padding: 0.4rem 0.75rem !important;
+  transition: all 0.15s !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  height: auto !important;
+
+  &:hover {
+    color: rgba(255,255,255,0.9) !important;
+    background: rgba(255,255,255,0.07) !important;
+  }
+}
+
+.nav-list > .nav-list-item > .nav-list-link.active {
   color: #fff !important;
   background: $accent !important;
   font-weight: 600 !important;
@@ -158,39 +200,33 @@ body {
 }
 
 .nav-list .nav-list-item .nav-list .nav-list-link {
-  font-size: 0.77rem !important;
-  padding-left: 1.5rem !important;
-  color: rgba(255,255,255,0.28) !important;
+  font-size: 0.79rem !important;
+  padding: 0.42rem 0.85rem !important;
+  color: rgba(255,255,255,0.5) !important;
+  border-radius: 6px !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  white-space: nowrap !important;
 
-  &:hover { color: rgba(255,255,255,0.6) !important; }
+  &:hover {
+    color: rgba(255,255,255,0.85) !important;
+    background: rgba(255,255,255,0.07) !important;
+  }
+
   &.active {
     color: $accent-mid !important;
     background: rgba(99,102,241,0.18) !important;
-    box-shadow: none !important;
   }
 }
 
-.nav-list .nav-list-expander {
-  color: rgba(255,255,255,0.18) !important;
-  border-radius: 5px !important;
-  &:hover { background: rgba(255,255,255,0.07) !important; color: rgba(255,255,255,0.45) !important; }
-}
+.nav-list-expander { display: none !important; }
 
-.d-md-block.d-none.site-footer {
-  border-top: 1px solid $sidebar-line !important;
-  padding: 0.8rem 1rem !important;
-  font-size: 0.68rem !important;
-  color: rgba(255,255,255,0.12) !important;
-  a { color: rgba(255,255,255,0.18) !important; text-decoration: none !important; }
-}
+.d-md-block.d-none.site-footer { display: none !important; }
 
-// ── HEADER DU CONTENU ─────────────────────────────────────────
+// ── HEADER DU CONTENU — caché sur desktop (top nav présente) ──
 .main-header {
-  background: rgba(249,250,251,0.95) !important;
-  backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid $border !important;
-  box-shadow: none !important;
-  height: 52px !important;
+  display: none !important;
 }
 
 // ── ZONE DE CONTENU ───────────────────────────────────────────
@@ -721,6 +757,15 @@ h3:hover .anchor-heading { opacity: 1; }
 
 // ── RESPONSIVE ────────────────────────────────────────────────
 @media (max-width: 800px) {
+  .side-bar {
+    height: auto !important;
+    min-height: auto !important;
+    flex-wrap: wrap !important;
+    overflow: hidden !important;
+    padding: 0.5rem 1rem !important;
+  }
+  .site-nav { display: none !important; }
+  .main { margin-top: 50px !important; }
   .main-content  { padding: 1.5rem !important; }
   .stats-grid    { grid-template-columns: repeat(2, 1fr); }
   .cards-grid    { grid-template-columns: 1fr; }
