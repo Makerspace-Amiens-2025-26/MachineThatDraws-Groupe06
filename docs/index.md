@@ -10,9 +10,9 @@ permalink: /
     <h1 class="home-title">Machine That Draw</h1>
     <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
     <div class="home-btns">
-      <a href="{{ site.baseurl }}/objectifs" class="btn btn-primary">Découvrir le projet →</a>
-      <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
-      <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
+      <a href="{{ site.baseurl }}/objectifs" class="btn btn-primary">Découvrir le projet</a>
+      <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape</a>
+      <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub</a>
     </div>
   </div>
 </div>
@@ -23,17 +23,14 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 
 <div class="cards-grid">
   <div class="info-card">
-    <span class="card-icon">⚙️</span>
     <h3>Mécanique</h3>
     <p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p>
   </div>
   <div class="info-card">
-    <span class="card-icon">⚡</span>
     <h3>Électronique</h3>
     <p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p>
   </div>
   <div class="info-card">
-    <span class="card-icon">💻</span>
     <h3>Logiciel</h3>
     <p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p>
   </div>
@@ -60,19 +57,15 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 
 <div class="team-grid">
   <div class="team-card">
-    <div class="team-av">AA</div>
     <div class="team-name">Avsin ATAC</div>
   </div>
   <div class="team-card">
-    <div class="team-av">PV</div>
     <div class="team-name">Pierre VILLAIN</div>
   </div>
   <div class="team-card">
-    <div class="team-av">DM</div>
     <div class="team-name">Djaher MADIALI</div>
   </div>
   <div class="team-card">
-    <div class="team-av">EV</div>
     <div class="team-name">Emilien VITRY-LHOTTE</div>
   </div>
 </div>

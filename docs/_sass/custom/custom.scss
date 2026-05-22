@@ -500,25 +500,17 @@ blockquote {
 }
 
 .info-card {
-  background: $bg-card;
-  border: 1px solid $border;
-  border-radius: 12px;
-  padding: 1.4rem 1.2rem;
-  transition: all 0.2s;
-
-  &:hover {
-    border-color: $accent;
-    box-shadow: 0 6px 20px rgba(99,102,241,0.08);
-    transform: translateY(-3px);
-  }
-
-  .card-icon { font-size: 1.4rem; margin-bottom: 0.55rem; display: block; }
+  background: transparent;
+  border: none;
+  border-left: 2px solid $border;
+  border-radius: 0;
+  padding: 0.2rem 1.2rem;
 
   h3 {
     font-size: 0.88rem !important;
     font-weight: 700 !important;
     color: $text !important;
-    margin: 0 0 0.4rem !important;
+    margin: 0 0 0.35rem !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
     border: none !important;
