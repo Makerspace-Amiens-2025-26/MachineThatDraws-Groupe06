@@ -418,25 +418,22 @@ blockquote {
 }
 
 // Modèle 3D pleine largeur
-.model-viewer {
+.model-viewer-wrap {
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid $border;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  background: $bg-subtle;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  background: #0d1117;
   margin: 1rem 0 2rem;
   aspect-ratio: 16/9;
 
-  iframe {
+  model-viewer {
     width: 100%;
     height: 100%;
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
-    display: block;
     min-height: 420px;
+    display: block;
+    --poster-color: #0d1117;
   }
 }
 
@@ -729,5 +726,5 @@ h3:hover .anchor-heading { opacity: 1; }
   .cards-grid    { grid-template-columns: 1fr; }
   .team-grid     { grid-template-columns: repeat(2, 1fr); }
   .bom-cards     { grid-template-columns: 1fr; }
-  .model-viewer  { aspect-ratio: auto; iframe { min-height: 280px; } }
+  .model-viewer-wrap  { aspect-ratio: auto; model-viewer { min-height: 280px; } }
 }

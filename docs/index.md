@@ -46,13 +46,18 @@ La **MachineThatDraw** est un traceur vectoriel automatisé conçu dans le cadre
 
 ## Modèle 3D
 
-<div class="model-viewer">
-  <iframe
-    src="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9"
-    allowfullscreen
-    loading="lazy"
-    title="Modèle 3D — Machine That Draw">
-  </iframe>
+<div class="model-viewer-wrap">
+  <model-viewer
+    src="https://makerspace-amiens-2025-26.github.io/MachineThatDraws-Groupe06/assets/models/machine.gltf"
+    camera-controls
+    auto-rotate
+    auto-rotate-delay="1000"
+    rotation-per-second="20deg"
+    shadow-intensity="1"
+    environment-image="neutral"
+    alt="Modèle 3D Machine That Draw"
+    style="width:100%;height:520px;border-radius:12px;background:#0d1117;">
+  </model-viewer>
 </div>
 
 ---
