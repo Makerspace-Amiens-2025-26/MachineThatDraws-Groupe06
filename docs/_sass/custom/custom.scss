@@ -11,13 +11,13 @@ $accent-glow:  rgba(99,102,241,0.2);
 $sidebar-bg:   #0d1117;
 $sidebar-line: rgba(255,255,255,0.06);
 
-$bg:           #f9fafb;
-$bg-card:      #ffffff;
-$bg-subtle:    #f3f4f6;
-$text:         #111827;
-$body-txt:     #4b5563;
-$muted:        #9ca3af;
-$border:       #e5e7eb;
+$bg:           #0d1117;
+$bg-card:      #161b22;
+$bg-subtle:    #1c2230;
+$text:         #e6edf3;
+$body-txt:     #8b949e;
+$muted:        #6e7681;
+$border:       rgba(255,255,255,0.08);
 
 // ── BASE ──────────────────────────────────────────────────────
 *, *::before, *::after { box-sizing: border-box; }
@@ -97,7 +97,7 @@ $topnav-h: 56px;
   font-family: 'Inter', sans-serif !important;
   font-size: 1rem !important;
   font-weight: 800 !important;
-  color: #1e3a8a !important;
+  color: #fff !important;
   display: flex !important;
   align-items: center !important;
   text-decoration: none !important;
@@ -107,7 +107,7 @@ $topnav-h: 56px;
   letter-spacing: -0.01em !important;
 
   &::before { display: none !important; }
-  &:hover { color: #1d4ed8 !important; }
+  &:hover { color: $accent-mid !important; }
 }
 
 .site-button { display: none !important; }
@@ -149,31 +149,7 @@ $topnav-h: 56px;
   display: flex !important;
   align-items: center !important;
 
-  &:hover > .nav-list { display: flex !important; }
-
-  > .nav-list {
-    display: none !important;
-    position: absolute !important;
-    top: $topnav-h !important;
-    left: 0 !important;
-    background: #161c24 !important;
-    border: 1px solid $sidebar-line !important;
-    border-top: none !important;
-    border-radius: 0 0 10px 10px !important;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.45) !important;
-    min-width: 210px !important;
-    padding: 0.4rem !important;
-    z-index: 500 !important;
-    flex-direction: column !important;
-    height: auto !important;
-    gap: 1px !important;
-
-    .nav-list-item {
-      height: auto !important;
-      width: 100% !important;
-      display: block !important;
-    }
-  }
+  > .nav-list { display: none !important; }
 }
 
 .nav-list > .nav-list-item > .nav-list-link {
@@ -240,8 +216,8 @@ $topnav-h: 56px;
 .main-content {
   max-width: 100% !important;
   padding: 2.5rem 3rem 5rem !important;
-  background: $bg-card !important;
-  min-height: calc(100vh - 52px);
+  background: $bg !important;
+  min-height: calc(100vh - 56px);
 
   h1 {
     font-size: 2rem;
@@ -375,32 +351,32 @@ $topnav-h: 56px;
 
 // ── BOÎTES ────────────────────────────────────────────────────
 .info-box {
-  background: $accent-light;
-  border: 1px solid $accent-mid;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.25);
   border-left: 4px solid $accent;
   border-radius: 0 8px 8px 0;
   padding: 0.9rem 1.2rem;
   margin: 1.5rem 0;
-  p { color: #312e81; margin: 0; font-size: 0.9rem; }
+  p { color: $accent-mid; margin: 0; font-size: 0.9rem; }
 }
 
 .warn-box {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.25);
   border-left: 4px solid #f59e0b;
   border-radius: 0 8px 8px 0;
   padding: 0.9rem 1.2rem;
   margin: 1.5rem 0;
-  p { color: #78350f; margin: 0; font-size: 0.9rem; }
+  p { color: #fcd34d; margin: 0; font-size: 0.9rem; }
 }
 
 blockquote {
-  background: $accent-light;
+  background: rgba(99,102,241,0.08);
   border-left: 4px solid $accent;
   border-radius: 0 8px 8px 0;
   padding: 0.9rem 1.2rem;
   margin: 1.5rem 0;
-  p { color: #312e81; margin: 0; line-height: 1.75; }
+  p { color: $accent-mid; margin: 0; line-height: 1.75; }
 }
 
 // ── HOMEPAGE ──────────────────────────────────────────────────
@@ -435,7 +411,7 @@ blockquote {
   font-weight: 800 !important;
   letter-spacing: -0.04em !important;
   line-height: 1.1 !important;
-  color: #1e3a8a !important;
+  color: #fff !important;
   border: none !important;
   padding: 0 !important;
   margin: 0 0 0.85rem !important;
@@ -707,7 +683,7 @@ td {
 }
 
 tr:last-child td { border-bottom: none; }
-tr:hover td { background: $accent-light !important; transition: background 0.12s; }
+tr:hover td { background: rgba(99,102,241,0.07) !important; transition: background 0.12s; }
 
 // ── IFRAME (hors hero-3d) ─────────────────────────────────────
 .main-content iframe {
