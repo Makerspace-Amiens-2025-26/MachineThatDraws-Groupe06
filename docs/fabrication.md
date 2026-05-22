@@ -5,7 +5,7 @@ nav_order: 3
 has_children: true
 ---
 
-<script>window.location.replace("{{ '/fabrication/impression3d/' | relative_url }}");</script>
+<script>window.location.replace("{{ '/fabrication/impression3d.html' | relative_url }}");</script>
 
 # Étapes de fabrication
 

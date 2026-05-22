@@ -5,7 +5,7 @@ nav_order: 2
 has_children: true
 ---
 
-<script>window.location.replace("{{ '/introduction/presentation/' | relative_url }}");</script>
+<script>window.location.replace("{{ '/introduction/presentation.html' | relative_url }}");</script>
 
 # Introduction
 

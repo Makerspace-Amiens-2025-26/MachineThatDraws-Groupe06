@@ -5,7 +5,7 @@ nav_order: 4
 has_children: true
 ---
 
-<script>window.location.replace("{{ '/conception/structure/' | relative_url }}");</script>
+<script>window.location.replace("{{ '/conception/structure.html' | relative_url }}");</script>
 
 # Conception CAO
 

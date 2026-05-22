@@ -5,7 +5,7 @@ nav_order: 6
 has_children: true
 ---
 
-<script>window.location.replace("{{ '/logiciels/architecture/' | relative_url }}");</script>
+<script>window.location.replace("{{ '/logiciels/architecture.html' | relative_url }}");</script>
 
 # Fonctionnement des logiciels
 

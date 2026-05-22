@@ -5,7 +5,7 @@ nav_order: 5
 has_children: true
 ---
 
-<script>window.location.replace("{{ '/electronique/schema/' | relative_url }}");</script>
+<script>window.location.replace("{{ '/electronique/schema.html' | relative_url }}");</script>
 
 # Électronique & PCB
 
