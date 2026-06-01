@@ -1,12 +1,23 @@
 <div class="page active" id="page-home">
-  <div class="home-hero">
-    <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
-    <h1 class="home-title">Machine That Draw</h1>
-    <p class="home-sub">Machine à dessiner à commande numérique — conçue et fabriquée par 4 étudiants.</p>
-    <div class="home-btns">
-      <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
-      <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
-      <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
+  <div class="home-hero" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+    <div>
+      <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
+      <h1 class="home-title">Machine That Draw</h1>
+      <p class="home-sub">Machine à dessiner à commande numérique — conçue et fabriquée par 4 étudiants.</p>
+      <div class="home-btns">
+        <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
+        <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
+        <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:500">L'équipe</div>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
+        <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
+        <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
+        <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
+      </div>
     </div>
   </div>
   <div class="home-body">
@@ -20,15 +31,6 @@
         <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
         <div class="info-card"><h3>Électronique</h3><p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p></div>
         <div class="info-card"><h3>Logiciel</h3><p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p></div>
-      </div>
-    </div>
-    <div>
-      <h2>L'équipe</h2>
-      <div class="team-grid">
-        <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
-        <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
-        <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
-        <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
       </div>
     </div>
     <div class="model-wrap">
@@ -50,9 +52,6 @@
       <h2>À propos du projet</h2>
       <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:14px">
         Ce projet de machine à dessiner automatisée a permis de mieux comprendre le fonctionnement des systèmes de commande numérique. Il combine des notions de mécanique, d'électronique et de programmation, tout en mettant en avant l'importance de la conception et de la documentation technique.
-      </p>
-      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">
-        L'ensemble du projet, incluant les fichiers et le code source, est disponible sur notre dépôt GitHub.
       </p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Notre projet sur OnShape ↗</a>
