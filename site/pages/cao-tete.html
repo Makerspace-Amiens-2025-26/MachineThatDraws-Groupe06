@@ -1,0 +1,36 @@
+<div class="page" id="page-cao-tete">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Conception CAO</div>
+  <div class="page-eyebrow">Conception CAO — 04</div>
+  <h1 class="page-title">Tête porte-stylo</h1>
+  <p class="page-lead">La tête porte-stylo est la pièce terminale de la machine. Elle est fixée sur le chariot X et embarque le servo-moteur qui contrôle le contact du stylo avec le papier.</p>
+
+  <h2>Vue CAO</h2>
+  <div class="placeholder">✏️ Ajoute une capture OnShape de la tête — vue éclatée si possible</div>
+
+  <h2>Fonctionnement</h2>
+  <p>Le servo-moteur reçoit un signal PWM de l'ESP32. Deux angles sont programmés :</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Position</th><th>Angle servo</th><th>Commande G-code</th></tr></thead>
+    <tbody>
+      <tr><td>Stylo levé</td><td class="td-todo">✏️ ex : 90°</td><td class="td-mono">M5</td></tr>
+      <tr><td>Stylo baissé</td><td class="td-todo">✏️ ex : 50°</td><td class="td-mono">M3</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Pièces CAO</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Pièce</th><th>Matériau</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Corps de la tête</td><td class="td-todo">✏️ PETG</td><td class="td-todo">✏️ Support principal, fixation sur chariot X</td></tr>
+      <tr><td>Bras servo</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Convertit la rotation du servo en translation du stylo</td></tr>
+      <tr><td>Manchon stylo</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Maintien du stylo — adapté au diamètre utilisé</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Compatibilité</h2>
+  <div class="placeholder">✏️ Quels types de stylos ou feutres peuvent être utilisés ? Ø du manchon ? Poids maximal ?</div>
+  <h2>Photos</h2>
+  <div class="placeholder">📷 Ajoute des photos de la tête assemblée et du stylo en position haute/basse</div>
+</div>
+</div>

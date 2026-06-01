@@ -1,0 +1,44 @@
+<div class="page" id="page-fab-electronique">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Fabrication</div>
+  <div class="page-eyebrow">Fabrication — 03</div>
+  <h1 class="page-title">Électronique & Câblage</h1>
+  <p class="page-lead">Cette étape couvre la soudure des composants sur le PCB et le câblage complet de la machine.</p>
+
+  <h2>Étapes de montage</h2>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Soudure des composants</div><div class="step-desc">Résistances, condensateurs, connecteurs sur le PCB</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Test des tensions</div><div class="step-desc">12 V en entrée, 5 V en sortie du régulateur R-78E</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Réglage du courant A4988</div><div class="step-desc">Potentiomètre Vref selon le courant nominal des NEMA 17</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Connexion des drivers</div><div class="step-desc">A4988 aux moteurs via les connecteurs déportés</div></div></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Câblage du servo</div><div class="step-desc">Servo-moteur sur la broche PWM de l'ESP32</div></div></div>
+    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Upload du firmware & tests</div><div class="step-desc">Upload puis test axe par axe</div></div></div>
+  </div>
+
+  <h2>Brochage ESP32-S3-UNO</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Signal</th><th>Broche ESP32</th><th>Connecté à</th></tr></thead>
+    <tbody>
+      <tr><td>STEP moteur X</td><td class="td-todo">✏️ GPIO 14</td><td>A4988 #1 — STEP</td></tr>
+      <tr><td>DIR moteur X</td><td class="td-todo">✏️ GPIO 13</td><td>A4988 #1 — DIR</td></tr>
+      <tr><td>STEP moteur Y</td><td class="td-todo">✏️ GPIO 27</td><td>A4988 #2 — STEP</td></tr>
+      <tr><td>DIR moteur Y</td><td class="td-todo">✏️ GPIO 26</td><td>A4988 #2 — DIR</td></tr>
+      <tr><td>PWM servo</td><td class="td-todo">✏️ GPIO 12</td><td>Servo-moteur signal</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Réglage du courant A4988</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Courant nominal NEMA 17</td><td class="td-todo">✏️ ex : 1.2 A</td></tr>
+      <tr><td>Vref visée</td><td class="td-todo">✏️ ex : 0.6 V</td></tr>
+      <tr><td>Formule</td><td class="td-mono">Vref = I_max × 8 × R_sense</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Difficultés rencontrées</h2>
+  <div class="placeholder">✏️ Courts-circuits, mauvaise soudure, A4988 qui chauffe, moteur qui vibre sans bouger ?</div>
+  <h2>Photos du câblage</h2>
+  <div class="placeholder">📷 Ajoute des photos du PCB soudé et du câblage final</div>
+</div>
+</div>

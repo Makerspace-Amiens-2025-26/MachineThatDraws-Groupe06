@@ -1,0 +1,41 @@
+<div class="page" id="page-etude">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Introduction</div>
+  <div class="page-eyebrow">Introduction — 03</div>
+  <h1 class="page-title">Étude et choix techniques</h1>
+  <p class="page-lead">Avant de commencer la fabrication, nous avons étudié les différentes architectures possibles pour notre machine.</p>
+
+  <h2>Architecture : le choix cartésien</h2>
+  <p>Nous avons choisi une <strong>architecture cartésienne pure</strong> (un axe X qui se déplace de façon indépendante sur un axe Y). Ce choix offre :</p>
+  <ul>
+    <li><strong>Simplicité de contrôle</strong> — Un déplacement en X ne sollicite que le moteur X.</li>
+    <li><strong>Fiabilité géométrique</strong> — L'équerrage à 90° est mécaniquement garanti.</li>
+    <li><strong>Facilité de débogage</strong> — Les axes étant découplés, les problèmes sont faciles à isoler.</li>
+  </ul>
+
+  <h2>Guidage et transmission</h2>
+  <p>Le mouvement est transmis par des <strong>courroies GT2</strong> entraînées par des poulies crantées montées sur l'arbre des moteurs NEMA 17. Les guidages sont assurés par des tiges linéaires.</p>
+
+  <h2>Motorisation</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Actionneur</th><th>Rôle</th><th>Imposé</th></tr></thead>
+    <tbody>
+      <tr><td>2× Moteur NEMA 17</td><td>Déplacement axes X et Y</td><td><span class="td-yes">Oui</span></td></tr>
+      <tr><td>1× Servo-moteur</td><td>Lever/baisser le stylo (axe Z)</td><td><span class="td-yes">Oui</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>Les moteurs NEMA 17 offrent un couple de maintien largement suffisant pour déplacer un simple stylo, garantissant qu'aucune perte de pas ne surviendra.</p>
+
+  <h2>Électronique choisie</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Composant</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">ESP32-S3-UNO</td><td>Microcontrôleur principal, génère les signaux STEP/DIR</td></tr>
+      <tr><td class="td-mono">2× A4988</td><td>Drivers moteurs pas-à-pas</td></tr>
+      <tr><td class="td-mono">R-78E5.0-1.0</td><td>Régulateur 12V → 5V pour l'alimentation logique</td></tr>
+      <tr><td>PCB sur-mesure</td><td>Intégration de tous les composants (KiCad 9)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="placeholder">✏️ Complète avec les détails de vos choix et les alternatives que vous avez écartées.</div>
+</div>
+</div>
