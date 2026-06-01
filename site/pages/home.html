@@ -2,7 +2,7 @@
   <div class="home-hero">
     <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
     <h1 class="home-title">Machine That Draw</h1>
-    <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
+    <p class="home-sub">Machine à dessiner à commande numérique — conçue et fabriquée par 4 étudiants.</p>
     <div class="home-btns">
       <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
       <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
@@ -12,7 +12,10 @@
   <div class="home-body">
     <div>
       <h2>Le projet</h2>
-      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.</p>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">
+        Ce site a pour objectif de présenter notre projet, d'expliquer son fonctionnement et de fournir les informations nécessaires pour comprendre, utiliser et reproduire la machine.
+        La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.
+      </p>
       <div class="cards-grid">
         <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
         <div class="info-card"><h3>Électronique</h3><p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p></div>
@@ -30,6 +33,9 @@
     </div>
     <div class="model-wrap">
       <h2>Modèle 3D</h2>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px">
+        Le modèle 3D et la vidéo de présentation seront mis à jour au fur et à mesure de l'avancement du projet.
+      </p>
       <div class="model-viewer-wrap">
         <model-viewer
           src="assets/images/models/machine (2).gltf"
@@ -38,6 +44,19 @@
           environment-image="neutral" exposure="0.8"
           alt="Modèle 3D Machine That Draw">
         </model-viewer>
+      </div>
+    </div>
+    <div style="grid-column:1/-1">
+      <h2>À propos du projet</h2>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:14px">
+        Ce projet de machine à dessiner automatisée a permis de mieux comprendre le fonctionnement des systèmes de commande numérique. Il combine des notions de mécanique, d'électronique et de programmation, tout en mettant en avant l'importance de la conception et de la documentation technique.
+      </p>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">
+        L'ensemble du projet, incluant les fichiers et le code source, est disponible sur notre dépôt GitHub.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Notre projet sur OnShape ↗</a>
+        <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">Notre dépôt GitHub ↗</a>
       </div>
     </div>
   </div>
