@@ -454,7 +454,8 @@ if(localStorage.getItem('theme')==='light'){
 const cache = {};
 async function loadPage(id) {
   if (cache[id]) return cache[id];
-  const res = await fetch('pages/' + id + '.html');
+  const base = document.querySelector('base')?.href || (location.href.replace(/\/[^/]*$/, '/'));
+  const res = await fetch(base + 'pages/' + id + '.html');
   const html = await res.text();
   cache[id] = html;
   return html;
