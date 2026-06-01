@@ -30,7 +30,9 @@ Le PCB a été routé sous **KiCad 9**. Il regroupe tous les composants sur une 
 
 ---
 
-*(✏️ Ajoute une capture du routage KiCad — vue 2D et/ou vue 3D)*
+## Vue du routage
+
+![Routage PCB KiCad]({{ site.baseurl }}/assets/images/pcb.png)
 
 ---
 
