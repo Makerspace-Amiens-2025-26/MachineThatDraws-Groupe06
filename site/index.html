@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine That Draw — Groupe 06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0e1016;
+  --bg2:#13161e;
+  --bg3:#1a1e28;
+  --border:rgba(255,255,255,0.07);
+  --accent:#7fc43e;
+  --accent-dim:#4a7a22;
+  --text:#dcd9d0;
+  --text2:#8a8880;
+  --text3:#555350;
+  --sidebar-w:260px;
+  --mono:'DM Mono', monospace;
+  --serif:'Instrument Serif', serif;
+  --sans:'DM Sans', sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;font-size:15px;line-height:1.65}
+
+/* ── SIDEBAR ── */
+#sidebar{
+  position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;
+  background:var(--bg2);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;overflow-y:auto;z-index:100;
+}
+.sidebar-logo{
+  padding:24px 20px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.sidebar-logo-badge{
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px;font-weight:500;
+}
+.sidebar-logo-title{
+  font-family:var(--serif);font-size:20px;color:#ede9e0;line-height:1.2;font-style:italic;
+}
+.sidebar-logo-sub{font-size:11px;color:var(--text3);margin-top:4px}
+
+nav{padding:12px 0;flex:1}
+.nav-section{
+  padding:16px 20px 6px;font-size:10px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--text3);font-weight:500;
+}
+.nav-item{
+  display:block;padding:7px 20px;font-size:13px;color:var(--text2);
+  text-decoration:none;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;
+  line-height:1.4;
+}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,0.03)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(127,196,62,0.06)}
+.nav-item.sub{padding-left:32px;font-size:12.5px}
+.nav-group-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:7px 20px;font-size:13px;color:var(--text2);cursor:pointer;
+  transition:all 0.15s;border-left:2px solid transparent;
+}
+.nav-group-toggle:hover{color:var(--text);background:rgba(255,255,255,0.03)}
+.nav-group-toggle.open{color:var(--text)}
+.nav-arrow{font-size:10px;transition:transform 0.2s;opacity:0.5}
+.nav-group-toggle.open .nav-arrow{transform:rotate(90deg)}
+.nav-children{display:none}
+.nav-children.open{display:block}
+
+.sidebar-footer{
+  padding:16px 20px;border-top:1px solid var(--border);flex-shrink:0;
+  display:flex;gap:10px;
+}
+.sidebar-footer a{
+  font-size:11px;color:var(--text3);text-decoration:none;
+  transition:color 0.15s;display:flex;align-items:center;gap:4px;
+}
+.sidebar-footer a:hover{color:var(--accent)}
+
+/* ── MAIN ── */
+#main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ── HOME PAGE ── */
+.home-hero{
+  padding:64px 64px 56px;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.home-hero::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:400px;height:400px;
+  background:radial-gradient(circle, rgba(127,196,62,0.08) 0%, transparent 65%);
+  pointer-events:none;
+}
+.home-badge{
+  display:inline-block;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;font-weight:500;
+}
+.home-title{
+  font-family:var(--serif);font-size:52px;color:#ede9e0;line-height:1.08;
+  font-weight:400;margin-bottom:16px;font-style:italic;
+}
+.home-sub{
+  font-size:16px;color:var(--text2);max-width:500px;line-height:1.7;margin-bottom:32px;font-weight:300;
+}
+.home-btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 18px;border-radius:6px;font-size:13px;font-weight:500;
+  text-decoration:none;transition:all 0.15s;cursor:pointer;border:none;
+  font-family:var(--sans);
+}
+.btn-primary{background:var(--accent);color:#0d1a04}
+.btn-primary:hover{background:#91d048}
+.btn-outline{
+  background:transparent;color:var(--text2);
+  border:1px solid rgba(255,255,255,0.15);
+}
+.btn-outline:hover{border-color:rgba(255,255,255,0.3);color:var(--text)}
+
+.home-body{padding:56px 64px;display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.home-section h2{
+  font-family:var(--serif);font-size:22px;color:#ede9e0;margin-bottom:16px;
+  font-weight:400;font-style:italic;
+}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.info-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:20px;transition:border-color 0.15s;
+}
+.info-card:hover{border-color:rgba(127,196,62,0.3)}
+.info-card h3{font-size:13px;font-weight:500;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em}
+.info-card p{font-size:13px;color:var(--text2);line-height:1.6}
+
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.team-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:18px 20px;display:flex;align-items:center;gap:12px;
+  transition:border-color 0.15s;
+}
+.team-card:hover{border-color:rgba(127,196,62,0.3)}
+.team-avatar{
+  width:38px;height:38px;border-radius:50%;background:rgba(127,196,62,0.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:500;color:var(--accent);flex-shrink:0;
+  border:1px solid rgba(127,196,62,0.25);
+}
+.team-name{font-size:13px;font-weight:500;color:var(--text)}
+.team-role{font-size:12px;color:var(--text3);margin-top:2px}
+
+.model-wrap{grid-column:1/-1}
+.model-viewer-wrap{
+  border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  background:#1a1e28;
+}
+model-viewer{width:100%;height:480px}
+
+/* ── CONTENT PAGES ── */
+.page-content{max-width:860px;padding:52px 64px}
+.page-eyebrow{
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;font-weight:500;
+}
+.page-title{
+  font-family:var(--serif);font-size:38px;color:#ede9e0;line-height:1.15;
+  font-weight:400;margin-bottom:8px;font-style:italic;
+}
+.page-lead{
+  font-size:15px;color:var(--text2);line-height:1.75;
+  margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border);
+  max-width:640px;font-weight:300;
+}
+.page-content h2{
+  font-size:17px;font-weight:500;color:#ede9e0;
+  margin-top:40px;margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.page-content h2::before{
+  content:'';display:block;width:3px;height:17px;
+  background:var(--accent);border-radius:2px;flex-shrink:0;
+}
+.page-content p{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:14px}
+.page-content ul{padding-left:0;list-style:none;margin-bottom:14px}
+.page-content ul li{
+  font-size:14px;color:var(--text2);line-height:1.7;
+  padding:4px 0 4px 20px;position:relative;
+}
+.page-content ul li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:12px;top:5px}
+.page-content strong{color:var(--text);font-weight:500}
+.page-content hr{border:none;border-top:1px solid var(--border);margin:32px 0}
+
+/* Tables */
+.table-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{
+  padding:10px 16px;text-align:left;font-size:10px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--text3);font-weight:500;
+  background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);
+}
+td{padding:10px 16px;color:var(--text2);border-bottom:1px solid rgba(255,255,255,0.04)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.td-mono{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.td-yes{
+  display:inline-block;font-size:10px;padding:2px 8px;border-radius:4px;
+  background:rgba(127,196,62,0.12);color:var(--accent);
+  border:1px solid rgba(127,196,62,0.25);font-weight:500;
+}
+.td-todo{color:var(--text3);font-style:italic}
+
+/* Code blocks */
+pre{
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:20px;overflow-x:auto;margin:16px 0;
+  font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#b8d4a8;
+}
+code{font-family:var(--mono);font-size:12px;color:var(--accent);background:rgba(127,196,62,0.08);padding:1px 5px;border-radius:3px}
+pre code{background:none;padding:0;color:inherit}
+
+/* Callout */
+.callout{
+  border-left:2px solid var(--accent-dim);border-radius:0 8px 8px 0;
+  padding:14px 18px;background:rgba(127,196,62,0.05);
+  margin:20px 0;font-size:14px;color:var(--text2);line-height:1.7;
+  font-style:italic;
+}
+.callout strong{color:var(--text);font-style:normal}
+
+/* Placeholder */
+.placeholder{
+  border:1.5px dashed rgba(255,255,255,0.1);border-radius:10px;
+  padding:24px;text-align:center;color:var(--text3);
+  font-size:13px;margin:16px 0;background:rgba(255,255,255,0.01);
+}
+
+/* Section intro cards (nav cards) */
+.intro-cards{display:flex;flex-direction:column;gap:8px;margin:24px 0}
+.intro-card{
+  display:flex;align-items:flex-start;gap:20px;
+  padding:18px 20px;background:var(--bg3);
+  border:1px solid var(--border);border-radius:10px;
+  cursor:pointer;transition:all 0.15s;text-align:left;
+  text-decoration:none;
+}
+.intro-card:hover{border-color:rgba(127,196,62,0.35);background:rgba(127,196,62,0.04)}
+.intro-card-num{
+  font-family:var(--serif);font-size:28px;color:rgba(255,255,255,0.07);
+  line-height:1;flex-shrink:0;padding-top:2px;font-style:italic;
+}
+.intro-card-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.intro-card-desc{font-size:12.5px;color:var(--text3);line-height:1.5}
+
+/* BOM cards (electronique) */
+.bom-cards{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.bom-card{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:14px 18px;background:var(--bg3);
+  border:1px solid var(--border);border-radius:8px;
+}
+.bom-ref{
+  font-family:var(--mono);font-size:11px;color:var(--accent);
+  background:rgba(127,196,62,0.1);padding:3px 8px;border-radius:4px;
+  border:1px solid rgba(127,196,62,0.2);flex-shrink:0;margin-top:1px;
+  white-space:nowrap;
+}
+.bom-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.bom-desc{font-size:12.5px;color:var(--text3);line-height:1.5}
+
+/* Pills */
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+.pill{
+  font-size:10.5px;padding:3px 10px;border-radius:100px;border:1px solid;
+  font-weight:400;letter-spacing:0.04em;
+}
+.pill-green{background:rgba(127,196,62,0.1);border-color:rgba(127,196,62,0.3);color:var(--accent)}
+.pill-gray{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.1);color:var(--text3)}
+
+/* Objectives grid */
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.obj-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:18px;transition:border-color 0.15s;
+}
+.obj-card:hover{border-color:rgba(127,196,62,0.3)}
+.obj-icon{font-size:20px;margin-bottom:8px}
+.obj-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px}
+.obj-desc{font-size:12.5px;color:var(--text3);line-height:1.6}
+
+/* Steps (fabrication) */
+.steps-list{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.step-item{
+  display:flex;gap:16px;padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+.step-item:last-child{border-bottom:none}
+.step-num{
+  width:28px;height:28px;border-radius:50%;background:rgba(127,196,62,0.1);
+  border:1px solid rgba(127,196,62,0.25);display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:500;color:var(--accent);flex-shrink:0;
+}
+.step-body{flex:1}
+.step-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.step-desc{font-size:12.5px;color:var(--text3);line-height:1.6}
+
+/* Breadcrumb */
+.breadcrumb{
+  font-size:11px;color:var(--text3);margin-bottom:20px;
+  display:flex;align-items:center;gap:6px;
+}
+.breadcrumb a{color:var(--text3);text-decoration:none;transition:color 0.15s}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{opacity:0.4}
+
+/* Mobile */
+#menu-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;
+  background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:8px 10px;cursor:pointer;color:var(--text)}
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%);transition:transform 0.25s}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0}
+  #menu-btn{display:block}
+  .home-hero{padding:48px 24px 40px}
+  .page-content{padding:40px 24px}
+  .home-body{grid-template-columns:1fr;padding:40px 24px;gap:40px}
+  .cards-grid{grid-template-columns:1fr}
+  .obj-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<button id="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-badge">Groupe 06 · 2025-2026</div>
+    <div class="sidebar-logo-title">Machine That Draw</div>
+    <div class="sidebar-logo-sub">Makerspace Amiens</div>
+  </div>
+  <nav>
+    <a class="nav-item active" onclick="showPage('home')">Accueil</a>
+
+    <div class="nav-section">Introduction</div>
+    <div class="nav-group-toggle open" onclick="toggleGroup(this)">
+      <span>Introduction</span><span class="nav-arrow">›</span>
+    </div>
+    <div class="nav-children open">
+      <a class="nav-item sub" onclick="showPage('presentation')">Présentation générale</a>
+      <a class="nav-item sub" onclick="showPage('objectifs')">Objectifs du projet</a>
+      <a class="nav-item sub" onclick="showPage('etude')">Étude et choix techniques</a>
+    </div>
+
+    <div class="nav-section">Fabrication</div>
+    <div class="nav-group-toggle" onclick="toggleGroup(this)">
+      <span>Étapes de fabrication</span><span class="nav-arrow">›</span>
+    </div>
+    <div class="nav-children">
+      <a class="nav-item sub" onclick="showPage('fab-impression')">1. Impression 3D</a>
+      <a class="nav-item sub" onclick="showPage('fab-mecanique')">2. Mécanique</a>
+      <a class="nav-item sub" onclick="showPage('fab-electronique')">3. Électronique & Câblage</a>
+      <a class="nav-item sub" onclick="showPage('fab-tests')">4. Tests & Mise au point</a>
+    </div>
+
+    <div class="nav-section">Conception CAO</div>
+    <div class="nav-group-toggle" onclick="toggleGroup(this)">
+      <span>Conception CAO</span><span class="nav-arrow">›</span>
+    </div>
+    <div class="nav-children">
+      <a class="nav-item sub" onclick="showPage('cao-structure')">Structure générale</a>
+      <a class="nav-item sub" onclick="showPage('cao-axe-x')">L'axe X</a>
+      <a class="nav-item sub" onclick="showPage('cao-axe-y')">L'axe Y</a>
+      <a class="nav-item sub" onclick="showPage('cao-tete')">Tête porte-stylo</a>
+    </div>
+
+    <div class="nav-section">Électronique</div>
+    <div class="nav-group-toggle" onclick="toggleGroup(this)">
+      <span>Électronique & PCB</span><span class="nav-arrow">›</span>
+    </div>
+    <div class="nav-children">
+      <a class="nav-item sub" onclick="showPage('elec-schema')">Schéma électronique</a>
+      <a class="nav-item sub" onclick="showPage('elec-pcb')">Routage du PCB</a>
+      <a class="nav-item sub" onclick="showPage('elec-composants')">Liste des composants</a>
+    </div>
+
+    <div class="nav-section">Logiciels</div>
+    <div class="nav-group-toggle" onclick="toggleGroup(this)">
+      <span>Fonctionnement logiciel</span><span class="nav-arrow">›</span>
+    </div>
+    <div class="nav-children">
+      <a class="nav-item sub" onclick="showPage('log-architecture')">Architecture logicielle</a>
+      <a class="nav-item sub" onclick="showPage('log-firmware')">Firmware ESP32</a>
+      <a class="nav-item sub" onclick="showPage('log-gcode')">Conversion G-code</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank">GitHub ↗</a>
+    <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank">OnShape ↗</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
+    <h1 class="home-title">Machine That Draw</h1>
+    <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
+    <div class="home-btns">
+      <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
+      <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
+      <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="home-body">
+    <div>
+      <h2>Le projet</h2>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.</p>
+      <div class="cards-grid">
+        <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
+        <div class="info-card"><h3>Électronique</h3><p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p></div>
+        <div class="info-card"><h3>Logiciel</h3><p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p></div>
+      </div>
+    </div>
+    <div>
+      <h2>L'équipe</h2>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
+        <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
+        <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
+        <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
+      </div>
+    </div>
+    <div class="model-wrap">
+      <h2>Modèle 3D</h2>
+      <div class="model-viewer-wrap">
+        <model-viewer
+          src="assets/images/models/machine (2).gltf"
+          camera-controls auto-rotate auto-rotate-delay="1000"
+          rotation-per-second="20deg" shadow-intensity="0"
+          environment-image="neutral" exposure="0.8"
+          alt="Modèle 3D Machine That Draw">
+        </model-viewer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRESENTATION -->
+<div class="page" id="page-presentation">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Introduction</div>
+  <div class="page-eyebrow">Introduction — 01</div>
+  <h1 class="page-title">Présentation générale</h1>
+  <p class="page-lead">Le Groupe 06 a conçu et assemblé cette machine au MakerSpace d'UniLaSalle Amiens au cours de l'année 2025-2026. Toutes les pièces structurelles ont été modélisées sous OnShape puis imprimées en 3D, et le PCB de contrôle a été conçu sous KiCad.</p>
+
+  <h2>Qu'est-ce que la MachineThatDraw ?</h2>
+  <p>La MachineThatDraw est une CNC cartésienne à deux axes pilotée par un <strong>ESP32-S3-UNO</strong>. Deux moteurs NEMA 17 déplacent le chariot en X et en Y, tandis qu'un servo-moteur lève ou abaisse le stylo pour contrôler le contact avec le papier.</p>
+
+  <h2>Photo de la machine</h2>
+  <div class="placeholder">📷 Ajoute ici une photo de la machine finale assemblée — vue de face, de 3/4, ou en fonctionnement</div>
+
+  <h2>Modèle 3D</h2>
+  <p>Notre modèle 3D complet est disponible sur OnShape :</p>
+  <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Ouvrir le modèle OnShape ↗</a>
+
+  <h2>Fiche technique</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Zone de dessin</td><td class="td-todo">✏️ ___ mm × ___ mm</td></tr>
+      <tr><td>Résolution</td><td class="td-todo">✏️ ex : 0.1 mm</td></tr>
+      <tr><td>Vitesse max</td><td class="td-todo">✏️ ex : 3 000 mm/min</td></tr>
+      <tr><td>Format papier</td><td class="td-todo">✏️ ex : A4</td></tr>
+      <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO</td></tr>
+      <tr><td>Drivers moteurs</td><td class="td-mono">2× A4988</td></tr>
+      <tr><td>Alimentation</td><td class="td-todo">✏️ ex : 12V DC</td></tr>
+      <tr><td>Masse totale</td><td class="td-todo">✏️ ex : ~800 g</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>
+
+<!-- OBJECTIFS -->
+<div class="page" id="page-objectifs">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Introduction</div>
+  <div class="page-eyebrow">Introduction — 02</div>
+  <h1 class="page-title">Objectifs du projet</h1>
+  <p class="page-lead">Le projet nous a imposé de livrer une machine fonctionnelle en partant de zéro : aucun kit, aucune solution toute faite. Chaque sous-système — mécanique, électronique, firmware — a dû être dimensionné, conçu et validé par l'équipe.</p>
+
+  <div class="callout"><strong>Défi du groupe :</strong> Faire tenir l'ensemble de la chaîne de fabrication — de la modélisation 3D au premier tracé réel — dans le calendrier d'un projet académique d'un an.</div>
+
+  <h2>Objectifs techniques</h2>
+  <div class="obj-grid">
+    <div class="obj-card"><div class="obj-icon">⚙️</div><div class="obj-title">Automatisation</div><div class="obj-desc">Reproduire des formes et des caractères de manière autonome à partir d'un fichier G-code.</div></div>
+    <div class="obj-card"><div class="obj-icon">🎯</div><div class="obj-title">Précision</div><div class="obj-desc">Assurer un mouvement fluide des moteurs pas-à-pas pour un rendu propre et fidèle.</div></div>
+    <div class="obj-card"><div class="obj-icon">🖊️</div><div class="obj-title">Polyvalence</div><div class="obj-desc">Permettre l'utilisation de différents types de stylos ou feutres.</div></div>
+    <div class="obj-card"><div class="obj-icon">📦</div><div class="obj-title">Compacité</div><div class="obj-desc">Concevoir une machine facilement transportable et rangeable.</div></div>
+  </div>
+
+  <h2>Contraintes imposées</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Contrainte</th><th>Détail</th></tr></thead>
+    <tbody>
+      <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO</td></tr>
+      <tr><td>Moteurs axes X/Y</td><td>2× NEMA 17</td></tr>
+      <tr><td>Axe Z (stylo)</td><td>Servo-moteur</td></tr>
+      <tr><td>Format d'entrée</td><td>Fichier G-code</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Ce que nous avons appris</h2>
+  <div class="placeholder">✏️ Raconte ici ce que vous avez découvert — les galères, les surprises, ce que vous referiez différemment.</div>
+</div>
+</div>
+
+<!-- ETUDE -->
+<div class="page" id="page-etude">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Introduction</div>
+  <div class="page-eyebrow">Introduction — 03</div>
+  <h1 class="page-title">Étude et choix techniques</h1>
+  <p class="page-lead">Avant de commencer la fabrication, nous avons étudié les différentes architectures possibles pour notre machine.</p>
+
+  <h2>Architecture : le choix cartésien</h2>
+  <p>Nous avons choisi une <strong>architecture cartésienne pure</strong> (un axe X qui se déplace de façon indépendante sur un axe Y). Ce choix offre :</p>
+  <ul>
+    <li><strong>Simplicité de contrôle</strong> — Un déplacement en X ne sollicite que le moteur X.</li>
+    <li><strong>Fiabilité géométrique</strong> — L'équerrage à 90° est mécaniquement garanti.</li>
+    <li><strong>Facilité de débogage</strong> — Les axes étant découplés, les problèmes sont faciles à isoler.</li>
+  </ul>
+
+  <h2>Guidage et transmission</h2>
+  <p>Le mouvement est transmis par des <strong>courroies GT2</strong> entraînées par des poulies crantées montées sur l'arbre des moteurs NEMA 17. Les guidages sont assurés par des tiges linéaires.</p>
+
+  <h2>Motorisation</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Actionneur</th><th>Rôle</th><th>Imposé</th></tr></thead>
+    <tbody>
+      <tr><td>2× Moteur NEMA 17</td><td>Déplacement axes X et Y</td><td><span class="td-yes">Oui</span></td></tr>
+      <tr><td>1× Servo-moteur</td><td>Lever/baisser le stylo (axe Z)</td><td><span class="td-yes">Oui</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>Les moteurs NEMA 17 offrent un couple de maintien largement suffisant pour déplacer un simple stylo, garantissant qu'aucune perte de pas ne surviendra.</p>
+
+  <h2>Électronique choisie</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Composant</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">ESP32-S3-UNO</td><td>Microcontrôleur principal, génère les signaux STEP/DIR</td></tr>
+      <tr><td class="td-mono">2× A4988</td><td>Drivers moteurs pas-à-pas</td></tr>
+      <tr><td class="td-mono">R-78E5.0-1.0</td><td>Régulateur 12V → 5V pour l'alimentation logique</td></tr>
+      <tr><td>PCB sur-mesure</td><td>Intégration de tous les composants (KiCad 9)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="placeholder">✏️ Complète avec les détails de vos choix et les alternatives que vous avez écartées.</div>
+</div>
+</div>
+
+<!-- FAB IMPRESSION 3D -->
+<div class="page" id="page-fab-impression">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Fabrication</div>
+  <div class="page-eyebrow">Fabrication — 01</div>
+  <h1 class="page-title">Impression 3D</h1>
+  <p class="page-lead">Toutes les pièces structurelles de la MachineThatDraw ont été modélisées sous OnShape puis imprimées au Makerspace d'UniLaSalle Amiens.</p>
+
+  <h2>Matériaux utilisés</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Matériau</th><th>Pièces concernées</th><th>Justification</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">PLA</td><td class="td-todo">✏️ ex : châssis, supports fixes</td><td>Rigide, facile à imprimer, bon marché</td></tr>
+      <tr><td class="td-mono">PETG</td><td class="td-todo">✏️ ex : chariots, tête stylo</td><td>Résistance mécanique et à la chaleur</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Liste des pièces imprimées</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Pièce</th><th>Qté</th><th>Matériau</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td class="td-todo">✏️ Chariot axe X</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td class="td-todo">✏️</td></tr>
+      <tr><td class="td-todo">✏️ Support moteur X</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td class="td-todo">✏️</td></tr>
+      <tr><td class="td-todo">✏️ Support moteur Y</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td class="td-todo">✏️</td></tr>
+      <tr><td class="td-todo">✏️ Tête porte-stylo</td><td class="td-todo">✏️</td><td class="td-mono">PETG</td><td class="td-todo">✏️</td></tr>
+      <tr><td class="td-todo">✏️ Tendeur courroie</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td class="td-todo">✏️</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Paramètres d'impression</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Imprimante</td><td class="td-todo">✏️ ex : Prusa MK4, Bambu Lab X1C...</td></tr>
+      <tr><td>Hauteur de couche</td><td class="td-todo">✏️ ex : 0.2 mm</td></tr>
+      <tr><td>Remplissage</td><td class="td-todo">✏️ ex : 20 %</td></tr>
+      <tr><td>Température buse PLA</td><td class="td-todo">✏️ ex : 215 °C</td></tr>
+      <tr><td>Température plateau</td><td class="td-todo">✏️ ex : 60 °C</td></tr>
+      <tr><td>Logiciel de découpe</td><td class="td-todo">✏️ ex : PrusaSlicer, Cura</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Difficultés rencontrées</h2>
+  <div class="placeholder">✏️ Y a-t-il eu des pièces à réimprimer ? Problèmes de warping, de fit, de tolérances ?</div>
+
+  <h2>Photos des pièces</h2>
+  <div class="placeholder">📷 Ajoute des photos des pièces imprimées — sur le plateau et après enlèvement des supports</div>
+</div>
+</div>
+
+<!-- FAB MECANIQUE -->
+<div class="page" id="page-fab-mecanique">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Fabrication</div>
+  <div class="page-eyebrow">Fabrication — 02</div>
+  <h1 class="page-title">Mécanique</h1>
+  <p class="page-lead">L'assemblage mécanique repose sur une structure cartésienne : deux axes indépendants guidés par des tiges linéaires et entraînés par des courroies GT2.</p>
+
+  <h2>Composants mécaniques</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Composant</th><th>Quantité</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td>Tiges linéaires Ø6 mm</td><td class="td-todo">✏️ ex : 4</td><td>Guidage axes X et Y</td></tr>
+      <tr><td>Courroies GT2 (2 mm)</td><td>2</td><td>Transmission du mouvement</td></tr>
+      <tr><td>Poulies GT2 20 dents</td><td>2</td><td>Montées sur l'arbre des moteurs</td></tr>
+      <tr><td>Bagues LM6UU</td><td class="td-todo">✏️ ex : 4</td><td>Glissement sur les tiges</td></tr>
+      <tr><td>Moteurs NEMA 17</td><td>2</td><td>Entraînement X et Y</td></tr>
+      <tr><td>Servo SG90 / MG90S</td><td>1</td><td>Levée/abaissement du stylo</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Étapes d'assemblage</h2>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Montage du châssis</div><div class="step-desc td-todo">✏️ Comment les pieds et les supports principaux ont été assemblés</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Pose des tiges axe Y</div><div class="step-desc td-todo">✏️ Fixation et alignement des tiges sur le châssis</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Installation du moteur Y</div><div class="step-desc td-todo">✏️ Fixation, alignement de la poulie</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Montage du chariot axe X</div><div class="step-desc td-todo">✏️ Insertion des bagues LM6UU, vérification du glissement</div></div></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Pose des tiges axe X</div><div class="step-desc td-todo">✏️ Fixation sur le chariot Y</div></div></div>
+    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Installation du moteur X</div><div class="step-desc td-todo">✏️ Fixation, alignement</div></div></div>
+    <div class="step-item"><div class="step-num">7</div><div class="step-body"><div class="step-title">Pose des courroies GT2</div><div class="step-desc td-todo">✏️ Enfilement, tension, fixation sur les chariots</div></div></div>
+    <div class="step-item"><div class="step-num">8</div><div class="step-body"><div class="step-title">Fixation de la tête porte-stylo</div><div class="step-desc td-todo">✏️ Montage du servo et du support stylo</div></div></div>
+  </div>
+
+  <h2>Difficultés rencontrées</h2>
+  <div class="placeholder">✏️ Quels problèmes avez-vous eus ? Mauvais alignement, courroie qui glisse, chariot qui frotte ?</div>
+  <h2>Photos de l'assemblage</h2>
+  <div class="placeholder">📷 Ajoute des photos étape par étape de l'assemblage mécanique</div>
+</div>
+</div>
+
+<!-- FAB ELECTRONIQUE CABLAGE -->
+<div class="page" id="page-fab-electronique">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Fabrication</div>
+  <div class="page-eyebrow">Fabrication — 03</div>
+  <h1 class="page-title">Électronique & Câblage</h1>
+  <p class="page-lead">Cette étape couvre la soudure des composants sur le PCB et le câblage complet de la machine.</p>
+
+  <h2>Étapes de montage</h2>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Soudure des composants</div><div class="step-desc">Résistances, condensateurs, connecteurs sur le PCB</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Test des tensions</div><div class="step-desc">12 V en entrée, 5 V en sortie du régulateur R-78E</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Réglage du courant A4988</div><div class="step-desc">Potentiomètre Vref selon le courant nominal des NEMA 17</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Connexion des drivers</div><div class="step-desc">A4988 aux moteurs via les connecteurs déportés</div></div></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Câblage du servo</div><div class="step-desc">Servo-moteur sur la broche PWM de l'ESP32</div></div></div>
+    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Upload du firmware & tests</div><div class="step-desc">Upload puis test axe par axe</div></div></div>
+  </div>
+
+  <h2>Brochage ESP32-S3-UNO</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Signal</th><th>Broche ESP32</th><th>Connecté à</th></tr></thead>
+    <tbody>
+      <tr><td>STEP moteur X</td><td class="td-todo">✏️ GPIO 14</td><td>A4988 #1 — STEP</td></tr>
+      <tr><td>DIR moteur X</td><td class="td-todo">✏️ GPIO 13</td><td>A4988 #1 — DIR</td></tr>
+      <tr><td>STEP moteur Y</td><td class="td-todo">✏️ GPIO 27</td><td>A4988 #2 — STEP</td></tr>
+      <tr><td>DIR moteur Y</td><td class="td-todo">✏️ GPIO 26</td><td>A4988 #2 — DIR</td></tr>
+      <tr><td>PWM servo</td><td class="td-todo">✏️ GPIO 12</td><td>Servo-moteur signal</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Réglage du courant A4988</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Courant nominal NEMA 17</td><td class="td-todo">✏️ ex : 1.2 A</td></tr>
+      <tr><td>Vref visée</td><td class="td-todo">✏️ ex : 0.6 V</td></tr>
+      <tr><td>Formule</td><td class="td-mono">Vref = I_max × 8 × R_sense</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Difficultés rencontrées</h2>
+  <div class="placeholder">✏️ Courts-circuits, mauvaise soudure, A4988 qui chauffe, moteur qui vibre sans bouger ?</div>
+  <h2>Photos du câblage</h2>
+  <div class="placeholder">📷 Ajoute des photos du PCB soudé et du câblage final</div>
+</div>
+</div>
+
+<!-- FAB TESTS -->
+<div class="page" id="page-fab-tests">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Fabrication</div>
+  <div class="page-eyebrow">Fabrication — 04</div>
+  <h1 class="page-title">Tests & Mise au point</h1>
+  <p class="page-lead">Une fois la machine assemblée et câblée, nous avons validé le fonctionnement axe par axe avant de lancer les premiers tracés.</p>
+
+  <h2>Tests réalisés</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Test</th><th>Résultat</th><th>Observations</th></tr></thead>
+    <tbody>
+      <tr><td>Alimentation 12V / 5V</td><td>✅ / ❌</td><td class="td-todo">✏️ à compléter</td></tr>
+      <tr><td>Mouvement axe X</td><td>✅ / ❌</td><td class="td-todo">✏️ à compléter</td></tr>
+      <tr><td>Mouvement axe Y</td><td>✅ / ❌</td><td class="td-todo">✏️ à compléter</td></tr>
+      <tr><td>Lever du stylo (M5)</td><td>✅ / ❌</td><td class="td-todo">✏️ à compléter</td></tr>
+      <tr><td>Baisser du stylo (M3)</td><td>✅ / ❌</td><td class="td-todo">✏️ à compléter</td></tr>
+      <tr><td>Tracé d'un carré G-code</td><td>✅ / ❌</td><td class="td-todo">✏️ à compléter</td></tr>
+      <tr><td>Précision sur 100 mm</td><td>✅ / ❌</td><td class="td-todo">✏️ ex : erreur de ±1 mm</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Calibration</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Paramètre</th><th>Valeur mesurée</th><th>Cible</th></tr></thead>
+    <tbody>
+      <tr><td>Pas/mm axe X</td><td class="td-todo">✏️</td><td class="td-todo">ex : 80 pas/mm</td></tr>
+      <tr><td>Pas/mm axe Y</td><td class="td-todo">✏️</td><td class="td-todo">ex : 80 pas/mm</td></tr>
+      <tr><td>Vitesse max (G1)</td><td class="td-todo">✏️</td><td class="td-todo">ex : 3000 mm/min</td></tr>
+      <tr><td>Angle servo levé</td><td class="td-todo">✏️</td><td class="td-todo">ex : 90°</td></tr>
+      <tr><td>Angle servo baissé</td><td class="td-todo">✏️</td><td class="td-todo">ex : 50°</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><strong>Formule pas/mm :</strong> <code>pas/mm = (pas_moteur × micro-pas) / (pas_courroie × dents_poulie)</code><br>Exemple GT2 20 dents, 1/16 micro-pas : (200 × 16) / (2 × 20) = 80 pas/mm</div>
+
+  <h2>Résultats</h2>
+  <div class="placeholder">✏️ Décris la qualité du premier tracé — trait régulier ? Dérive ? Saut de pas ?</div>
+  <h2>Photos et vidéos</h2>
+  <div class="placeholder">📷 Ajoute ici des photos des premiers dessins réalisés et/ou une vidéo de la machine en fonctionnement</div>
+</div>
+</div>
+
+<!-- CAO STRUCTURE -->
+<div class="page" id="page-cao-structure">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Conception CAO</div>
+  <div class="page-eyebrow">Conception CAO — 01</div>
+  <h1 class="page-title">Structure générale</h1>
+  <p class="page-lead">Le châssis de la MachineThatDraw est une structure cartésienne ouverte. Il supporte les deux axes de déplacement et maintient la rigidité de l'ensemble pendant les tracés.</p>
+  <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline" style="margin-bottom:32px;display:inline-flex">Ouvrir le modèle OnShape ↗</a>
+
+  <h2>Vue d'ensemble</h2>
+  <div class="placeholder">✏️ Ajoute ici une capture OnShape — vue isométrique de la machine complète</div>
+
+  <h2>Dimensions</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Longueur totale</td><td class="td-todo">✏️</td></tr>
+      <tr><td>Largeur totale</td><td class="td-todo">✏️</td></tr>
+      <tr><td>Hauteur totale</td><td class="td-todo">✏️</td></tr>
+      <tr><td>Zone de dessin X</td><td class="td-todo">✏️</td></tr>
+      <tr><td>Zone de dessin Y</td><td class="td-todo">✏️</td></tr>
+      <tr><td>Format papier</td><td class="td-todo">✏️ ex : A4, A3</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Matériaux du châssis</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Élément</th><th>Matériau</th><th>Justification</th></tr></thead>
+    <tbody>
+      <tr><td>Pièces structurelles</td><td class="td-mono">PLA imprimé 3D</td><td>Légèreté, fabrication rapide sur site</td></tr>
+      <tr><td>Tiges de guidage</td><td>Acier Ø6 mm</td><td>Rigidité, précision du guidage</td></tr>
+      <tr><td>Fixations</td><td>Vis M3 / M4 acier</td><td>Standard, facilement remplaçables</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Choix de conception</h2>
+  <div class="placeholder">✏️ Pourquoi cette architecture ? Alternatives écartées ? Contraintes de taille, poids, encombrement ?</div>
+</div>
+</div>
+
+<!-- CAO AXE X -->
+<div class="page" id="page-cao-axe-x">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Conception CAO</div>
+  <div class="page-eyebrow">Conception CAO — 02</div>
+  <h1 class="page-title">L'axe X</h1>
+  <p class="page-lead">L'axe X est l'axe horizontal. Le chariot X porte la tête porte-stylo et se déplace sur les tiges de guidage de l'axe Y.</p>
+
+  <h2>Vue CAO</h2>
+  <div class="placeholder">✏️ Ajoute une capture OnShape de l'axe X — vue de face et vue de dessus</div>
+
+  <h2>Conception</h2>
+  <div class="placeholder">✏️ Décris comment le chariot est guidé, comment la courroie est fixée, comment le stylo est centré.</div>
+
+  <h2>Pièces CAO</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Pièce</th><th>Matériau</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Chariot X</td><td class="td-todo">✏️ PLA / PETG</td><td class="td-todo">✏️ Support des bagues, fixation de la tête stylo</td></tr>
+      <tr><td>Support moteur X</td><td class="td-todo">✏️</td><td class="td-todo">✏️ Maintien du NEMA 17 en bout de course</td></tr>
+      <tr><td>Tendeur courroie X</td><td class="td-todo">✏️</td><td class="td-todo">✏️ Réglage de la tension de la courroie GT2</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Dimensions clés</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Longueur de déplacement X</td><td class="td-todo">✏️ mm</td></tr>
+      <tr><td>Diamètre des tiges</td><td>6 mm</td></tr>
+      <tr><td>Pas de la courroie</td><td>2 mm (GT2)</td></tr>
+      <tr><td>Dents de la poulie</td><td>20 dents</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>
+
+<!-- CAO AXE Y -->
+<div class="page" id="page-cao-axe-y">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Conception CAO</div>
+  <div class="page-eyebrow">Conception CAO — 03</div>
+  <h1 class="page-title">L'axe Y</h1>
+  <p class="page-lead">L'axe Y est l'axe de profondeur. Il porte l'ensemble du chariot X et le fait avancer ou reculer sur la feuille.</p>
+
+  <h2>Vue CAO</h2>
+  <div class="placeholder">✏️ Ajoute une capture OnShape de l'axe Y — vue de côté et vue de dessus</div>
+
+  <h2>Conception</h2>
+  <div class="placeholder">✏️ Décris comment les tiges Y sont fixées au châssis, comment le moteur Y entraîne le chariot X.</div>
+
+  <h2>Pièces CAO</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Pièce</th><th>Matériau</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Support axe Y gauche</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Maintien de la tige Y côté gauche</td></tr>
+      <tr><td>Support axe Y droit</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Maintien de la tige Y côté droit</td></tr>
+      <tr><td>Support moteur Y</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Fixation du NEMA 17 côté entraînement</td></tr>
+      <tr><td>Tendeur courroie Y</td><td class="td-todo">✏️</td><td class="td-todo">✏️ Réglage de la tension</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Dimensions clés</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Longueur de déplacement Y</td><td class="td-todo">✏️ mm</td></tr>
+      <tr><td>Diamètre des tiges</td><td>6 mm</td></tr>
+      <tr><td>Entraxe des tiges Y</td><td class="td-todo">✏️ mm</td></tr>
+      <tr><td>Pas de la courroie</td><td>2 mm (GT2)</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>
+
+<!-- CAO TETE -->
+<div class="page" id="page-cao-tete">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Conception CAO</div>
+  <div class="page-eyebrow">Conception CAO — 04</div>
+  <h1 class="page-title">Tête porte-stylo</h1>
+  <p class="page-lead">La tête porte-stylo est la pièce terminale de la machine. Elle est fixée sur le chariot X et embarque le servo-moteur qui contrôle le contact du stylo avec le papier.</p>
+
+  <h2>Vue CAO</h2>
+  <div class="placeholder">✏️ Ajoute une capture OnShape de la tête — vue éclatée si possible</div>
+
+  <h2>Fonctionnement</h2>
+  <p>Le servo-moteur reçoit un signal PWM de l'ESP32. Deux angles sont programmés :</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Position</th><th>Angle servo</th><th>Commande G-code</th></tr></thead>
+    <tbody>
+      <tr><td>Stylo levé</td><td class="td-todo">✏️ ex : 90°</td><td class="td-mono">M5</td></tr>
+      <tr><td>Stylo baissé</td><td class="td-todo">✏️ ex : 50°</td><td class="td-mono">M3</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Pièces CAO</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Pièce</th><th>Matériau</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Corps de la tête</td><td class="td-todo">✏️ PETG</td><td class="td-todo">✏️ Support principal, fixation sur chariot X</td></tr>
+      <tr><td>Bras servo</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Convertit la rotation du servo en translation du stylo</td></tr>
+      <tr><td>Manchon stylo</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Maintien du stylo — adapté au diamètre utilisé</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Compatibilité</h2>
+  <div class="placeholder">✏️ Quels types de stylos ou feutres peuvent être utilisés ? Ø du manchon ? Poids maximal ?</div>
+  <h2>Photos</h2>
+  <div class="placeholder">📷 Ajoute des photos de la tête assemblée et du stylo en position haute/basse</div>
+</div>
+</div>
+
+<!-- ELEC SCHEMA -->
+<div class="page" id="page-elec-schema">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Électronique & PCB</div>
+  <div class="page-eyebrow">Électronique — 01</div>
+  <h1 class="page-title">Schéma électronique</h1>
+  <p class="page-lead">Le schéma électronique a été conçu sous KiCad 9. Il regroupe l'ensemble des composants de la carte de contrôle.</p>
+
+  <h2>Architecture du circuit</h2>
+  <pre>Alimentation 12V (Barrel Jack)
+        │
+        ├─── Régulateur R-78E5.0 ──→ 5V → ESP32-S3-UNO
+        │
+        ├─── Driver A4988 #1 ──→ Moteur NEMA 17 (Axe X)
+        │
+        └─── Driver A4988 #2 ──→ Moteur NEMA 17 (Axe Y)
+
+ESP32-S3-UNO
+        ├─── GPIO STEP/DIR ──→ A4988 #1 (Axe X)
+        ├─── GPIO STEP/DIR ──→ A4988 #2 (Axe Y)
+        └─── PWM ──────────→ Servo-moteur stylo</pre>
+
+  <h2>Composants principaux</h2>
+  <div class="bom-cards">
+    <div class="bom-card"><div class="bom-ref">U1</div><div><div class="bom-name">ESP32-S3-UNO</div><div class="bom-desc">Microcontrôleur principal — génère les signaux STEP/DIR et le PWM servo</div></div></div>
+    <div class="bom-card"><div class="bom-ref">A1/A2</div><div><div class="bom-name">Module A4988</div><div class="bom-desc">Drivers moteurs pas-à-pas — 5V logique, 12V puissance</div></div></div>
+    <div class="bom-card"><div class="bom-ref">U2</div><div><div class="bom-name">R-78E5.0-1.0</div><div class="bom-desc">Régulateur DC/DC — convertit 12V en 5V/1A</div></div></div>
+    <div class="bom-card"><div class="bom-ref">J1</div><div><div class="bom-name">Barrel Jack</div><div class="bom-desc">Connecteur alimentation 12V DC avec interrupteur</div></div></div>
+  </div>
+
+  <h2>Capture KiCad</h2>
+  <div class="placeholder">✏️ Ajoute ici une capture du schéma KiCad</div>
+</div>
+</div>
+
+<!-- ELEC PCB -->
+<div class="page" id="page-elec-pcb">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Électronique & PCB</div>
+  <div class="page-eyebrow">Électronique — 02</div>
+  <h1 class="page-title">Routage du PCB</h1>
+  <p class="page-lead">Le PCB a été routé sous KiCad 9. Il regroupe tous les composants sur une carte sur-mesure adaptée à la machine.</p>
+
+  <h2>Choix de conception</h2>
+  <ul>
+    <li>PCB <strong>double couche</strong> pour simplifier le routage des alimentations</li>
+    <li>Séparation des plans d'alimentation (12V / 5V / GND)</li>
+    <li>Connecteurs déportés pour les moteurs et le servo</li>
+  </ul>
+
+  <h2>Caractéristiques</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Dimensions</td><td class="td-todo">✏️ mm × mm</td></tr>
+      <tr><td>Nombre de couches</td><td>2</td></tr>
+      <tr><td>Épaisseur cuivre</td><td>1 oz</td></tr>
+      <tr><td>Épaisseur carte</td><td>1.6 mm</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Vues KiCad</h2>
+  <div class="placeholder">✏️ Ajoute une capture du routage KiCad — vue 2D et/ou vue 3D</div>
+
+  <h2>Fichiers sources</h2>
+  <p>Les fichiers KiCad sont disponibles dans le dossier <code>project/ECAD/</code> du dépôt :</p>
+  <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">Voir sur GitHub ↗</a>
+</div>
+</div>
+
+<!-- ELEC COMPOSANTS -->
+<div class="page" id="page-elec-composants">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Électronique & PCB</div>
+  <div class="page-eyebrow">Électronique — 03</div>
+  <h1 class="page-title">Liste des composants (BOM)</h1>
+  <p class="page-lead">Liste complète des composants utilisés sur le PCB de la MachineThatDraw.</p>
+
+  <h2>Composants</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Référence</th><th>Composant</th><th>Modèle</th><th>Qté</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">U1</td><td>Microcontrôleur</td><td>ESP32-S3-UNO</td><td>1</td></tr>
+      <tr><td class="td-mono">A1, A2</td><td>Driver moteur</td><td>A4988</td><td>2</td></tr>
+      <tr><td class="td-mono">U2</td><td>Régulateur DC/DC</td><td>R-78E5.0-1.0</td><td>1</td></tr>
+      <tr><td class="td-mono">J1</td><td>Connecteur alim.</td><td>Barrel Jack Switch</td><td>1</td></tr>
+      <tr><td class="td-mono">J2, J3</td><td>Connecteur moteur</td><td>Conn_01x04</td><td>2</td></tr>
+      <tr><td class="td-mono">C1, C2</td><td>Condensateur</td><td>10µF, 100µF</td><td>2</td></tr>
+      <tr><td class="td-mono">M1</td><td>Servo-moteur</td><td>SG90 / MG90S</td><td>1</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Connexions principales</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Référence</th><th>Broche</th><th>Connecté à</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">U1</td><td>GPIO STEP/DIR</td><td>A4988 #1 (Moteur X)</td></tr>
+      <tr><td class="td-mono">U1</td><td>GPIO STEP/DIR</td><td>A4988 #2 (Moteur Y)</td></tr>
+      <tr><td class="td-mono">U1</td><td>PWM</td><td>Servo-moteur</td></tr>
+      <tr><td class="td-mono">A1/A2</td><td>VMOT</td><td>12V (J1)</td></tr>
+      <tr><td class="td-mono">A1/A2</td><td>VDD</td><td>5V (U2)</td></tr>
+      <tr><td class="td-mono">U2</td><td>Vin / Vout</td><td>12V → 5V (U1, A1, A2)</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>
+
+<!-- LOG ARCHITECTURE -->
+<div class="page" id="page-log-architecture">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Logiciels</div>
+  <div class="page-eyebrow">Logiciels — 01</div>
+  <h1 class="page-title">Architecture logicielle</h1>
+  <p class="page-lead">La chaîne logicielle se décompose en deux grandes parties : la génération du G-code côté PC, et l'interprétation côté microcontrôleur.</p>
+
+  <h2>Flux de données</h2>
+  <pre>[PC]
+  1. Fichier image ou vectoriel (SVG, PNG...)
+  2. Logiciel de conversion → fichier G-code (.gcode)
+  3. Envoi série (USB) vers l'ESP32
+
+[ESP32]
+  4. Réception du G-code
+  5. Interprétation des commandes (G0, G1, M3, M5...)
+  6. Génération des signaux STEP/DIR vers les A4988
+  7. Les moteurs NEMA 17 déplacent la tête
+
+[Mécanique]
+  8. Le stylo trace le dessin sur la feuille</pre>
+
+  <h2>Logiciels utilisés</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Outil</th><th>Rôle</th><th>Type</th></tr></thead>
+    <tbody>
+      <tr><td class="td-todo">✏️</td><td>Conversion image → G-code</td><td>PC</td></tr>
+      <tr><td>Arduino IDE / PlatformIO</td><td>Développement firmware</td><td>PC</td></tr>
+      <tr><td>Terminal série</td><td>Envoi G-code</td><td>PC</td></tr>
+    </tbody>
+  </table></div>
+  <div class="placeholder">✏️ Décris en détail les logiciels que vous utilisez pour préparer les fichiers.</div>
+</div>
+</div>
+
+<!-- LOG FIRMWARE -->
+<div class="page" id="page-log-firmware">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Logiciels</div>
+  <div class="page-eyebrow">Logiciels — 02</div>
+  <h1 class="page-title">Firmware ESP32</h1>
+  <p class="page-lead">Le firmware tourne sur l'ESP32-S3-UNO et interprète les commandes G-code reçues en série pour piloter les deux drivers A4988 et le servo.</p>
+
+  <h2>Commandes G-code supportées</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Commande</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">G0 X__ Y__</td><td>Déplacement rapide sans tracé (stylo levé)</td></tr>
+      <tr><td class="td-mono">G1 X__ Y__ F__</td><td>Déplacement avec tracé (stylo baissé)</td></tr>
+      <tr><td class="td-mono">M3</td><td>Baisser le stylo</td></tr>
+      <tr><td class="td-mono">M5</td><td>Lever le stylo</td></tr>
+      <tr><td class="td-mono">G28</td><td class="td-todo">✏️ Retour à l'origine — si implémenté</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Code principal</h2>
+  <pre><span style="color:#5a8a5a">// Machine That Draw — Groupe 06
+// Makerspace Amiens 2025-2026</span>
+
+#include &lt;Stepper.h&gt;
+#include &lt;Servo.h&gt;
+
+const int STEPS = 200;
+Stepper motorX(STEPS, 8, 9, 10, 11);
+Stepper motorY(STEPS, 4, 5, 6, 7);
+Servo penServo;
+
+void setup() {
+  Serial.begin(115200);
+  motorX.setSpeed(60);
+  motorY.setSpeed(60);
+  penServo.attach(12);
+  penServo.write(90); <span style="color:#5a8a5a">// Stylo levé</span>
+}
+
+void loop() {
+  if (Serial.available()) {
+    String cmd = Serial.readStringUntil('\n');
+    parseGCode(cmd);
+  }
+}</pre>
+  <div class="placeholder">✏️ Ajoute ici la fonction parseGCode() avec votre implémentation réelle</div>
+
+  <h2>Paramètres de calibration</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Pas/mm axe X</td><td class="td-todo">✏️ ex : 80 pas/mm</td></tr>
+      <tr><td>Pas/mm axe Y</td><td class="td-todo">✏️ ex : 80 pas/mm</td></tr>
+      <tr><td>Vitesse G0</td><td class="td-todo">✏️ ex : 5000 mm/min</td></tr>
+      <tr><td>Vitesse G1</td><td class="td-todo">✏️ ex : 2000 mm/min</td></tr>
+      <tr><td>Angle servo levé</td><td class="td-todo">✏️ ex : 90°</td></tr>
+      <tr><td>Angle servo baissé</td><td class="td-todo">✏️ ex : 50°</td></tr>
+      <tr><td>Port série</td><td>115200 bauds</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>
+
+<!-- LOG GCODE -->
+<div class="page" id="page-log-gcode">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Logiciels</div>
+  <div class="page-eyebrow">Logiciels — 03</div>
+  <h1 class="page-title">Conversion G-code</h1>
+  <p class="page-lead">Avant d'envoyer un dessin à la machine, le fichier source doit être converti en une liste d'instructions G-code que le firmware peut interpréter.</p>
+
+  <h2>Processus de conversion</h2>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Préparation du fichier source</div><div class="step-desc">Dessin vectoriel (SVG) ou image bitmap (PNG, JPG)</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Vectorisation</div><div class="step-desc">Si le fichier est une image bitmap, on le convertit d'abord en SVG</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Génération des trajectoires</div><div class="step-desc">Le logiciel calcule l'ordre de parcours des contours</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Export G-code</div><div class="step-desc">Fichier .gcode prêt à être envoyé en série à l'ESP32</div></div></div>
+  </div>
+
+  <h2>Outils utilisés</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Logiciel</th><th>Rôle</th><th>Plateforme</th></tr></thead>
+    <tbody>
+      <tr><td class="td-todo">✏️ ex : Inkscape + extension</td><td>Conversion SVG → G-code</td><td>PC</td></tr>
+      <tr><td class="td-todo">✏️ ex : svg2gcode</td><td class="td-todo">✏️</td><td class="td-todo">✏️</td></tr>
+    </tbody>
+  </table></div>
+  <div class="placeholder">✏️ Décris précisément comment vous préparez un fichier — réglages utilisés, unités, dimensions.</div>
+
+  <h2>Exemple de G-code généré</h2>
+  <pre><span style="color:#5a8a5a">; Dessin d'un carré 50×50 mm</span>
+G0 X0 Y0         <span style="color:#5a8a5a">; Aller à l'origine</span>
+M3               <span style="color:#5a8a5a">; Baisser le stylo</span>
+G1 X50 Y0 F800   <span style="color:#5a8a5a">; Ligne horizontale 50 mm</span>
+G1 X50 Y50       <span style="color:#5a8a5a">; Ligne verticale 50 mm</span>
+G1 X0 Y50        <span style="color:#5a8a5a">; Ligne horizontale retour</span>
+G1 X0 Y0         <span style="color:#5a8a5a">; Fermer le carré</span>
+M5               <span style="color:#5a8a5a">; Lever le stylo</span>
+G0 X0 Y0         <span style="color:#5a8a5a">; Retour origine</span></pre>
+
+  <h2>Paramètres importants</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Unités</td><td>mm</td></tr>
+      <tr><td>Vitesse d'avance (F)</td><td class="td-todo">✏️ ex : 800 mm/min</td></tr>
+      <tr><td>Commande stylo baissé</td><td class="td-mono">M3</td></tr>
+      <tr><td>Commande stylo levé</td><td class="td-mono">M5</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Résultats obtenus</h2>
+  <div class="placeholder">📷 Montre des exemples de dessins produits par la machine — photos des tracés sur papier</div>
+</div>
+</div>
+
+</main>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const page = document.getElementById('page-'+id);
+  if(page) page.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+id+"'")){
+      n.classList.add('active');
+      const children = n.closest('.nav-children');
+      if(children){
+        children.classList.add('open');
+        const toggle = children.previousElementSibling;
+        if(toggle) toggle.classList.add('open');
+      }
+    }
+  });
+  window.scrollTo(0,0);
+  document.getElementById('sidebar').classList.remove('open');
+}
+function toggleGroup(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>
