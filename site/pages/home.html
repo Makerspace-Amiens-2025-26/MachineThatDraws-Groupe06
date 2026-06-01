@@ -1,18 +1,15 @@
 <div class="page active" id="page-home">
 
-  <!-- HERO SCROLL SECTION -->
+  <!-- SCROLL STAGE : 400vh de hauteur pour le scroll -->
   <div id="scroll-stage">
     <div id="scroll-sticky">
-      <!-- Modèle 3D plein écran en arrière-plan -->
+
+      <!-- Modèle 3D plein écran -->
       <model-viewer
         id="hero-model"
         src="assets/images/models/machine (2).gltf"
-        camera-controls
         disable-zoom
         disable-pan
-        auto-rotate
-        auto-rotate-delay="99999"
-        rotation-per-second="0deg"
         shadow-intensity="0"
         environment-image="neutral"
         exposure="0.9"
@@ -21,9 +18,9 @@
         alt="Modèle 3D Machine That Draw">
       </model-viewer>
 
-      <!-- Overlay texte hero -->
-      <div id="hero-overlay">
-        <div id="hero-text-1" class="hero-text-block">
+      <!-- Texte à gauche, sur fond flouté, PAS par-dessus le modèle -->
+      <div id="hero-left">
+        <div id="hero-text-1" class="hero-slide">
           <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
           <h1 class="home-title">Machine That Draw</h1>
           <p class="home-sub">Machine à dessiner à commande numérique —<br>conçue et fabriquée par 4 étudiants.</p>
@@ -32,43 +29,41 @@
             <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
           </div>
         </div>
-        <div id="hero-text-2" class="hero-text-block" style="opacity:0">
+        <div id="hero-text-2" class="hero-slide" style="opacity:0">
           <div class="home-badge">Mécanique</div>
-          <h2 style="font-family:var(--serif);font-size:36px;font-style:italic;margin-bottom:12px">Structure cartésienne X/Y</h2>
+          <h2 class="home-title" style="font-size:38px">Structure cartésienne X/Y</h2>
           <p class="home-sub">Guidages linéaires, courroies GT2<br>et pièces entièrement imprimées en 3D.</p>
         </div>
-        <div id="hero-text-3" class="hero-text-block" style="opacity:0">
+        <div id="hero-text-3" class="hero-slide" style="opacity:0">
           <div class="home-badge">Électronique</div>
-          <h2 style="font-family:var(--serif);font-size:36px;font-style:italic;margin-bottom:12px">PCB sur-mesure</h2>
+          <h2 class="home-title" style="font-size:38px">PCB sur-mesure</h2>
           <p class="home-sub">ESP32-S3-UNO, drivers A4988<br>et carte conçue sous KiCad 9.</p>
         </div>
-        <div id="hero-text-4" class="hero-text-block" style="opacity:0">
-          <div class="home-badge">Prêt à explorer ?</div>
-          <h2 style="font-family:var(--serif);font-size:36px;font-style:italic;margin-bottom:12px">La documentation complète</h2>
-          <p class="home-sub">Fabrication, CAO, électronique, firmware —<br>tout est documenté ici.</p>
+        <div id="hero-text-4" class="hero-slide" style="opacity:0">
+          <div class="home-badge">Documentation complète</div>
+          <h2 class="home-title" style="font-size:38px">Tout est documenté ici</h2>
+          <p class="home-sub">Fabrication, CAO, électronique, firmware —<br>explorez chaque section.</p>
           <div class="home-btns" style="margin-top:28px">
             <button class="btn btn-primary" onclick="showPage('presentation')">Commencer la lecture</button>
           </div>
         </div>
       </div>
 
-      <!-- Indicateur de scroll -->
-      <div id="scroll-hint">
-        <span>Défiler</span>
-        <div id="scroll-arrow">↓</div>
-      </div>
+      <!-- Indicateur scroll -->
+      <div id="scroll-hint">DÉFILER <span style="display:block;margin-top:4px">↓</span></div>
+
+      <!-- Barre de progression -->
+      <div id="scroll-progress-bar"></div>
     </div>
   </div>
 
-  <!-- SUITE DE LA PAGE -->
-  <div class="home-body" style="background:var(--bg)">
-    <!-- Hero équipe -->
-    <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:0">
+  <!-- RESTE DE LA PAGE -->
+  <div class="home-body">
+    <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
       <div>
         <h2>Le projet</h2>
         <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">
-          Ce site a pour objectif de présenter notre projet, d'expliquer son fonctionnement et de fournir les informations nécessaires pour comprendre, utiliser et reproduire la machine.
-          La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026.
+          La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.
         </p>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">OnShape ↗</a>
@@ -85,7 +80,6 @@
         </div>
       </div>
     </div>
-
     <div style="grid-column:1/-1">
       <div class="cards-grid">
         <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
@@ -97,134 +91,125 @@
 </div>
 
 <style>
-/* ── SCROLL STAGE ── */
-#scroll-stage {
-  height: 400vh;
-  position: relative;
-}
+#scroll-stage { height: 400vh; position: relative; }
 #scroll-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  position: sticky; top: 0; height: 100vh;
+  display: grid;
+  grid-template-columns: 420px 1fr;
   overflow: hidden;
 }
 #hero-model {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%; height: 100%;
   --progress-bar-color: transparent;
 }
-#hero-overlay {
-  position: absolute;
-  inset: 0;
+#hero-left {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  padding: 64px;
-  pointer-events: none;
+  padding: 56px 40px 56px 56px;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
 }
-.hero-text-block {
+.hero-slide {
   position: absolute;
-  left: 64px;
-  max-width: 480px;
-  transition: opacity 0.5s ease;
-  pointer-events: all;
+  left: 56px; right: 40px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 #scroll-hint {
   position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  transition: opacity 0.4s;
-}
-#scroll-arrow {
-  margin-top: 6px;
+  bottom: 28px; right: 48px;
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text3);
+  text-align: center; transition: opacity 0.4s;
   animation: bounce 1.5s infinite;
 }
 @keyframes bounce {
-  0%, 100% { transform: translateY(0) }
-  50% { transform: translateY(6px) }
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)}
+}
+#scroll-progress-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.1s;
+  z-index: 10;
 }
 </style>
 
 <script>
-(function() {
-  const stage = document.getElementById('scroll-stage');
-  if (!stage) return;
-
-  const model = document.getElementById('hero-model');
-  const texts = [
+(function(){
+  const stage    = document.getElementById('scroll-stage');
+  const model    = document.getElementById('hero-model');
+  const hint     = document.getElementById('scroll-hint');
+  const bar      = document.getElementById('scroll-progress-bar');
+  const slides   = [
     document.getElementById('hero-text-1'),
     document.getElementById('hero-text-2'),
     document.getElementById('hero-text-3'),
     document.getElementById('hero-text-4'),
   ];
-  const hint = document.getElementById('scroll-hint');
 
-  // Camera keyframes: [orbit, fov]
   const keyframes = [
-    { orbit: '0deg 75deg 2.5m',   fov: '30deg' },  // 0% — vue de face
-    { orbit: '45deg 70deg 2m',    fov: '28deg' },  // 33% — côté mécanique
-    { orbit: '180deg 80deg 1.8m', fov: '25deg' },  // 66% — dessous électronique
-    { orbit: '270deg 65deg 2.2m', fov: '30deg' },  // 100% — vue finale
+    { orbit: '0deg 75deg 2.5m',    fov: '30deg' },
+    { orbit: '60deg 70deg 2.0m',   fov: '27deg' },
+    { orbit: '180deg 80deg 1.8m',  fov: '25deg' },
+    { orbit: '300deg 65deg 2.2m',  fov: '30deg' },
   ];
 
-  function lerp(a, b, t) { return a + (b - a) * t; }
+  function lerp(a, b, t){ return a + (b-a)*t; }
 
-  function parseOrbit(str) {
-    const parts = str.match(/([\d.-]+)deg\s+([\d.-]+)deg\s+([\d.]+)m/);
-    return { theta: parseFloat(parts[1]), phi: parseFloat(parts[2]), r: parseFloat(parts[3]) };
+  function parseOrbit(s){
+    const m = s.match(/([\d.-]+)deg\s+([\d.-]+)deg\s+([\d.]+)m/);
+    return { th: +m[1], ph: +m[2], r: +m[3] };
   }
 
-  function toOrbit(theta, phi, r) {
-    return `${theta.toFixed(2)}deg ${phi.toFixed(2)}deg ${r.toFixed(3)}m`;
-  }
-
-  function parseFov(str) { return parseFloat(str); }
-
-  function onScroll() {
+  function update(){
     const rect = stage.getBoundingClientRect();
-    const totalScroll = stage.offsetHeight - window.innerHeight;
-    const scrolled = -rect.top;
-    const progress = Math.max(0, Math.min(1, scrolled / totalScroll));
+    // scroll is on #main
+    const main = document.getElementById('main');
+    const scrollTop = main ? main.scrollTop : window.scrollY;
+    const stageTop = stage.offsetTop;
+    const totalH = stage.offsetHeight - window.innerHeight;
+    const scrolled = scrollTop - stageTop;
+    const progress = Math.max(0, Math.min(1, scrolled / totalH));
 
-    // Which segment (0→1, 1→2, 2→3)
-    const segments = keyframes.length - 1;
-    const seg = Math.min(segments - 1, Math.floor(progress * segments));
-    const t = (progress * segments) - seg;
+    // Progress bar
+    bar.style.width = (progress * 100) + '%';
 
-    const kA = keyframes[seg];
-    const kB = keyframes[seg + 1];
-    const oA = parseOrbit(kA.orbit);
-    const oB = parseOrbit(kB.orbit);
+    // Camera
+    const segs = keyframes.length - 1;
+    const seg  = Math.min(segs - 1, Math.floor(progress * segs));
+    const t    = (progress * segs) - seg;
+    const A = parseOrbit(keyframes[seg].orbit);
+    const B = parseOrbit(keyframes[seg+1].orbit);
+    const fovA = parseFloat(keyframes[seg].fov);
+    const fovB = parseFloat(keyframes[seg+1].fov);
+    model.setAttribute('camera-orbit',
+      `${lerp(A.th,B.th,t).toFixed(1)}deg ${lerp(A.ph,B.ph,t).toFixed(1)}deg ${lerp(A.r,B.r,t).toFixed(3)}m`);
+    model.setAttribute('field-of-view', lerp(fovA,fovB,t).toFixed(1)+'deg');
 
-    const orbit = toOrbit(lerp(oA.theta, oB.theta, t), lerp(oA.phi, oB.phi, t), lerp(oA.r, oB.r, t));
-    const fov = lerp(parseFov(kA.fov), parseFov(kB.fov), t).toFixed(1) + 'deg';
-
-    model.setAttribute('camera-orbit', orbit);
-    model.setAttribute('field-of-view', fov);
-
-    // Text crossfade
-    const textIndex = Math.round(progress * (texts.length - 1));
-    texts.forEach((el, i) => {
-      if (!el) return;
-      el.style.opacity = i === textIndex ? '1' : '0';
-      el.style.pointerEvents = i === textIndex ? 'all' : 'none';
+    // Slides
+    const idx = Math.round(progress * (slides.length - 1));
+    slides.forEach((s,i) => {
+      s.style.opacity  = i===idx ? '1' : '0';
+      s.style.transform = i===idx ? 'translateY(0)' : (i<idx ? 'translateY(-12px)' : 'translateY(12px)');
+      s.style.pointerEvents = i===idx ? 'all' : 'none';
     });
 
-    // Hide scroll hint after first scroll
-    if (hint) hint.style.opacity = progress > 0.02 ? '0' : '1';
+    // Hint
+    hint.style.opacity = progress < 0.03 ? '1' : '0';
   }
 
-  // Use the main scrolling element
-  const main = document.getElementById('main') || window;
-  main.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // Écoute sur #main (le vrai scrollable)
+  const main = document.getElementById('main');
+  if(main) main.addEventListener('scroll', update, { passive:true });
+  window.addEventListener('scroll', update, { passive:true });
+  update();
 })();
 </script>
