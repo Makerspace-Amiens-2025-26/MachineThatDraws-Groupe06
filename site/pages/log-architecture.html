@@ -1,0 +1,34 @@
+<div class="page" id="page-log-architecture">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Logiciels</div>
+  <div class="page-eyebrow">Logiciels — 01</div>
+  <h1 class="page-title">Architecture logicielle</h1>
+  <p class="page-lead">La chaîne logicielle se décompose en deux grandes parties : la génération du G-code côté PC, et l'interprétation côté microcontrôleur.</p>
+
+  <h2>Flux de données</h2>
+  <pre>[PC]
+  1. Fichier image ou vectoriel (SVG, PNG...)
+  2. Logiciel de conversion → fichier G-code (.gcode)
+  3. Envoi série (USB) vers l'ESP32
+
+[ESP32]
+  4. Réception du G-code
+  5. Interprétation des commandes (G0, G1, M3, M5...)
+  6. Génération des signaux STEP/DIR vers les A4988
+  7. Les moteurs NEMA 17 déplacent la tête
+
+[Mécanique]
+  8. Le stylo trace le dessin sur la feuille</pre>
+
+  <h2>Logiciels utilisés</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Outil</th><th>Rôle</th><th>Type</th></tr></thead>
+    <tbody>
+      <tr><td class="td-todo">✏️</td><td>Conversion image → G-code</td><td>PC</td></tr>
+      <tr><td>Arduino IDE / PlatformIO</td><td>Développement firmware</td><td>PC</td></tr>
+      <tr><td>Terminal série</td><td>Envoi G-code</td><td>PC</td></tr>
+    </tbody>
+  </table></div>
+  <div class="placeholder">✏️ Décris en détail les logiciels que vous utilisez pour préparer les fichiers.</div>
+</div>
+</div>

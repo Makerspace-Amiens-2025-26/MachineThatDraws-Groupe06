@@ -1,0 +1,35 @@
+<div class="page" id="page-elec-composants">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Électronique & PCB</div>
+  <div class="page-eyebrow">Électronique — 03</div>
+  <h1 class="page-title">Liste des composants (BOM)</h1>
+  <p class="page-lead">Liste complète des composants utilisés sur le PCB de la MachineThatDraw.</p>
+
+  <h2>Composants</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Référence</th><th>Composant</th><th>Modèle</th><th>Qté</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">U1</td><td>Microcontrôleur</td><td>ESP32-S3-UNO</td><td>1</td></tr>
+      <tr><td class="td-mono">A1, A2</td><td>Driver moteur</td><td>A4988</td><td>2</td></tr>
+      <tr><td class="td-mono">U2</td><td>Régulateur DC/DC</td><td>R-78E5.0-1.0</td><td>1</td></tr>
+      <tr><td class="td-mono">J1</td><td>Connecteur alim.</td><td>Barrel Jack Switch</td><td>1</td></tr>
+      <tr><td class="td-mono">J2, J3</td><td>Connecteur moteur</td><td>Conn_01x04</td><td>2</td></tr>
+      <tr><td class="td-mono">C1, C2</td><td>Condensateur</td><td>10µF, 100µF</td><td>2</td></tr>
+      <tr><td class="td-mono">M1</td><td>Servo-moteur</td><td>SG90 / MG90S</td><td>1</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Connexions principales</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Référence</th><th>Broche</th><th>Connecté à</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">U1</td><td>GPIO STEP/DIR</td><td>A4988 #1 (Moteur X)</td></tr>
+      <tr><td class="td-mono">U1</td><td>GPIO STEP/DIR</td><td>A4988 #2 (Moteur Y)</td></tr>
+      <tr><td class="td-mono">U1</td><td>PWM</td><td>Servo-moteur</td></tr>
+      <tr><td class="td-mono">A1/A2</td><td>VMOT</td><td>12V (J1)</td></tr>
+      <tr><td class="td-mono">A1/A2</td><td>VDD</td><td>5V (U2)</td></tr>
+      <tr><td class="td-mono">U2</td><td>Vin / Vout</td><td>12V → 5V (U1, A1, A2)</td></tr>
+    </tbody>
+  </table></div>
+</div>
+</div>

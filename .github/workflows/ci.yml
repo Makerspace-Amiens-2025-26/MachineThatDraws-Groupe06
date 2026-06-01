@@ -1,28 +1,23 @@
 name: CI
-
 on:
   push:
     branches: ["main"]
   pull_request:
-
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./docs
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
-          bundler-cache: false
-          working-directory: ${{env.working-directory}}
-      - name: Install gems
-        run: bundle install
-        working-directory: ${{env.working-directory}}
-      - name: Build with Jekyll
-        run: bundle exec jekyll build
-        working-directory: ${{env.working-directory}}
+          persist-credentials: false
+      - name: Check site folder exists
+        run: |
+          echo "Repo structure:" && ls -la
+          if [ ! -f "site/index.html" ]; then
+            echo "ERROR: site/index.html not found"
+            exit 1
+          fi
+          echo "site/index.html found ✓"
