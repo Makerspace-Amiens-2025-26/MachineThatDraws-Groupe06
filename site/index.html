@@ -374,7 +374,7 @@ pre code{background:none;padding:0;color:inherit}
 <!-- SIDEBAR -->
 <aside id="sidebar">
   <div class="sidebar-logo">
-    <div class="sidebar-logo-badge">Groupe 06 · 2025/2026</div>
+    <div class="sidebar-logo-badge">Groupe 06 · 2025-2026</div>
     <div class="sidebar-logo-title">Machine That Draw</div>
     <div class="sidebar-logo-sub">Makerspace Amiens</div>
   </div>
@@ -515,6 +515,275 @@ document.addEventListener('DOMContentLoaded', () => {
     fill.style.width = (total > 0 ? (el.scrollTop / total) * 100 : 0) + '%';
   }, {passive: true});
 });
+</script>
+
+<!-- ══ THREE.JS — loaded once, activated when home page is shown ══ -->
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js';
+import { GLTFLoader }    from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/controls/OrbitControls.js';
+
+// ── CSS injected once ──
+const style = document.createElement('style');
+style.textContent = `
+.model-wrap{ border-top:1px solid var(--border); }
+.model-scroll-label{ padding:28px 64px 0; min-height:36px; }
+.model-scroll-hint,.model-free-hint{
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;display:flex;align-items:center;gap:8px;
+}
+.model-sticky-outer{ height:400vh; position:relative; }
+.model-sticky-inner{
+  position:sticky;top:0;height:100vh;overflow:hidden;background:#090b10;
+}
+#three-canvas{ width:100%!important;height:100%!important;display:block; }
+.model-progress-wrap{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  width:160px;height:2px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;
+}
+.model-progress-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#991f1f,#e63030,#ff7070);
+  box-shadow:0 0 8px rgba(230,48,48,.7);border-radius:2px;
+}
+.fly-label{
+  position:absolute;bottom:56px;left:50%;transform:translateX(-50%);
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(230,48,48,.8);font-weight:500;pointer-events:none;
+  transition:opacity .5s ease;font-family:var(--mono,monospace);white-space:nowrap;
+}
+@media(max-width:768px){ .model-scroll-label{ padding:20px 24px 0; } }
+`;
+document.head.appendChild(style);
+
+// ─────────────────────────────────────────────
+// Three.js state (created once, reused)
+// ─────────────────────────────────────────────
+let renderer, camera, scene, controls;
+let pt1, pt2;
+let splinePos, splineLook;
+let machineModel = null;
+let flyDone = false;
+let animRunning = false;
+const camPos  = new THREE.Vector3();
+const camLook = new THREE.Vector3();
+const _tp     = new THREE.Vector3();
+const _tl     = new THREE.Vector3();
+
+const WAYPOINTS = [
+  {t:0.00,label:0},{t:0.22,label:1},{t:0.45,label:2},{t:0.62,label:3},{t:0.88,label:4}
+];
+
+function buildScene(){
+  // Renderer
+  const canvas = document.getElementById('three-canvas');
+  if(!canvas) return;
+
+  renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x090b10, 1);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+
+  // Scene
+  scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x090b10, 0.9);
+
+  // Camera
+  camera = new THREE.PerspectiveCamera(55, 1, 0.001, 50);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+  const key = new THREE.DirectionalLight(0xffd5a0, 1.8);
+  key.position.set(2, 3, 2); scene.add(key);
+  const fill = new THREE.DirectionalLight(0x8aaeff, 0.6);
+  fill.position.set(-2, 1, -1); scene.add(fill);
+  const rim = new THREE.DirectionalLight(0xff4444, 0.35);
+  rim.position.set(0, -1, -2); scene.add(rim);
+  pt1 = new THREE.PointLight(0xff3333, 0.8, 1.5);
+  pt1.position.set(0, 0.1, 0); scene.add(pt1);
+  pt2 = new THREE.PointLight(0x3366ff, 0.5, 1.2);
+  pt2.position.set(0.15, 0.2, 0.1); scene.add(pt2);
+
+  // Orbit controls
+  controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.06;
+  controls.minDistance = 0.05;
+  controls.maxDistance = 5;
+  controls.enabled = false;
+
+  // Spline path — weaves through the machine interior
+  const PATH_POS = [
+    new THREE.Vector3( 0.00,  0.55,  0.80),
+    new THREE.Vector3( 0.25,  0.35,  0.55),
+    new THREE.Vector3( 0.28,  0.18,  0.30),
+    new THREE.Vector3( 0.10,  0.05,  0.10),
+    new THREE.Vector3(-0.15,  0.08, -0.05),
+    new THREE.Vector3(-0.25,  0.22,  0.05),
+    new THREE.Vector3(-0.05,  0.28,  0.02),
+    new THREE.Vector3( 0.18,  0.20, -0.12),
+    new THREE.Vector3( 0.05,  0.10, -0.30),
+    new THREE.Vector3( 0.00,  0.40, -0.55),
+    new THREE.Vector3( 0.00,  0.30, -0.80),
+  ];
+  const PATH_LOOK = [
+    new THREE.Vector3( 0.00,  0.10,  0.00),
+    new THREE.Vector3( 0.10,  0.05,  0.10),
+    new THREE.Vector3( 0.00,  0.05,  0.00),
+    new THREE.Vector3(-0.15,  0.08, -0.05),
+    new THREE.Vector3(-0.25,  0.22,  0.05),
+    new THREE.Vector3(-0.05,  0.28,  0.02),
+    new THREE.Vector3( 0.18,  0.20, -0.12),
+    new THREE.Vector3( 0.05,  0.10, -0.30),
+    new THREE.Vector3( 0.00,  0.40, -0.55),
+    new THREE.Vector3( 0.00,  0.15,  0.00),
+    new THREE.Vector3( 0.00,  0.00,  0.00),
+  ];
+  splinePos  = new THREE.CatmullRomCurve3(PATH_POS,  false, 'catmullrom', 0.5);
+  splineLook = new THREE.CatmullRomCurve3(PATH_LOOK, false, 'catmullrom', 0.5);
+
+  // Init camera at start of spline
+  splinePos.getPoint(0, camPos);
+  splineLook.getPoint(0.04, camLook);
+  camera.position.copy(camPos);
+  camera.lookAt(camLook);
+
+  // Resize observer
+  new ResizeObserver(() => {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if(w === 0 || h === 0) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }).observe(canvas);
+
+  // Load model
+  if(machineModel){
+    scene.add(machineModel);
+  } else {
+    new GLTFLoader().load(
+      'assets/images/models/machine (2).gltf',
+      gltf => {
+        machineModel = gltf.scene;
+        const box = new THREE.Box3().setFromObject(machineModel);
+        const size = new THREE.Vector3(), center = new THREE.Vector3();
+        box.getSize(size); box.getCenter(center);
+        const sc = 0.5 / Math.max(size.x, size.y, size.z);
+        machineModel.scale.setScalar(sc);
+        machineModel.position.sub(center.multiplyScalar(sc));
+        machineModel.traverse(child => {
+          if(child.isMesh && child.material){
+            const mats = Array.isArray(child.material) ? child.material : [child.material];
+            mats.forEach(m => {
+              if(m.isMeshStandardMaterial || m.isMeshPhysicalMaterial){
+                m.metalness = Math.max(m.metalness||0, 0.4);
+                m.roughness = Math.min(m.roughness!==undefined ? m.roughness : 0.6, 0.75);
+              }
+            });
+          }
+        });
+        scene.add(machineModel);
+      },
+      undefined,
+      err => console.warn('GLTF load error:', err)
+    );
+  }
+}
+
+function getScrollT(){
+  const outer = document.getElementById('sticky-outer');
+  if(!outer) return 0;
+  const rect = outer.getBoundingClientRect();
+  const totalScroll = outer.offsetHeight - window.innerHeight;
+  if(totalScroll <= 0) return 0;
+  return Math.max(0, Math.min(1, -rect.top / totalScroll));
+}
+
+function updateWaypointLabels(t){
+  WAYPOINTS.forEach(wp => {
+    const el = document.getElementById('lbl-' + wp.label);
+    if(!el) return;
+    const dist = Math.abs(t - wp.t);
+    el.style.opacity = dist < 0.06 ? Math.max(0, 1 - dist / 0.06) : 0;
+  });
+}
+
+function enterFreeMode(){
+  if(flyDone) return;
+  flyDone = true;
+  splinePos.getPoint(1, camPos);
+  camera.position.copy(camPos);
+  controls.target.set(0, 0.05, 0);
+  controls.enabled = true;
+  const sh = document.getElementById('scroll-hint');
+  const fh = document.getElementById('free-hint');
+  if(sh) sh.style.display = 'none';
+  if(fh) fh.style.display = 'flex';
+  WAYPOINTS.forEach(wp => {
+    const el = document.getElementById('lbl-' + wp.label);
+    if(el) el.style.opacity = 0;
+  });
+}
+
+const clock = new THREE.Clock();
+function animate(){
+  if(!animRunning) return;
+  requestAnimationFrame(animate);
+
+  if(!flyDone){
+    const t = getScrollT();
+    const bar = document.getElementById('model-progress');
+    if(bar) bar.style.width = (t * 100) + '%';
+
+    splinePos.getPoint(t, _tp);
+    splineLook.getPoint(Math.min(t + 0.04, 1), _tl);
+    camPos.lerp(_tp, 0.07);
+    camLook.lerp(_tl, 0.07);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+    updateWaypointLabels(t);
+    if(t >= 0.98) enterFreeMode();
+  } else {
+    controls.update();
+  }
+
+  const time = clock.elapsedTime;
+  if(pt1) pt1.intensity = 0.6 + 0.2 * Math.sin(time * 1.7);
+  if(pt2) pt2.intensity = 0.4 + 0.15 * Math.sin(time * 2.3 + 1.2);
+
+  renderer.render(scene, camera);
+}
+
+// ─────────────────────────────────────────────
+// Hook into showPage — start/stop scene
+// ─────────────────────────────────────────────
+const _origShowPage = window.showPage;
+window.showPage = async function(id){
+  // Stop any running scene
+  animRunning = false;
+  if(renderer){
+    renderer.dispose();
+    renderer = null;
+    scene = null;
+    controls = null;
+    camera = null;
+  }
+  flyDone = false;
+
+  await _origShowPage(id);
+
+  if(id === 'home'){
+    // Wait one frame for DOM to be ready
+    requestAnimationFrame(() => {
+      buildScene();
+      animRunning = true;
+      clock.start();
+      animate();
+    });
+  }
+};
 </script>
 </body>
 </html>
