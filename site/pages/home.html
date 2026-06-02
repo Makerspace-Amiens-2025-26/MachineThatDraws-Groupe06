@@ -1,4 +1,6 @@
 <div class="page active" id="page-home">
+
+  <!-- ══ HERO ══ -->
   <div class="home-hero">
     <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
     <h1 class="home-title">Machine That Draw</h1>
@@ -10,6 +12,7 @@
     </div>
   </div>
 
+  <!-- ══ PROJECT + TEAM ══ -->
   <div class="home-body">
     <div>
       <h2>Le projet</h2>
@@ -29,378 +32,357 @@
         <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
       </div>
     </div>
+  </div>
 
-    <div class="model-wrap">
-      <h2>Modèle 3D</h2>
-      <div id="mv-shell">
-
-        <!-- model-viewer : min/max orbit ouverts pour que la caméra passe partout -->
-        <model-viewer
-          id="mv"
-          src="assets/images/models/machine (2).gltf"
-          camera-controls
-          shadow-intensity="0"
-          environment-image="neutral"
-          exposure="0.8"
-          interpolation-decay="50"
-          min-camera-orbit="auto 0deg auto"
-          max-camera-orbit="auto 180deg auto"
-          min-field-of-view="5deg"
-          max-field-of-view="90deg"
-          alt="Modèle 3D Machine That Draw">
-        </model-viewer>
-
-        <!-- HUD overlay -->
-        <div id="mv-hud">
-          <div id="mv-label"><span id="mv-label-txt"></span></div>
-
-          <div id="mv-dots"></div>
-
-          <div id="mv-btns">
-            <button class="mvbtn" id="mvbtn-pp">⏸</button>
-            <button class="mvbtn" id="mvbtn-rst">↺</button>
-            <button class="mvbtn" id="mvbtn-free">🖱 Libre</button>
-          </div>
-
-          <div id="mv-free-banner" style="display:none">
-            <span>Mode libre</span>
-            <button class="mvbtn-sm" id="mvbtn-replay">▶ Rejouer</button>
-          </div>
-
-          <div id="mv-bar-wrap"><div id="mv-bar"></div></div>
-        </div>
-
-      </div>
+  <!-- ══ 3D SCROLL EXPERIENCE ══ -->
+  <div class="model-wrap" id="model-section">
+    <div class="model-scroll-label">
+      <span class="model-scroll-hint" id="scroll-hint">↓ Scrollez pour explorer la machine</span>
+      <span class="model-free-hint" id="free-hint" style="display:none">✦ Mode libre — cliquez et faites pivoter</span>
     </div>
 
+    <!-- sticky container -->
+    <div class="model-sticky-outer" id="sticky-outer">
+      <div class="model-sticky-inner" id="sticky-inner">
+        <canvas id="three-canvas"></canvas>
+        <div class="model-progress-wrap">
+          <div class="model-progress-bar" id="model-progress"></div>
+        </div>
+        <!-- waypoint labels -->
+        <div class="fly-label" id="lbl-0" style="opacity:0">Vue d'ensemble</div>
+        <div class="fly-label" id="lbl-1" style="opacity:0">Axe X · Courroie GT2</div>
+        <div class="fly-label" id="lbl-2" style="opacity:0">Tête porte-stylo</div>
+        <div class="fly-label" id="lbl-3" style="opacity:0">PCB & Électronique</div>
+        <div class="fly-label" id="lbl-4" style="opacity:0">Structure complète</div>
+      </div>
+    </div>
   </div>
+
 </div>
 
 <style>
-#mv-shell {
-  position: relative;
-  width: 100%;
-  height: 540px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  background: #0e1117;
+.model-wrap{
+  padding: 0 0 0 0;
+  border-top: 1px solid var(--border);
 }
-#mv-shell model-viewer {
-  width: 100%;
-  height: 100%;
-  display: block;
+.model-scroll-label{
+  padding: 28px 64px 0;
+  min-height: 36px;
 }
-#mv-hud {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10;
-}
-#mv-label {
-  position: absolute;
-  top: 14px; left: 14px;
-}
-#mv-label-txt {
-  display: inline-block;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(230,48,48,0.4);
-  color: #e63030;
-  font-family: 'DM Mono', monospace;
+.model-scroll-hint, .model-free-hint{
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.35s;
-  white-space: nowrap;
+  color: var(--accent);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-/* Dots waypoints */
-#mv-dots {
+.model-sticky-outer{
+  height: 400vh; /* scroll travel distance */
+  position: relative;
+}
+.model-sticky-inner{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0c10;
+}
+#three-canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+.model-progress-wrap{
   position: absolute;
-  bottom: 18px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: 7px;
-  align-items: center;
+  width: 160px;
+  height: 2px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  overflow: hidden;
 }
-.mv-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: background 0.3s, transform 0.3s;
-}
-.mv-dot.active {
-  background: #e63030;
-  border-color: #e63030;
-  transform: scale(1.4);
-}
-.mv-dot.done {
-  background: rgba(230,48,48,0.35);
-  border-color: rgba(230,48,48,0.3);
-}
-/* Buttons */
-#mv-btns {
-  position: absolute;
-  top: 12px; right: 12px;
-  display: flex; gap: 6px;
-  pointer-events: all;
-}
-.mvbtn {
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #9a9490;
-  font-size: 12px;
-  padding: 5px 11px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.mvbtn:hover { border-color: rgba(230,48,48,0.5); color: #e63030; }
-#mv-free-banner {
-  position: absolute;
-  bottom: 14px; left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 8px 18px;
-  display: flex; align-items: center; gap: 14px;
-  font-size: 12px; color: #9a9490;
-  font-family: 'DM Sans', sans-serif;
-  pointer-events: all;
-  white-space: nowrap;
-}
-.mvbtn-sm {
-  background: rgba(230,48,48,0.15);
-  border: 1px solid rgba(230,48,48,0.4);
-  color: #e63030;
-  font-size: 11px; padding: 4px 10px;
-  border-radius: 4px; cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
-}
-.mvbtn-sm:hover { background: rgba(230,48,48,0.28); }
-/* Progress bar */
-#mv-bar-wrap {
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%; height: 2px;
-  background: rgba(255,255,255,0.06);
-}
-#mv-bar {
+.model-progress-bar{
   height: 100%;
-  background: #e63030;
   width: 0%;
+  background: linear-gradient(90deg, var(--accent-dim, #991f1f), var(--accent, #e63030), #ff7070);
+  box-shadow: 0 0 8px rgba(230,48,48,0.7);
+  transition: width 0.05s linear;
+  border-radius: 2px;
+}
+.fly-label{
+  position: absolute;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(230,48,48,0.8);
+  font-weight: 500;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  font-family: var(--mono, monospace);
+  white-space: nowrap;
+}
+@media(max-width:768px){
+  .model-scroll-label{ padding: 20px 24px 0; }
 }
 </style>
 
-<script>
-(function () {
+<script type="module">
+// ── Three.js fly-through + orbit ──
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/controls/OrbitControls.js';
 
-  /* ── Waypoints : theta(°), phi(°), radius(m), fov(°), label, dur(ms)
-     phi : 0 = dessus, 90 = équateur, 180 = dessous
-     radius petit = très proche (dans la machine)
-     La fée plonge, tourne, se faufile, remonte, repart
-  ── */
-  const WP = [
-    { t: -40,  p: 55,  r: 0.90, fov: 45, label: 'Vue d\'ensemble',        dur: 2600 },
-    { t: -40,  p: 72,  r: 0.42, fov: 55, label: 'Approche moteur',         dur: 2000 },
-    { t:  30,  p: 80,  r: 0.28, fov: 60, label: 'Dans la machine — axe X', dur: 2200 },
-    { t: 120,  p: 95,  r: 0.22, fov: 65, label: 'Sous le chariot',         dur: 1800 },
-    { t: 200,  p: 105, r: 0.30, fov: 58, label: 'Dessous — châssis',       dur: 1800 },
-    { t: 260,  p: 88,  r: 0.25, fov: 62, label: 'Côté gauche — proche',    dur: 2000 },
-    { t: 300,  p: 30,  r: 0.35, fov: 50, label: 'Envol — vue rails',       dur: 2000 },
-    { t: 330,  p: 75,  r: 0.20, fov: 68, label: 'Tête porte-stylo',        dur: 1800 },
-    { t: -35,  p: 58,  r: 0.95, fov: 42, label: 'Vue finale',              dur: 2400 },
-  ];
+const canvas  = document.getElementById('three-canvas');
+const outer   = document.getElementById('sticky-outer');
+const progressBar = document.getElementById('model-progress');
+const scrollHint  = document.getElementById('scroll-hint');
+const freeHint    = document.getElementById('free-hint');
 
-  const mv       = document.getElementById('mv');
-  const labelTxt = document.getElementById('mv-label-txt');
-  const dotsWrap = document.getElementById('mv-dots');
-  const bar      = document.getElementById('mv-bar');
-  const barWrap  = document.getElementById('mv-bar-wrap');
-  const btnPP    = document.getElementById('mvbtn-pp');
-  const btnRst   = document.getElementById('mvbtn-rst');
-  const btnFree  = document.getElementById('mvbtn-free');
-  const freeBanner = document.getElementById('mv-free-banner');
-  const btnReplay  = document.getElementById('mvbtn-replay');
+// ── Renderer ──
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x090b10, 1);
+renderer.shadowMap.enabled = false;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
 
-  /* Build dots */
-  WP.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'mv-dot';
-    d.id = 'dot-' + i;
-    dotsWrap.appendChild(d);
+// ── Scene ──
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x090b10, 0.8);
+
+// ── Camera ──
+const camera = new THREE.PerspectiveCamera(55, 1, 0.001, 50);
+camera.position.set(0, 2, 3);
+
+// ── Lights ──
+const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambient);
+const key = new THREE.DirectionalLight(0xffd5a0, 1.8);
+key.position.set(2, 3, 2);
+scene.add(key);
+const fill = new THREE.DirectionalLight(0x8aaeff, 0.6);
+fill.position.set(-2, 1, -1);
+scene.add(fill);
+const rim = new THREE.DirectionalLight(0xff4444, 0.35);
+rim.position.set(0, -1, -2);
+scene.add(rim);
+// subtle point lights inside the machine for the fly-through glow
+const pt1 = new THREE.PointLight(0xff3333, 0.8, 1.5);
+pt1.position.set(0, 0.1, 0);
+scene.add(pt1);
+const pt2 = new THREE.PointLight(0x3366ff, 0.5, 1.2);
+pt2.position.set(0.15, 0.2, 0.1);
+scene.add(pt2);
+
+// ── Resize ──
+function resize(){
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(canvas);
+resize();
+
+// ── OrbitControls (disabled during fly) ──
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.minDistance = 0.05;
+controls.maxDistance = 5;
+controls.enabled = false;
+let orbitTarget = new THREE.Vector3(0, 0, 0);
+
+// ── Camera spline path through the machine ──
+// Points are in model space (machine fits roughly in [-0.3,0.3] on each axis)
+// We weave around internal structures, under gantry, through frame
+const PATH_POS = [
+  new THREE.Vector3( 0.00,  0.55,  0.80),  // 0  — loin, vue ensemble
+  new THREE.Vector3( 0.25,  0.35,  0.55),  // 1  — approche coin
+  new THREE.Vector3( 0.28,  0.18,  0.30),  // 2  — entre le cadre et le rail X
+  new THREE.Vector3( 0.10,  0.05,  0.10),  // 3  — inside low, near motors
+  new THREE.Vector3(-0.15,  0.08, -0.05),  // 4  — traverse l'axe Y
+  new THREE.Vector3(-0.25,  0.22,  0.05),  // 5  — remonte vers tête
+  new THREE.Vector3(-0.05,  0.28,  0.02),  // 6  — sous la tête porte-stylo
+  new THREE.Vector3( 0.18,  0.20, -0.12),  // 7  — côté PCB
+  new THREE.Vector3( 0.05,  0.10, -0.30),  // 8  — sortie arrière
+  new THREE.Vector3( 0.00,  0.40, -0.55),  // 9  — recul final
+  new THREE.Vector3( 0.00,  0.30, -0.80),  // 10 — vue arrière complète → merge to orbit
+];
+
+// Where the camera looks at each point (look-ahead on the spline)
+const PATH_LOOK = [
+  new THREE.Vector3( 0.00,  0.10,  0.00),
+  new THREE.Vector3( 0.10,  0.05,  0.10),
+  new THREE.Vector3( 0.00,  0.05,  0.00),
+  new THREE.Vector3(-0.15,  0.08, -0.05),
+  new THREE.Vector3(-0.25,  0.22,  0.05),
+  new THREE.Vector3(-0.05,  0.28,  0.02),
+  new THREE.Vector3( 0.18,  0.20, -0.12),
+  new THREE.Vector3( 0.05,  0.10, -0.30),
+  new THREE.Vector3( 0.00,  0.40, -0.55),
+  new THREE.Vector3( 0.00,  0.15,  0.00), // final look → center
+  new THREE.Vector3( 0.00,  0.00,  0.00),
+];
+
+// Waypoint labels (label index → t position 0-1)
+const WAYPOINTS = [
+  { t: 0.00, label: 0 },
+  { t: 0.22, label: 1 },
+  { t: 0.45, label: 2 },
+  { t: 0.62, label: 3 },
+  { t: 0.88, label: 4 },
+];
+
+const splinePos  = new THREE.CatmullRomCurve3(PATH_POS, false, 'catmullrom', 0.5);
+const splineLook = new THREE.CatmullRomCurve3(PATH_LOOK, false, 'catmullrom', 0.5);
+
+// ── State ──
+let flyDone = false;
+let currentT = 0;
+let lastT = -1;
+
+// ── Scroll handler ──
+function getScrollT(){
+  const rect = outer.getBoundingClientRect();
+  const totalScroll = outer.offsetHeight - window.innerHeight;
+  if(totalScroll <= 0) return 0;
+  const scrolled = -rect.top;
+  return Math.max(0, Math.min(1, scrolled / totalScroll));
+}
+
+// smooth camera target
+const camPos  = new THREE.Vector3();
+const camLook = new THREE.Vector3();
+const _tmpPos  = new THREE.Vector3();
+const _tmpLook = new THREE.Vector3();
+const _upVec   = new THREE.Vector3(0, 1, 0);
+
+function applyFlyCamera(t){
+  splinePos.getPoint(t, _tmpPos);
+  splineLook.getPoint(Math.min(t + 0.04, 1.0), _tmpLook);
+  camPos.lerp(_tmpPos, 0.07);
+  camLook.lerp(_tmpLook, 0.07);
+  camera.position.copy(camPos);
+  camera.lookAt(camLook);
+}
+
+function updateWaypointLabels(t){
+  const labels = document.querySelectorAll('.fly-label');
+  labels.forEach((el, i) => {
+    const wp = WAYPOINTS[i];
+    if(!wp) return;
+    const dist = Math.abs(t - wp.t);
+    const alpha = dist < 0.06 ? Math.max(0, 1 - dist / 0.06) : 0;
+    el.style.opacity = alpha;
   });
+}
 
-  function setDot(active) {
-    WP.forEach((_, i) => {
-      const d = document.getElementById('dot-' + i);
-      d.className = 'mv-dot' + (i === active ? ' active' : i < active ? ' done' : '');
+function enterFreeMode(){
+  if(flyDone) return;
+  flyDone = true;
+  // Snap to final spline position
+  splinePos.getPoint(1, camPos);
+  camera.position.copy(camPos);
+  controls.target.set(0, 0.05, 0);
+  controls.enabled = true;
+  // hide scroll hint, show free hint
+  scrollHint.style.display = 'none';
+  freeHint.style.display = 'flex';
+  // hide labels
+  document.querySelectorAll('.fly-label').forEach(el => el.style.opacity = 0);
+  progressBar.style.width = '100%';
+}
+
+// ── GLTF Load ──
+const loader = new GLTFLoader();
+let machineModel = null;
+
+loader.load(
+  'assets/images/models/machine (2).gltf',
+  (gltf) => {
+    machineModel = gltf.scene;
+
+    // Center and normalize
+    const box = new THREE.Box3().setFromObject(machineModel);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const scale = 0.5 / maxDim;
+    machineModel.scale.setScalar(scale);
+    machineModel.position.sub(center.multiplyScalar(scale));
+
+    // Materials — make it look nice, slight metallic
+    machineModel.traverse(child => {
+      if(child.isMesh){
+        child.castShadow = false;
+        child.receiveShadow = false;
+        if(child.material){
+          const mats = Array.isArray(child.material) ? child.material : [child.material];
+          mats.forEach(m => {
+            if(m.isMeshStandardMaterial || m.isMeshPhysicalMaterial){
+              m.metalness = Math.max(m.metalness || 0, 0.4);
+              m.roughness = Math.min(m.roughness !== undefined ? m.roughness : 0.6, 0.75);
+              m.envMapIntensity = 0.8;
+            }
+          });
+        }
+      }
     });
+
+    scene.add(machineModel);
+
+    // init camera at first spline point
+    splinePos.getPoint(0, camPos);
+    splineLook.getPoint(0.04, camLook);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+
+    animate();
+  },
+  undefined,
+  (err) => {
+    console.warn('GLTF load error (expected in preview — use actual server):', err);
+    // Still run the scene without the model
+    animate();
   }
+);
 
-  /* ── Interpolation state ── */
-  let raf        = null;
-  let paused     = false;
-  let freeMode   = false;
-  let segStart   = null;   // timestamp début du segment courant
-  let segDur     = 0;
-  let fromWP     = null;
-  let toWP       = null;
-  let segIdx     = 0;      // index du waypoint destination
+// ── Render loop ──
+const clock = new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = clock.getDelta();
 
-  /* Cubic ease-in-out */
-  function ease(t) {
-    return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
-  }
+  if(!flyDone){
+    const t = getScrollT();
+    currentT = t;
+    progressBar.style.width = (t * 100) + '%';
+    applyFlyCamera(t);
+    updateWaypointLabels(t);
 
-  /* Lerp angulaire (court chemin) */
-  function lerpAngle(a, b, t) {
-    let d = b - a;
-    while (d >  180) d -= 360;
-    while (d < -180) d += 360;
-    return a + d * t;
-  }
-
-  function lerp(a, b, t) { return a + (b - a) * t; }
-
-  /* Applique une position caméra directement à model-viewer */
-  function applyCamera(theta, phi, radius, fov) {
-    mv.cameraOrbit    = `${theta}deg ${phi}deg ${radius}m`;
-    mv.fieldOfView    = `${fov}deg`;
-  }
-
-  /* ── Tick RAF : interpole entre fromWP et toWP ── */
-  function tick(now) {
-    if (paused || freeMode) return;
-    if (!segStart) segStart = now;
-
-    const elapsed = now - segStart;
-    const rawT    = Math.min(elapsed / segDur, 1);
-    const t       = ease(rawT);
-
-    const theta  = lerpAngle(fromWP.t, toWP.t, t);
-    const phi    = lerp(fromWP.p, toWP.p, t);
-    const radius = lerp(fromWP.r, toWP.r, t);
-    const fov    = lerp(fromWP.fov || 45, toWP.fov || 45, t);
-
-    applyCamera(theta, phi, radius, fov);
-
-    /* Global progress */
-    const globalT = (segIdx - 1 + rawT) / WP.length;
-    bar.style.width = (Math.min(globalT, 1) * 100) + '%';
-
-    if (rawT < 1) {
-      raf = requestAnimationFrame(tick);
-    } else {
-      /* Segment terminé → suivant */
-      nextSegment();
-    }
-  }
-
-  function nextSegment() {
-    if (segIdx >= WP.length) {
-      enterFree();
-      return;
-    }
-    fromWP   = toWP || WP[0];
-    toWP     = WP[segIdx];
-    segDur   = toWP.dur;
-    segStart = null;
-
-    /* Label */
-    labelTxt.style.opacity = '0';
-    setTimeout(() => {
-      labelTxt.textContent   = toWP.label;
-      labelTxt.style.opacity = '1';
-    }, 100);
-
-    setDot(segIdx);
-    segIdx++;
-    raf = requestAnimationFrame(tick);
-  }
-
-  function startTour(from) {
-    freeMode = false; paused = false;
-    segIdx   = from || 0;
-    bar.style.width      = '0%';
-    barWrap.style.opacity = '1';
-    freeBanner.style.display = 'none';
-    btnFree.style.display    = '';
-    btnPP.style.display      = '';
-    btnPP.textContent        = '⏸';
-    dotsWrap.style.display   = 'flex';
-    labelTxt.style.opacity   = '1';
-
-    /* Position de départ = premier waypoint sans animation */
-    const first = WP[0];
-    applyCamera(first.t, first.p, first.r, first.fov);
-    fromWP = first;
-    toWP   = first;
-    segIdx = 1;
-
-    if (raf) cancelAnimationFrame(raf);
-    /* Petit délai pour que model-viewer digère la première position */
-    setTimeout(nextSegment, 80);
-  }
-
-  function enterFree() {
-    freeMode = true;
-    if (raf) cancelAnimationFrame(raf);
-    labelTxt.style.opacity   = '0';
-    barWrap.style.opacity    = '0';
-    bar.style.width          = '100%';
-    dotsWrap.style.display   = 'none';
-    freeBanner.style.display = 'flex';
-    btnFree.style.display    = 'none';
-    btnPP.style.display      = 'none';
-  }
-
-  /* ── Controls ── */
-  btnPP.onclick = () => {
-    if (freeMode) return;
-    paused = !paused;
-    btnPP.textContent = paused ? '▶' : '⏸';
-    if (!paused) {
-      segStart = null; /* reprend le segment depuis le début */
-      fromWP   = toWP ? { ...toWP } : WP[0];
-      /* recalcule fromWP à la position actuelle — lit l'orbit courant */
-      try {
-        const orb = mv.getCameraOrbit();
-        fromWP = { t: orb.theta * 180/Math.PI, p: orb.phi * 180/Math.PI, r: orb.radius, fov: parseFloat(mv.getFieldOfView()) };
-      } catch(e) {}
-      raf = requestAnimationFrame(tick);
-    } else {
-      if (raf) cancelAnimationFrame(raf);
-    }
-  };
-
-  btnRst.onclick    = () => { if (raf) cancelAnimationFrame(raf); startTour(0); };
-  btnFree.onclick   = () => enterFree();
-  btnReplay.onclick = () => startTour(0);
-
-  /* ── Démarrage ── */
-  function tryStart() {
-    startTour(0);
-  }
-
-  if (mv.loaded) {
-    tryStart();
+    if(t >= 0.98) enterFreeMode();
   } else {
-    mv.addEventListener('load', tryStart, { once: true });
-    /* Fallback si l'event est déjà passé */
-    setTimeout(() => { if (!freeMode && segIdx === 0) tryStart(); }, 3000);
+    controls.update();
   }
 
-})();
+  // Animate point lights slightly for mood
+  const time = clock.elapsedTime;
+  pt1.intensity = 0.6 + 0.2 * Math.sin(time * 1.7);
+  pt2.intensity = 0.4 + 0.15 * Math.sin(time * 2.3 + 1.2);
+
+  renderer.render(scene, camera);
+}
 </script>
