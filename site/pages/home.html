@@ -1,232 +1,44 @@
 <div class="page active" id="page-home">
-
-  <!-- SCROLL STAGE -->
-  <div id="scroll-stage">
-    <div id="scroll-sticky">
-
-      <model-viewer
-        id="hero-model"
-        src="assets/images/models/machine (2).gltf"
-        disable-zoom disable-pan
-        shadow-intensity="0"
-        environment-image="neutral"
-        exposure="0.9"
-        camera-orbit="0deg 60deg 3m"
-        field-of-view="28deg"
-        alt="Modèle 3D Machine That Draw">
-      </model-viewer>
-
-      <!-- Texte centré par-dessus -->
-      <div id="hero-center">
-        <div id="hero-text-1" class="hero-slide active-slide">
-          <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
-          <h1 class="home-title">Machine That Draw</h1>
-          <p class="home-sub">Machine à dessiner à commande numérique —<br>conçue et fabriquée par 4 étudiants.</p>
-          <div class="home-btns" style="justify-content:center;margin-top:28px">
-            <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
-            <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
-          </div>
-        </div>
-        <div id="hero-text-2" class="hero-slide">
-          <div class="home-badge">Mécanique</div>
-          <h2 class="home-title" style="font-size:42px">Structure cartésienne X/Y</h2>
-          <p class="home-sub">Guidages linéaires, courroies GT2<br>et pièces entièrement imprimées en 3D.</p>
-        </div>
-        <div id="hero-text-3" class="hero-slide">
-          <div class="home-badge">Électronique</div>
-          <h2 class="home-title" style="font-size:42px">PCB sur-mesure</h2>
-          <p class="home-sub">ESP32-S3-UNO, drivers A4988<br>et carte conçue sous KiCad 9.</p>
-        </div>
-      </div>
-
-      <!-- Scroll hint -->
-      <div id="scroll-hint">
-        <span>Défiler</span>
-        <div>↓</div>
-      </div>
-
-      <!-- Progress -->
-      <div id="scroll-progress-bar"></div>
+  <div class="home-hero">
+    <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
+    <h1 class="home-title">Machine That Draw</h1>
+    <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
+    <div class="home-btns">
+      <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
+      <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
+      <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
     </div>
   </div>
-
-  <!-- SUITE -->
   <div class="home-body">
-    <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start">
-      <div>
-        <h2>Le projet</h2>
-        <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">
-          La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.
-        </p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">OnShape ↗</a>
-          <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
-        </div>
-      </div>
-      <div>
-        <h2>L'équipe</h2>
-        <div class="team-grid">
-          <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
-          <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
-          <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
-          <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
-        </div>
-      </div>
-    </div>
-    <div style="grid-column:1/-1">
+    <div>
+      <h2>Le projet</h2>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.</p>
       <div class="cards-grid">
         <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
         <div class="info-card"><h3>Électronique</h3><p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p></div>
         <div class="info-card"><h3>Logiciel</h3><p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p></div>
       </div>
     </div>
+    <div>
+      <h2>L'équipe</h2>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
+        <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
+        <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
+        <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
+      </div>
+    </div>
+    <div class="model-wrap">
+      <h2>Modèle 3D</h2>
+      <div class="model-viewer-wrap">
+        <model-viewer
+          src="assets/images/models/machine.glb"
+          shadow-intensity="1"
+          environment-image="neutral" 
+          exposure="0.8"
+          alt="Modèle 3D Machine That Draw">
+        </model-viewer>
+      </div>
+    </div>
   </div>
 </div>
-
-<style>
-#scroll-stage { height: 300vh; position: relative; }
-
-#scroll-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-
-#hero-model {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  --progress-bar-color: transparent;
-}
-
-#hero-center {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  pointer-events: none;
-}
-
-.hero-slide {
-  position: absolute;
-  max-width: 580px;
-  padding: 36px 44px;
-  border-radius: 16px;
-  background: rgba(var(--bg-rgb, 13,13,13), 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  pointer-events: none;
-}
-.hero-slide.active-slide {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
-}
-/* Light mode: fond clair */
-:root.light .hero-slide {
-  background: rgba(245,244,242,0.65);
-}
-
-#scroll-hint {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text3);
-  text-align: center;
-  transition: opacity 0.5s;
-  animation: sbounce 1.8s infinite;
-}
-@keyframes sbounce {
-  0%,100%{transform:translateX(-50%) translateY(0)}
-  50%{transform:translateX(-50%) translateY(6px)}
-}
-
-#scroll-progress-bar {
-  position: absolute;
-  bottom: 0; left: 0;
-  height: 2px; width: 0;
-  background: var(--accent);
-  z-index: 10;
-}
-</style>
-
-<script>
-(function(){
-  const stage  = document.getElementById('scroll-stage');
-  const model  = document.getElementById('hero-model');
-  const hint   = document.getElementById('scroll-hint');
-  const bar    = document.getElementById('scroll-progress-bar');
-  const slides = [
-    document.getElementById('hero-text-1'),
-    document.getElementById('hero-text-2'),
-    document.getElementById('hero-text-3'),
-  ];
-
-  // Keyframes caméra : de haut/loin → tournée côté → vue plongeante
-  const kf = [
-    { orbit: '0deg 60deg 3.0m',   fov: '28deg' },
-    { orbit: '80deg 72deg 2.2m',  fov: '24deg' },
-    { orbit: '200deg 55deg 2.6m', fov: '30deg' },
-  ];
-
-  function lerp(a, b, t){ return a + (b-a)*t; }
-
-  function parseOrbit(s){
-    const m = s.match(/([\d.-]+)deg\s+([\d.-]+)deg\s+([\d.]+)m/);
-    return [+m[1], +m[2], +m[3]];
-  }
-
-  function update(){
-    const main = document.getElementById('main');
-    const scrollTop = main ? main.scrollTop : window.scrollY;
-    const stageTop  = stage.offsetTop;
-    const totalH    = stage.offsetHeight - window.innerHeight;
-    const scrolled  = scrollTop - stageTop;
-    const p = Math.max(0, Math.min(1, scrolled / totalH));
-
-    // Progress bar
-    bar.style.width = (p * 100) + '%';
-
-    // Camera interpolation
-    const segs = kf.length - 1;
-    const seg  = Math.min(segs - 1, Math.floor(p * segs));
-    const t    = (p * segs) - seg;
-    const A = parseOrbit(kf[seg].orbit);
-    const B = parseOrbit(kf[seg+1].orbit);
-    const fA = parseFloat(kf[seg].fov);
-    const fB = parseFloat(kf[seg+1].fov);
-
-    model.setAttribute('camera-orbit',
-      `${lerp(A[0],B[0],t).toFixed(1)}deg ${lerp(A[1],B[1],t).toFixed(1)}deg ${lerp(A[2],B[2],t).toFixed(3)}m`);
-    model.setAttribute('field-of-view', lerp(fA,fB,t).toFixed(1)+'deg');
-
-    // Slides
-    const idx = Math.min(slides.length-1, Math.floor(p * slides.length));
-    slides.forEach((s,i) => {
-      s.classList.toggle('active-slide', i === idx);
-    });
-
-    hint.style.opacity = p < 0.04 ? '1' : '0';
-  }
-
-  const main = document.getElementById('main');
-  if(main) main.addEventListener('scroll', update, { passive:true });
-  window.addEventListener('scroll', update, { passive:true });
-
-  // Aussi sur le resize
-  window.addEventListener('resize', update);
-  update();
-})();
-</script>

@@ -104,19 +104,15 @@ nav{padding:12px 0;flex:1}
 
 /* ── MAIN ── */
 #main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
-.page{display:block;min-height:100vh}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
 
 /* ── HOME PAGE ── */
 .home-hero{
   padding:64px 64px 56px;border-bottom:1px solid var(--border);
   position:relative;overflow:hidden;
 }
-.home-hero::before{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:400px;height:400px;
-  background:radial-gradient(circle, rgba(230,48,48,0.08) 0%, transparent 65%);
-  pointer-events:none;
-}
+
 .home-badge{
   display:inline-block;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
   color:var(--accent);margin-bottom:16px;font-weight:500;
@@ -173,12 +169,21 @@ nav{padding:12px 0;flex:1}
 .team-name{font-size:13px;font-weight:500;color:var(--text)}
 .team-role{font-size:12px;color:var(--text3);margin-top:2px}
 
-.model-wrap{grid-column:1/-1}
-.model-viewer-wrap{
-  border:1px solid var(--border);border-radius:12px;overflow:hidden;
-  background:#1a1e28;
+/* ── SCROLL ANIMATION CSS ── */
+.model-wrap{
+  grid-column:1/-1;
+  height: 150vh; /* Permet le scroll sur cette section */
+  position: relative;
 }
-model-viewer{width:100%;height:480px}
+.model-viewer-wrap{
+  position: sticky;
+  top: 100px; /* Le modèle reste fixé à 100px du haut quand on descend */
+  height: 500px;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+}
+model-viewer{width:100%;height:100%}
 
 /* ── CONTENT PAGES ── */
 .page-content{max-width:860px;padding:52px 64px}
@@ -358,7 +363,6 @@ pre code{background:none;padding:0;color:inherit}
 <button id="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
 <button id="theme-btn" onclick="toggleTheme()"><span id="theme-icon">☀️</span> Clair</button>
 
-<!-- SIDEBAR -->
 <aside id="sidebar">
   <div class="sidebar-logo">
     <div class="sidebar-logo-badge">Groupe 06 · 2025-2026</div>
@@ -426,7 +430,6 @@ pre code{background:none;padding:0;color:inherit}
   </div>
 </aside>
 
-<!-- MAIN -->
 <main id="main">
   <div id="page-container"></div>
 </main>
@@ -453,8 +456,7 @@ if(localStorage.getItem('theme')==='light'){
 const cache = {};
 async function loadPage(id) {
   if (cache[id]) return cache[id];
-  const base = document.querySelector('base')?.href || (location.href.replace(/\/[^/]*$/, '/'));
-  const res = await fetch(base + 'pages/' + id + '.html');
+  const res = await fetch('pages/' + id + '.html');
   const html = await res.text();
   cache[id] = html;
   return html;
@@ -494,6 +496,25 @@ function toggleGroup(el){
 document.addEventListener('DOMContentLoaded', () => {
   const hash = location.hash.replace('#', '');
   showPage(PAGES.includes(hash) ? hash : 'home');
+});
+
+// ── 3D MODEL SCROLL ANIMATION ──
+document.addEventListener('scroll', () => {
+  const modelViewer = document.querySelector('model-viewer');
+  if (modelViewer) {
+    // Calcul de la progression du scroll
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    
+    // Évite la division par zéro s'il n'y a pas de scroll possible
+    if (scrollHeight > 0) {
+      const progress = scrollTop / scrollHeight;
+      // Convertit en rotation de 0 à 360 degrés
+      const rotation = progress * 360;
+      // Applique la rotation (rotation X, inclinaison Y, zoom)
+      modelViewer.setAttribute('camera-orbit', `${rotation}deg 75deg auto`);
+    }
+  }
 });
 </script>
 </body>
