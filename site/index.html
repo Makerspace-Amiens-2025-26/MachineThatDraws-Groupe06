@@ -104,7 +104,8 @@ nav{padding:12px 0;flex:1}
 
 /* ── MAIN ── */
 #main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
-.page{display:none}
+#page-container{min-height:100vh}
+.page{display:none;min-height:100vh}
 .page.active{display:block}
 
 /* ── HOME PAGE ── */
@@ -177,7 +178,7 @@ nav{padding:12px 0;flex:1}
 .model-wrap{grid-column:1/-1}
 .model-viewer-wrap{
   border:1px solid var(--border);border-radius:12px;overflow:hidden;
-  background:#1a1e28;
+  background:var(--bg3);
 }
 model-viewer{width:100%;height:480px}
 
@@ -455,10 +456,14 @@ const cache = {};
 async function loadPage(id) {
   if (cache[id]) return cache[id];
   // Try pages/ subfolder first, then root
-  let res = await fetch('pages/' + id + '.html');
-  if (!res.ok) res = await fetch(id + '.html');
-  if (!res.ok) { cache[id] = `<div class="page active"><div class="page-content"><p style="color:var(--text3)">Page "${id}" introuvable.</p></div></div>`; return cache[id]; }
-  const html = await res.text();
+  let html = null;
+  for (const path of ['pages/' + id + '.html', id + '.html']) {
+    try {
+      const res = await fetch(path);
+      if (res.ok) { html = await res.text(); break; }
+    } catch(e) {}
+  }
+  if (!html) html = `<div class="page active"><div class="page-content"><p style="color:var(--text3);padding:40px 0">Page "<strong>${id}</strong>" introuvable.</p></div></div>`;
   cache[id] = html;
   return html;
 }
@@ -478,14 +483,30 @@ async function showPage(id) {
     }
   });
 
-  // Load and inject HTML
+  // Load and inject HTML, wrap in .page.active if needed
   const container = document.getElementById('page-container');
-  container.innerHTML = await loadPage(id);
+  let html = await loadPage(id);
+  // If the fragment doesn't start with a .page wrapper, add one
+  if (!html.trim().startsWith('<div class="page')) {
+    html = `<div class="page active" id="page-${id}">${html}</div>`;
+  } else {
+    // Make sure it has the active class
+    html = html.replace(/class="page(?:\s[^"]*)?"/,  m => m.replace('class="page', 'class="page active'));
+  }
+  container.innerHTML = html;
   window.scrollTo(0, 0);
   document.getElementById('sidebar').classList.remove('open');
 
+  // Re-run any scripts inside loaded content (e.g. model-viewer)
+  container.querySelectorAll('script').forEach(oldScript => {
+    const newScript = document.createElement('script');
+    [...oldScript.attributes].forEach(a => newScript.setAttribute(a.name, a.value));
+    newScript.textContent = oldScript.textContent;
+    oldScript.parentNode.replaceChild(newScript, oldScript);
+  });
+
   // Update URL hash
-  location.hash = id;
+  history.replaceState(null, '', location.pathname + '#' + id);
 }
 
 function toggleGroup(el){
