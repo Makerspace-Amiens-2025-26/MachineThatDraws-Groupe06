@@ -29,323 +29,477 @@
       </div>
     </div>
 
-    <!-- ── 3D MODEL CINEMATIC VIEWER ── -->
-    <div class="model-wrap">
+    <!-- ══════════════ CINEMATIC 3D VIEWER ══════════════ -->
+    <div class="model-wrap" id="model-wrap">
       <h2>Modèle 3D</h2>
+      <div id="cinematic-shell">
 
-      <div class="model-viewer-wrap" id="model-viewer-wrap">
-
-        <!-- Overlay label -->
-        <div id="camera-label">
-          <span id="camera-label-text">Vue moteur</span>
+        <!-- PHASE 1 : Engrenages -->
+        <div id="gear-stage">
+          <canvas id="gear-canvas"></canvas>
+          <div id="gear-overlay">
+            <div id="gear-tagline">Transmission de mouvement</div>
+          </div>
+          <div id="gear-vignette"></div>
         </div>
 
-        <!-- Progress bar -->
-        <div id="tour-progress">
-          <div id="tour-progress-bar"></div>
+        <!-- PHASE 2 : Modèle 3D -->
+        <div id="model-stage" style="display:none">
+          <div id="cam-label"><span id="cam-label-txt">Initialisation…</span></div>
+          <div id="cam-progress"><div id="cam-bar"></div></div>
+          <div id="cam-btns">
+            <button class="cbtn" id="cbtn-pause" title="Pause">⏸</button>
+            <button class="cbtn" id="cbtn-restart" title="Recommencer">↺</button>
+            <button class="cbtn" id="cbtn-free">🖱 Libre</button>
+          </div>
+          <div id="free-banner" style="display:none">
+            <span>Mode libre — glisser pour explorer</span>
+            <button class="cbtn-sm" id="cbtn-replay">▶ Rejouer</button>
+          </div>
+          <model-viewer
+            id="mv"
+            src="assets/images/models/machine (2).gltf"
+            camera-controls
+            shadow-intensity="0"
+            environment-image="neutral"
+            exposure="0.8"
+            alt="Modèle 3D Machine That Draw"
+            style="width:100%;height:540px;background:#0e1117">
+          </model-viewer>
         </div>
-
-        <!-- Control buttons -->
-        <div id="viewer-controls">
-          <button class="viewer-btn" id="btn-play-pause" title="Pause/Reprendre">⏸</button>
-          <button class="viewer-btn" id="btn-restart" title="Recommencer">↺</button>
-          <button class="viewer-btn" id="btn-free" title="Mode libre">🖱 Libre</button>
-        </div>
-
-        <!-- Free mode overlay -->
-        <div id="free-mode-banner" style="display:none">
-          <span>Mode libre — faites glisser pour tourner</span>
-          <button class="viewer-btn-sm" id="btn-replay">▶ Rejouer la séquence</button>
-        </div>
-
-        <model-viewer
-          id="mv"
-          src="assets/images/models/machine (2).gltf"
-          camera-controls
-          shadow-intensity="0"
-          environment-image="neutral"
-          exposure="0.8"
-          alt="Modèle 3D Machine That Draw"
-          style="width:100%;height:520px;background:#111418">
-        </model-viewer>
 
       </div>
     </div>
+    <!-- ══════════════════════════════════════════════════ -->
 
-  </div><!-- end home-body -->
-</div><!-- end page-home -->
+  </div>
+</div>
 
 <style>
-/* ── Model viewer wrapper ── */
-#model-viewer-wrap {
-  position: relative;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  background: #111418;
+/* ── Shell ── */
+#cinematic-shell {
+  position:relative;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  background:#0e1117;
 }
 
-/* ── Camera label overlay ── */
-#camera-label {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 10;
-  pointer-events: none;
+/* ══ GEAR STAGE ══ */
+#gear-stage {
+  position:relative;
+  width:100%;
+  height:540px;
+  overflow:hidden;
+  background:#0e1117;
 }
-#camera-label-text {
-  display: inline-block;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(230,48,48,0.35);
-  color: #e63030;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: 4px;
-  transition: opacity 0.5s;
+#gear-canvas {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
 }
-
-/* ── Progress bar ── */
-#tour-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(255,255,255,0.07);
-  z-index: 10;
+#gear-overlay {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-start;
+  padding:28px 32px;
+  pointer-events:none;
+  z-index:4;
 }
-#tour-progress-bar {
-  height: 100%;
-  background: var(--accent, #e63030);
-  width: 0%;
-  transition: width 0.15s linear;
+#gear-tagline {
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:#e63030;
+  background:rgba(0,0,0,0.6);
+  border:1px solid rgba(230,48,48,0.3);
+  padding:5px 13px;
+  border-radius:4px;
+  opacity:0;
+  transition:opacity 0.6s;
 }
-
-/* ── Viewer controls ── */
-#viewer-controls {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 10;
-  display: flex;
-  gap: 7px;
-}
-.viewer-btn {
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--text2, #9a9490);
-  font-size: 12px;
-  padding: 5px 11px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.viewer-btn:hover {
-  border-color: rgba(230,48,48,0.5);
-  color: #e63030;
+#gear-vignette {
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(14,17,23,0.85) 100%);
+  pointer-events:none;
+  z-index:3;
 }
 
-/* ── Free mode banner ── */
-#free-mode-banner {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  background: rgba(0,0,0,0.72);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 12px;
-  color: var(--text2, #9a9490);
-  font-family: 'DM Sans', sans-serif;
-  white-space: nowrap;
+/* ══ MODEL STAGE ══ */
+#model-stage { position:relative; }
+
+#cam-label {
+  position:absolute;top:14px;left:14px;z-index:10;pointer-events:none;
 }
-.viewer-btn-sm {
-  background: rgba(230,48,48,0.15);
-  border: 1px solid rgba(230,48,48,0.4);
-  color: #e63030;
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s;
+#cam-label-txt {
+  display:inline-block;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(230,48,48,0.35);
+  color:#e63030;
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:4px;
+  transition:opacity 0.5s;
 }
-.viewer-btn-sm:hover { background: rgba(230,48,48,0.28); }
+#cam-progress {
+  position:absolute;bottom:0;left:0;width:100%;height:2px;
+  background:rgba(255,255,255,0.07);z-index:10;
+}
+#cam-bar {
+  height:100%;background:#e63030;width:0%;transition:width 0.12s linear;
+}
+#cam-btns {
+  position:absolute;top:12px;right:12px;z-index:10;display:flex;gap:7px;
+}
+.cbtn {
+  background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.12);
+  color:#9a9490;font-size:12px;padding:5px 11px;
+  border-radius:5px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:all 0.15s;white-space:nowrap;
+}
+.cbtn:hover { border-color:rgba(230,48,48,0.5);color:#e63030; }
+#free-banner {
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:10;
+  background:rgba(0,0,0,0.72);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.1);border-radius:8px;
+  padding:8px 16px;display:flex;align-items:center;gap:14px;
+  font-size:12px;color:#9a9490;font-family:'DM Sans',sans-serif;white-space:nowrap;
+}
+.cbtn-sm {
+  background:rgba(230,48,48,0.15);border:1px solid rgba(230,48,48,0.4);color:#e63030;
+  font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.15s;
+}
+.cbtn-sm:hover { background:rgba(230,48,48,0.28); }
 </style>
 
 <script>
-(function() {
-  // Wait for model-viewer to be ready
-  const mv = document.getElementById('mv');
-  if (!mv) return;
+/* ══════════════════════════════════════════════
+   PHASE 1 — ENGRENAGE CANVAS ANIMATION
+   Zoom arrière depuis dents serrrées → machine entière
+══════════════════════════════════════════════ */
+(function initGears(){
+  const canvas = document.getElementById('gear-canvas');
+  const ctx = canvas.getContext('2d');
+  const tagline = document.getElementById('gear-tagline');
+  const gearStage = document.getElementById('gear-stage');
+  const modelStage = document.getElementById('model-stage');
 
-  // ── Camera tour keyframes ──
-  // Each step: { label, theta (deg), phi (deg), radius (m), duration (ms), easing }
-  // theta = horizontal rotation (azimuth), phi = vertical elevation
-  const TOUR = [
-    // 1. Vue moteur — gros plan côté moteur, angle bas
-    { label: 'Vue moteur',        theta: -60,  phi: 82,   radius: 0.45, duration: 2800, easing: 'ease-in-out' },
-    // 2. Zoom arrière progressif
-    { label: 'Zoom arrière',      theta: -60,  phi: 75,   radius: 0.80, duration: 2200, easing: 'ease-in-out' },
-    // 3. Vue de face légèrement haute
-    { label: 'Face avant',        theta: 0,    phi: 70,   radius: 0.90, duration: 2600, easing: 'ease-in-out' },
-    // 4. Côté droit
-    { label: 'Côté droit',        theta: 90,   phi: 72,   radius: 0.85, duration: 2400, easing: 'ease-in-out' },
-    // 5. Vue arrière
-    { label: 'Face arrière',      theta: 180,  phi: 68,   radius: 0.88, duration: 2400, easing: 'ease-in-out' },
-    // 6. Côté gauche
-    { label: 'Côté gauche',       theta: 270,  phi: 72,   radius: 0.85, duration: 2400, easing: 'ease-in-out' },
-    // 7. Vue plongeante dessus
-    { label: 'Vue de dessus',     theta: 0,    phi: 20,   radius: 0.95, duration: 2600, easing: 'ease-in-out' },
-    // 8. Vue 3/4 finale — position de repos
-    { label: 'Vue d\'ensemble',   theta: -40,  phi: 65,   radius: 0.95, duration: 2200, easing: 'ease-in-out' },
+  let W, H;
+  function resize(){
+    W = canvas.width  = gearStage.clientWidth  || 800;
+    H = canvas.height = gearStage.clientHeight || 540;
+  }
+  resize();
+
+  /* Gear definition */
+  function makeGear(x,y,r,teeth,phase,speed,color){
+    return {x,y,r,teeth,phase,speed,color,angle:phase};
+  }
+
+  const GEARS = [
+    /* big central */
+    makeGear(0, 0, 110, 22, 0,      1,    '#c8c0b0'),
+    /* medium right */
+    makeGear(220,0,  60, 12, Math.PI/12, -1.83, '#a09888'),
+    /* small top-right */
+    makeGear(330,-120, 38, 8,  0,    2.89,  '#b8b0a0'),
+    /* small bottom-right */
+    makeGear(330,120,  38, 8,  Math.PI/8, 2.89, '#b8b0a0'),
+    /* medium left */
+    makeGear(-220, 0,  60, 12, Math.PI/12, -1.83,'#a09888'),
+    /* small top-left */
+    makeGear(-330,-120, 38, 8,  0,  2.89,  '#b8b0a0'),
+    /* medium bottom */
+    makeGear(0, 200,   70, 14,  Math.PI/14, -1.57,'#a89880'),
+    /* tiny accent */
+    makeGear(100, 260,  28, 6,   0,   3.93, '#988870'),
   ];
 
-  const DEG = Math.PI / 180;
-  const RAD = 180 / Math.PI;
+  function drawGear(g, ctx){
+    const {x,y,r,teeth,angle,color} = g;
+    const toothH = r * 0.28;
+    const innerR = r * 0.68;
+    const holeR  = r * 0.22;
+    const spokeN = Math.max(3, Math.floor(teeth/4));
 
-  let currentStep = 0;
-  let paused = false;
-  let freeMode = false;
-  let stepTimer = null;
-  let progressStart = null;
-  let progressDuration = 0;
-  let rafId = null;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
 
-  const labelEl   = document.getElementById('camera-label-text');
-  const progressBar = document.getElementById('tour-progress-bar');
-  const btnPlayPause = document.getElementById('btn-play-pause');
-  const btnRestart  = document.getElementById('btn-restart');
-  const btnFree     = document.getElementById('btn-free');
-  const freeBanner  = document.getElementById('free-mode-banner');
-  const btnReplay   = document.getElementById('btn-replay');
-  const tourProgress = document.getElementById('tour-progress');
-
-  // ── Animate camera to a target step ──
-  function animateToStep(stepIdx) {
-    if (freeMode) return;
-    const step = TOUR[stepIdx];
-    if (!step) {
-      enterFreeMode();
-      return;
-    }
-
-    labelEl.textContent = step.label;
-    labelEl.style.opacity = '0';
-    setTimeout(() => { labelEl.style.opacity = '1'; }, 80);
-
-    // Convert spherical → model-viewer camera-orbit string
-    // model-viewer: camera-orbit = "theta phi radius"
-    // theta: azimuthal (horizontal), phi: polar (vertical from top)
-    const orbit = `${step.theta}deg ${step.phi}deg ${step.radius}m`;
-    mv.cameraOrbit = orbit;
-
-    // Progress animation
-    progressStart = performance.now();
-    progressDuration = step.duration;
-    animateProgress();
-
-    // Schedule next step
-    stepTimer = setTimeout(() => {
-      currentStep++;
-      animateToStep(currentStep);
-    }, step.duration);
-  }
-
-  function animateProgress() {
-    if (rafId) cancelAnimationFrame(rafId);
-    function frame(now) {
-      if (paused || freeMode) return;
-      const elapsed = now - progressStart;
-      const totalProgress = (currentStep / TOUR.length) + (Math.min(elapsed, progressDuration) / progressDuration) / TOUR.length;
-      progressBar.style.width = (Math.min(totalProgress, 1) * 100) + '%';
-      if (elapsed < progressDuration) {
-        rafId = requestAnimationFrame(frame);
+    /* Outer gear body */
+    ctx.beginPath();
+    for(let i=0;i<teeth*2;i++){
+      const a = (i / (teeth*2)) * Math.PI * 2;
+      const rr = (i%2===0) ? r : innerR;
+      /* chamfer tooth tips */
+      const da = Math.PI/(teeth*2) * 0.35;
+      if(i%2===0){
+        const a0 = a - da, a1 = a + da;
+        if(i===0) ctx.moveTo(r*Math.cos(a0), r*Math.sin(a0));
+        else ctx.lineTo(r*Math.cos(a0), r*Math.sin(a0));
+        ctx.lineTo(r*Math.cos(a1), r*Math.sin(a1));
+      } else {
+        ctx.lineTo(innerR*Math.cos(a), innerR*Math.sin(a));
       }
     }
-    rafId = requestAnimationFrame(frame);
+    ctx.closePath();
+
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+
+    /* Inner ring */
+    ctx.beginPath();
+    ctx.arc(0, 0, innerR*0.92, 0, Math.PI*2);
+    ctx.fillStyle = '#1a1e28';
+    ctx.fill();
+
+    /* Spokes */
+    for(let s=0;s<spokeN;s++){
+      const sa = (s/spokeN)*Math.PI*2;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(sa)*holeR*1.5, Math.sin(sa)*holeR*1.5);
+      ctx.lineTo(Math.cos(sa)*innerR*0.85, Math.sin(sa)*innerR*0.85);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = r * 0.085;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+
+    /* Center hole */
+    ctx.beginPath();
+    ctx.arc(0,0,holeR,0,Math.PI*2);
+    ctx.fillStyle = '#0e1117';
+    ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.18)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+
+    /* Center bolt */
+    ctx.beginPath();
+    ctx.arc(0,0,holeR*0.4,0,Math.PI*2);
+    ctx.fillStyle='rgba(230,48,48,0.5)';
+    ctx.fill();
+
+    ctx.restore();
   }
 
-  function enterFreeMode() {
-    freeMode = true;
-    clearTimeout(stepTimer);
-    if (rafId) cancelAnimationFrame(rafId);
+  /* Animation state */
+  const TOTAL_DURATION = 4800; /* ms for gear phase */
+  let startTime = null;
+  let rafId;
+  let done = false;
 
-    // Transition: enable full user controls (already on by default)
+  /* Easing */
+  function easeInOut(t){ return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function easeIn(t){ return t*t*t; }
+
+  /* Camera zoom params */
+  /* We start extremely zoomed in (scale ~4) then zoom out to ~0.55 */
+  const SCALE_START = 4.8;
+  const SCALE_END   = 0.55;
+  /* Pan: start centered on big gear tooth, drift to center */
+  const PAN_START   = { x: 0.18, y: 0.09 }; /* fraction of W/H offset */
+  const PAN_END     = { x: 0, y: 0 };
+
+  function tick(ts){
+    if(done) return;
+    if(!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+    const tRaw = Math.min(elapsed / TOTAL_DURATION, 1);
+    const t = easeInOut(tRaw);
+
+    /* Update gear angles */
+    const dt = 0.012;
+    GEARS.forEach(g => { g.angle += g.speed * dt; });
+
+    /* Compute camera transform */
+    const scale = SCALE_START + (SCALE_END - SCALE_START) * t;
+    const panX  = (PAN_START.x + (PAN_END.x - PAN_START.x) * t) * W;
+    const panY  = (PAN_START.y + (PAN_END.y - PAN_START.y) * t) * H;
+
+    /* Draw */
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.translate(W/2 - panX, H/2 - panY);
+    ctx.scale(scale, scale);
+
+    /* Subtle motion-blur effect via partial clear */
+    ctx.globalAlpha = 1;
+
+    GEARS.forEach(g => drawGear(g, ctx));
+
+    /* Belt / chain lines between connected gears */
+    ctx.strokeStyle = 'rgba(200,192,176,0.2)';
+    ctx.lineWidth = 1.5 / scale;
+    ctx.setLineDash([4/scale, 6/scale]);
+    [[0,1],[0,4],[1,2],[1,3],[0,6],[6,7]].forEach(([a,b])=>{
+      ctx.beginPath();
+      ctx.moveTo(GEARS[a].x, GEARS[a].y);
+      ctx.lineTo(GEARS[b].x, GEARS[b].y);
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    ctx.restore();
+
+    /* Tagline fade in at 20% */
+    if(tRaw > 0.2) tagline.style.opacity = Math.min((tRaw-0.2)/0.15, 1);
+
+    /* Crossfade out at 85% */
+    if(tRaw > 0.80){
+      const fadeT = (tRaw - 0.80) / 0.20;
+      gearStage.style.opacity = 1 - fadeT;
+    }
+
+    if(tRaw < 1){
+      rafId = requestAnimationFrame(tick);
+    } else {
+      done = true;
+      /* Switch to model stage */
+      gearStage.style.display = 'none';
+      modelStage.style.display = 'block';
+      startFairyTour();
+    }
+  }
+
+  /* Kick off immediately */
+  requestAnimationFrame(tick);
+
+  window.addEventListener('resize', resize);
+})();
+
+/* ══════════════════════════════════════════════
+   PHASE 2 — FÉE CAMERA TOUR
+   Parcours organique, comme une fée qui vole
+══════════════════════════════════════════════ */
+function startFairyTour(){
+  const mv = document.getElementById('mv');
+  if(!mv) return;
+
+  /* ── Waypoints fée ──
+     theta = azimut (horizontal °), phi = élévation (° depuis le haut),
+     radius = distance (m), duration = ms entre ce point et le suivant
+     La fée oscille, s'approche, s'éloigne, plonge, tourne, s'enroule…
+  */
+  const WAYPOINTS = [
+    /* Arrivée plongeante depuis le dessus — moteur en gros plan */
+    { label:'Vue moteur — gros plan',  theta:-55,  phi:60,  radius:0.38, dur:2400 },
+    /* Remontée légère, pivot côté droit */
+    { label:'Axe X — courroie',         theta:20,   phi:75,  radius:0.55, dur:2200 },
+    /* La fée s'éloigne pour voir l'ensemble */
+    { label:'Vue d\'ensemble',          theta:60,   phi:65,  radius:0.92, dur:2000 },
+    /* Glisse vers l\'arrière, un peu haute */
+    { label:'Face arrière',             theta:185,  phi:62,  radius:0.88, dur:2600 },
+    /* Pique vers le bas — dessous de la machine */
+    { label:'Dessous — châssis',        theta:200,  phi:110, radius:0.72, dur:1800 },
+    /* Remonte rapidement, côté gauche */
+    { label:'Côté gauche',              theta:270,  phi:72,  radius:0.82, dur:2000 },
+    /* Passe par-dessus — vue plongeante */
+    { label:'Vue de dessus — rails',    theta:290,  phi:25,  radius:0.80, dur:2200 },
+    /* Descend en spirale vers la tête porte-stylo */
+    { label:'Tête porte-stylo',         theta:315,  phi:85,  radius:0.40, dur:2000 },
+    /* Envol final — position 3/4 haute */
+    { label:'Vue d\'ensemble finale',   theta:-35,  phi:58,  radius:0.98, dur:2400 },
+  ];
+
+  const labelEl   = document.getElementById('cam-label-txt');
+  const bar       = document.getElementById('cam-bar');
+  const progress  = document.getElementById('cam-progress');
+  const btnPause  = document.getElementById('cbtn-pause');
+  const btnRestart= document.getElementById('cbtn-restart');
+  const btnFree   = document.getElementById('cbtn-free');
+  const freeBanner= document.getElementById('free-banner');
+  const btnReplay = document.getElementById('cbtn-replay');
+
+  let step = 0, paused = false, freeMode = false;
+  let timer = null, raf = null, progStart = null, progDur = 0;
+
+  function easeInOutCubic(t){ return t<0.5?4*t*t*t:(t-1)*(2*t-2)*(2*t-2)+1; }
+
+  function gotoStep(i){
+    if(freeMode) return;
+    const wp = WAYPOINTS[i];
+    if(!wp){ enterFree(); return; }
+
+    /* Animate label */
     labelEl.style.opacity = '0';
-    tourProgress.style.opacity = '0';
+    setTimeout(()=>{ labelEl.textContent = wp.label; labelEl.style.opacity='1'; }, 120);
+
+    /* Set camera orbit — model-viewer interpolates smoothly */
+    mv.cameraOrbit = `${wp.theta}deg ${wp.phi}deg ${wp.radius}m`;
+
+    /* Progress bar */
+    progStart = performance.now();
+    progDur   = wp.dur;
+    animBar();
+
+    timer = setTimeout(()=>{ step++; gotoStep(step); }, wp.dur);
+  }
+
+  function animBar(){
+    if(raf) cancelAnimationFrame(raf);
+    function frame(now){
+      if(paused || freeMode) return;
+      const el = now - progStart;
+      const globalT = step/WAYPOINTS.length + Math.min(el,progDur)/progDur/WAYPOINTS.length;
+      bar.style.width = (Math.min(globalT,1)*100)+'%';
+      if(el < progDur) raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function enterFree(){
+    freeMode = true;
+    clearTimeout(timer);
+    if(raf) cancelAnimationFrame(raf);
+    labelEl.style.opacity = '0';
+    progress.style.opacity = '0';
+    bar.style.width = '100%';
     freeBanner.style.display = 'flex';
     btnFree.style.display = 'none';
-    btnPlayPause.style.display = 'none';
-    progressBar.style.width = '100%';
+    btnPause.style.display = 'none';
   }
 
-  function startTour(fromStep) {
-    freeMode = false;
-    currentStep = fromStep || 0;
-    paused = false;
-    progressBar.style.width = '0%';
-    tourProgress.style.opacity = '1';
+  function startTour(from){
+    freeMode = false; paused = false; step = from || 0;
+    bar.style.width = '0%';
+    progress.style.opacity = '1';
     freeBanner.style.display = 'none';
     btnFree.style.display = '';
-    btnPlayPause.style.display = '';
-    btnPlayPause.textContent = '⏸';
+    btnPause.style.display = '';
+    btnPause.textContent = '⏸';
     labelEl.style.opacity = '1';
-    animateToStep(currentStep);
+    gotoStep(step);
   }
 
-  // ── Controls ──
-  btnPlayPause.addEventListener('click', () => {
-    if (freeMode) return;
+  btnPause.onclick = ()=>{
+    if(freeMode) return;
     paused = !paused;
-    btnPlayPause.textContent = paused ? '▶' : '⏸';
-    if (!paused) {
-      // Resume: restart current step from scratch
-      clearTimeout(stepTimer);
-      animateToStep(currentStep);
-    } else {
-      clearTimeout(stepTimer);
-      if (rafId) cancelAnimationFrame(rafId);
-    }
-  });
+    btnPause.textContent = paused ? '▶' : '⏸';
+    if(!paused){ clearTimeout(timer); gotoStep(step); }
+    else { clearTimeout(timer); if(raf) cancelAnimationFrame(raf); }
+  };
+  btnRestart.onclick = ()=>{ clearTimeout(timer); if(raf) cancelAnimationFrame(raf); startTour(0); };
+  btnFree.onclick    = ()=> enterFree();
+  btnReplay.onclick  = ()=> startTour(0);
 
-  btnRestart.addEventListener('click', () => {
-    clearTimeout(stepTimer);
-    if (rafId) cancelAnimationFrame(rafId);
-    startTour(0);
-  });
-
-  btnFree.addEventListener('click', () => {
-    enterFreeMode();
-  });
-
-  btnReplay.addEventListener('click', () => {
-    startTour(0);
-  });
-
-  // ── Start when model is loaded ──
-  mv.addEventListener('load', () => {
-    // Small delay to let the model settle
-    setTimeout(() => startTour(0), 600);
-  });
-
-  // Fallback: start after 2s even if event missed
-  setTimeout(() => {
-    if (currentStep === 0 && !freeMode) startTour(0);
-  }, 2500);
-
-})();
+  /* Start when model loaded */
+  mv.addEventListener('load', ()=> setTimeout(()=> startTour(0), 400));
+  setTimeout(()=>{ if(step===0 && !freeMode) startTour(0); }, 2500);
+}
 </script>
