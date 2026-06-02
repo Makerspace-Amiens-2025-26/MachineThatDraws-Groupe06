@@ -1,6 +1,8 @@
 <div class="page active" id="page-home">
+
+  <!-- ══ HERO ══ -->
   <div class="home-hero">
-    <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
+    <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025/2026</div>
     <h1 class="home-title">Machine That Draw</h1>
     <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
     <div class="home-btns">
@@ -9,6 +11,8 @@
       <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
     </div>
   </div>
+
+  <!-- ══ PROJECT + TEAM ══ -->
   <div class="home-body">
     <div>
       <h2>Le projet</h2>
@@ -28,478 +32,357 @@
         <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
       </div>
     </div>
+  </div>
 
-    <!-- ══════════════ CINEMATIC 3D VIEWER ══════════════ -->
-    <div class="model-wrap" id="model-wrap">
-      <h2>Modèle 3D</h2>
-      <div id="cinematic-shell">
+  <!-- ══ 3D SCROLL EXPERIENCE ══ -->
+  <div class="model-wrap" id="model-section">
+    <div class="model-scroll-label">
+      <span class="model-scroll-hint" id="scroll-hint">↓ Scrollez pour explorer la machine</span>
+      <span class="model-free-hint" id="free-hint" style="display:none">✦ Mode libre — cliquez et faites pivoter</span>
+    </div>
 
-        <!-- PHASE 1 : Engrenages -->
-        <div id="gear-stage">
-          <canvas id="gear-canvas"></canvas>
-          <div id="gear-overlay">
-            <div id="gear-tagline">Transmission de mouvement</div>
-          </div>
-          <div id="gear-vignette"></div>
+    <!-- sticky container -->
+    <div class="model-sticky-outer" id="sticky-outer">
+      <div class="model-sticky-inner" id="sticky-inner">
+        <canvas id="three-canvas"></canvas>
+        <div class="model-progress-wrap">
+          <div class="model-progress-bar" id="model-progress"></div>
         </div>
-
-        <!-- PHASE 2 : Modèle 3D -->
-        <div id="model-stage" style="display:none">
-          <div id="cam-label"><span id="cam-label-txt">Initialisation…</span></div>
-          <div id="cam-progress"><div id="cam-bar"></div></div>
-          <div id="cam-btns">
-            <button class="cbtn" id="cbtn-pause" title="Pause">⏸</button>
-            <button class="cbtn" id="cbtn-restart" title="Recommencer">↺</button>
-            <button class="cbtn" id="cbtn-free">🖱 Libre</button>
-          </div>
-          <div id="free-banner" style="display:none">
-            <span>Mode libre — glisser pour explorer</span>
-            <button class="cbtn-sm" id="cbtn-replay">▶ Rejouer</button>
-          </div>
-          <model-viewer
-            id="mv"
-            src="assets/images/models/machine (2).gltf"
-            camera-controls
-            shadow-intensity="0"
-            environment-image="neutral"
-            exposure="0.8"
-            alt="Modèle 3D Machine That Draw"
-            style="width:100%;height:540px;background:#0e1117">
-          </model-viewer>
-        </div>
-
+        <!-- waypoint labels -->
+        <div class="fly-label" id="lbl-0" style="opacity:0">Vue d'ensemble</div>
+        <div class="fly-label" id="lbl-1" style="opacity:0">Axe X · Courroie GT2</div>
+        <div class="fly-label" id="lbl-2" style="opacity:0">Tête porte-stylo</div>
+        <div class="fly-label" id="lbl-3" style="opacity:0">PCB & Électronique</div>
+        <div class="fly-label" id="lbl-4" style="opacity:0">Structure complète</div>
       </div>
     </div>
-    <!-- ══════════════════════════════════════════════════ -->
-
   </div>
+
 </div>
 
 <style>
-/* ── Shell ── */
-#cinematic-shell {
-  position:relative;
-  border:1px solid var(--border);
-  border-radius:12px;
-  overflow:hidden;
-  background:#0e1117;
+.model-wrap{
+  padding: 0 0 0 0;
+  border-top: 1px solid var(--border);
 }
-
-/* ══ GEAR STAGE ══ */
-#gear-stage {
-  position:relative;
-  width:100%;
-  height:540px;
-  overflow:hidden;
-  background:#0e1117;
+.model-scroll-label{
+  padding: 28px 64px 0;
+  min-height: 36px;
 }
-#gear-canvas {
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+.model-scroll-hint, .model-free-hint{
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-#gear-overlay {
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:flex-end;
-  justify-content:flex-start;
-  padding:28px 32px;
-  pointer-events:none;
-  z-index:4;
+.model-sticky-outer{
+  height: 400vh; /* scroll travel distance */
+  position: relative;
 }
-#gear-tagline {
-  font-family:'DM Mono',monospace;
-  font-size:11px;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-  color:#e63030;
-  background:rgba(0,0,0,0.6);
-  border:1px solid rgba(230,48,48,0.3);
-  padding:5px 13px;
-  border-radius:4px;
-  opacity:0;
-  transition:opacity 0.6s;
+.model-sticky-inner{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0c10;
 }
-#gear-vignette {
-  position:absolute;
-  inset:0;
-  background:radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(14,17,23,0.85) 100%);
-  pointer-events:none;
-  z-index:3;
+#three-canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
-
-/* ══ MODEL STAGE ══ */
-#model-stage { position:relative; }
-
-#cam-label {
-  position:absolute;top:14px;left:14px;z-index:10;pointer-events:none;
+.model-progress-wrap{
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 2px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  overflow: hidden;
 }
-#cam-label-txt {
-  display:inline-block;
-  background:rgba(0,0,0,0.65);
-  backdrop-filter:blur(6px);
-  border:1px solid rgba(230,48,48,0.35);
-  color:#e63030;
-  font-family:'DM Mono',monospace;
-  font-size:11px;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  padding:5px 12px;
-  border-radius:4px;
-  transition:opacity 0.5s;
+.model-progress-bar{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-dim, #991f1f), var(--accent, #e63030), #ff7070);
+  box-shadow: 0 0 8px rgba(230,48,48,0.7);
+  transition: width 0.05s linear;
+  border-radius: 2px;
 }
-#cam-progress {
-  position:absolute;bottom:0;left:0;width:100%;height:2px;
-  background:rgba(255,255,255,0.07);z-index:10;
+.fly-label{
+  position: absolute;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(230,48,48,0.8);
+  font-weight: 500;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  font-family: var(--mono, monospace);
+  white-space: nowrap;
 }
-#cam-bar {
-  height:100%;background:#e63030;width:0%;transition:width 0.12s linear;
+@media(max-width:768px){
+  .model-scroll-label{ padding: 20px 24px 0; }
 }
-#cam-btns {
-  position:absolute;top:12px;right:12px;z-index:10;display:flex;gap:7px;
-}
-.cbtn {
-  background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,0.12);
-  color:#9a9490;font-size:12px;padding:5px 11px;
-  border-radius:5px;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  transition:all 0.15s;white-space:nowrap;
-}
-.cbtn:hover { border-color:rgba(230,48,48,0.5);color:#e63030; }
-#free-banner {
-  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:10;
-  background:rgba(0,0,0,0.72);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,0.1);border-radius:8px;
-  padding:8px 16px;display:flex;align-items:center;gap:14px;
-  font-size:12px;color:#9a9490;font-family:'DM Sans',sans-serif;white-space:nowrap;
-}
-.cbtn-sm {
-  background:rgba(230,48,48,0.15);border:1px solid rgba(230,48,48,0.4);color:#e63030;
-  font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;
-  font-family:'DM Sans',sans-serif;transition:all 0.15s;
-}
-.cbtn-sm:hover { background:rgba(230,48,48,0.28); }
 </style>
 
-<script>
-/* ══════════════════════════════════════════════
-   PHASE 1 — ENGRENAGE CANVAS ANIMATION
-   Zoom arrière depuis dents serrrées → machine entière
-══════════════════════════════════════════════ */
-(function initGears(){
-  const canvas = document.getElementById('gear-canvas');
-  const ctx = canvas.getContext('2d');
-  const tagline = document.getElementById('gear-tagline');
-  const gearStage = document.getElementById('gear-stage');
-  const modelStage = document.getElementById('model-stage');
+<script type="module">
+// ── Three.js fly-through + orbit ──
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/controls/OrbitControls.js';
 
-  let W, H;
-  function resize(){
-    W = canvas.width  = gearStage.clientWidth  || 800;
-    H = canvas.height = gearStage.clientHeight || 540;
-  }
-  resize();
+const canvas  = document.getElementById('three-canvas');
+const outer   = document.getElementById('sticky-outer');
+const progressBar = document.getElementById('model-progress');
+const scrollHint  = document.getElementById('scroll-hint');
+const freeHint    = document.getElementById('free-hint');
 
-  /* Gear definition */
-  function makeGear(x,y,r,teeth,phase,speed,color){
-    return {x,y,r,teeth,phase,speed,color,angle:phase};
-  }
+// ── Renderer ──
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x090b10, 1);
+renderer.shadowMap.enabled = false;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
 
-  const GEARS = [
-    /* big central */
-    makeGear(0, 0, 110, 22, 0,      1,    '#c8c0b0'),
-    /* medium right */
-    makeGear(220,0,  60, 12, Math.PI/12, -1.83, '#a09888'),
-    /* small top-right */
-    makeGear(330,-120, 38, 8,  0,    2.89,  '#b8b0a0'),
-    /* small bottom-right */
-    makeGear(330,120,  38, 8,  Math.PI/8, 2.89, '#b8b0a0'),
-    /* medium left */
-    makeGear(-220, 0,  60, 12, Math.PI/12, -1.83,'#a09888'),
-    /* small top-left */
-    makeGear(-330,-120, 38, 8,  0,  2.89,  '#b8b0a0'),
-    /* medium bottom */
-    makeGear(0, 200,   70, 14,  Math.PI/14, -1.57,'#a89880'),
-    /* tiny accent */
-    makeGear(100, 260,  28, 6,   0,   3.93, '#988870'),
-  ];
+// ── Scene ──
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x090b10, 0.8);
 
-  function drawGear(g, ctx){
-    const {x,y,r,teeth,angle,color} = g;
-    const toothH = r * 0.28;
-    const innerR = r * 0.68;
-    const holeR  = r * 0.22;
-    const spokeN = Math.max(3, Math.floor(teeth/4));
+// ── Camera ──
+const camera = new THREE.PerspectiveCamera(55, 1, 0.001, 50);
+camera.position.set(0, 2, 3);
 
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
+// ── Lights ──
+const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+scene.add(ambient);
+const key = new THREE.DirectionalLight(0xffd5a0, 1.8);
+key.position.set(2, 3, 2);
+scene.add(key);
+const fill = new THREE.DirectionalLight(0x8aaeff, 0.6);
+fill.position.set(-2, 1, -1);
+scene.add(fill);
+const rim = new THREE.DirectionalLight(0xff4444, 0.35);
+rim.position.set(0, -1, -2);
+scene.add(rim);
+// subtle point lights inside the machine for the fly-through glow
+const pt1 = new THREE.PointLight(0xff3333, 0.8, 1.5);
+pt1.position.set(0, 0.1, 0);
+scene.add(pt1);
+const pt2 = new THREE.PointLight(0x3366ff, 0.5, 1.2);
+pt2.position.set(0.15, 0.2, 0.1);
+scene.add(pt2);
 
-    /* Outer gear body */
-    ctx.beginPath();
-    for(let i=0;i<teeth*2;i++){
-      const a = (i / (teeth*2)) * Math.PI * 2;
-      const rr = (i%2===0) ? r : innerR;
-      /* chamfer tooth tips */
-      const da = Math.PI/(teeth*2) * 0.35;
-      if(i%2===0){
-        const a0 = a - da, a1 = a + da;
-        if(i===0) ctx.moveTo(r*Math.cos(a0), r*Math.sin(a0));
-        else ctx.lineTo(r*Math.cos(a0), r*Math.sin(a0));
-        ctx.lineTo(r*Math.cos(a1), r*Math.sin(a1));
-      } else {
-        ctx.lineTo(innerR*Math.cos(a), innerR*Math.sin(a));
-      }
-    }
-    ctx.closePath();
+// ── Resize ──
+function resize(){
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(canvas);
+resize();
 
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-    ctx.lineWidth = 0.8;
-    ctx.stroke();
+// ── OrbitControls (disabled during fly) ──
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.minDistance = 0.05;
+controls.maxDistance = 5;
+controls.enabled = false;
+let orbitTarget = new THREE.Vector3(0, 0, 0);
 
-    /* Inner ring */
-    ctx.beginPath();
-    ctx.arc(0, 0, innerR*0.92, 0, Math.PI*2);
-    ctx.fillStyle = '#1a1e28';
-    ctx.fill();
+// ── Camera spline path through the machine ──
+// Points are in model space (machine fits roughly in [-0.3,0.3] on each axis)
+// We weave around internal structures, under gantry, through frame
+const PATH_POS = [
+  new THREE.Vector3( 0.00,  0.55,  0.80),  // 0  — loin, vue ensemble
+  new THREE.Vector3( 0.25,  0.35,  0.55),  // 1  — approche coin
+  new THREE.Vector3( 0.28,  0.18,  0.30),  // 2  — entre le cadre et le rail X
+  new THREE.Vector3( 0.10,  0.05,  0.10),  // 3  — inside low, near motors
+  new THREE.Vector3(-0.15,  0.08, -0.05),  // 4  — traverse l'axe Y
+  new THREE.Vector3(-0.25,  0.22,  0.05),  // 5  — remonte vers tête
+  new THREE.Vector3(-0.05,  0.28,  0.02),  // 6  — sous la tête porte-stylo
+  new THREE.Vector3( 0.18,  0.20, -0.12),  // 7  — côté PCB
+  new THREE.Vector3( 0.05,  0.10, -0.30),  // 8  — sortie arrière
+  new THREE.Vector3( 0.00,  0.40, -0.55),  // 9  — recul final
+  new THREE.Vector3( 0.00,  0.30, -0.80),  // 10 — vue arrière complète → merge to orbit
+];
 
-    /* Spokes */
-    for(let s=0;s<spokeN;s++){
-      const sa = (s/spokeN)*Math.PI*2;
-      ctx.beginPath();
-      ctx.moveTo(Math.cos(sa)*holeR*1.5, Math.sin(sa)*holeR*1.5);
-      ctx.lineTo(Math.cos(sa)*innerR*0.85, Math.sin(sa)*innerR*0.85);
-      ctx.strokeStyle = color;
-      ctx.lineWidth = r * 0.085;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-    }
+// Where the camera looks at each point (look-ahead on the spline)
+const PATH_LOOK = [
+  new THREE.Vector3( 0.00,  0.10,  0.00),
+  new THREE.Vector3( 0.10,  0.05,  0.10),
+  new THREE.Vector3( 0.00,  0.05,  0.00),
+  new THREE.Vector3(-0.15,  0.08, -0.05),
+  new THREE.Vector3(-0.25,  0.22,  0.05),
+  new THREE.Vector3(-0.05,  0.28,  0.02),
+  new THREE.Vector3( 0.18,  0.20, -0.12),
+  new THREE.Vector3( 0.05,  0.10, -0.30),
+  new THREE.Vector3( 0.00,  0.40, -0.55),
+  new THREE.Vector3( 0.00,  0.15,  0.00), // final look → center
+  new THREE.Vector3( 0.00,  0.00,  0.00),
+];
 
-    /* Center hole */
-    ctx.beginPath();
-    ctx.arc(0,0,holeR,0,Math.PI*2);
-    ctx.fillStyle = '#0e1117';
-    ctx.fill();
-    ctx.strokeStyle='rgba(255,255,255,0.18)';
-    ctx.lineWidth=1;
-    ctx.stroke();
+// Waypoint labels (label index → t position 0-1)
+const WAYPOINTS = [
+  { t: 0.00, label: 0 },
+  { t: 0.22, label: 1 },
+  { t: 0.45, label: 2 },
+  { t: 0.62, label: 3 },
+  { t: 0.88, label: 4 },
+];
 
-    /* Center bolt */
-    ctx.beginPath();
-    ctx.arc(0,0,holeR*0.4,0,Math.PI*2);
-    ctx.fillStyle='rgba(230,48,48,0.5)';
-    ctx.fill();
+const splinePos  = new THREE.CatmullRomCurve3(PATH_POS, false, 'catmullrom', 0.5);
+const splineLook = new THREE.CatmullRomCurve3(PATH_LOOK, false, 'catmullrom', 0.5);
 
-    ctx.restore();
-  }
+// ── State ──
+let flyDone = false;
+let currentT = 0;
+let lastT = -1;
 
-  /* Animation state */
-  const TOTAL_DURATION = 4800; /* ms for gear phase */
-  let startTime = null;
-  let rafId;
-  let done = false;
+// ── Scroll handler ──
+function getScrollT(){
+  const rect = outer.getBoundingClientRect();
+  const totalScroll = outer.offsetHeight - window.innerHeight;
+  if(totalScroll <= 0) return 0;
+  const scrolled = -rect.top;
+  return Math.max(0, Math.min(1, scrolled / totalScroll));
+}
 
-  /* Easing */
-  function easeInOut(t){ return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
-  function easeIn(t){ return t*t*t; }
+// smooth camera target
+const camPos  = new THREE.Vector3();
+const camLook = new THREE.Vector3();
+const _tmpPos  = new THREE.Vector3();
+const _tmpLook = new THREE.Vector3();
+const _upVec   = new THREE.Vector3(0, 1, 0);
 
-  /* Camera zoom params */
-  /* We start extremely zoomed in (scale ~4) then zoom out to ~0.55 */
-  const SCALE_START = 4.8;
-  const SCALE_END   = 0.55;
-  /* Pan: start centered on big gear tooth, drift to center */
-  const PAN_START   = { x: 0.18, y: 0.09 }; /* fraction of W/H offset */
-  const PAN_END     = { x: 0, y: 0 };
+function applyFlyCamera(t){
+  splinePos.getPoint(t, _tmpPos);
+  splineLook.getPoint(Math.min(t + 0.04, 1.0), _tmpLook);
+  camPos.lerp(_tmpPos, 0.07);
+  camLook.lerp(_tmpLook, 0.07);
+  camera.position.copy(camPos);
+  camera.lookAt(camLook);
+}
 
-  function tick(ts){
-    if(done) return;
-    if(!startTime) startTime = ts;
-    const elapsed = ts - startTime;
-    const tRaw = Math.min(elapsed / TOTAL_DURATION, 1);
-    const t = easeInOut(tRaw);
-
-    /* Update gear angles */
-    const dt = 0.012;
-    GEARS.forEach(g => { g.angle += g.speed * dt; });
-
-    /* Compute camera transform */
-    const scale = SCALE_START + (SCALE_END - SCALE_START) * t;
-    const panX  = (PAN_START.x + (PAN_END.x - PAN_START.x) * t) * W;
-    const panY  = (PAN_START.y + (PAN_END.y - PAN_START.y) * t) * H;
-
-    /* Draw */
-    ctx.clearRect(0, 0, W, H);
-    ctx.save();
-    ctx.translate(W/2 - panX, H/2 - panY);
-    ctx.scale(scale, scale);
-
-    /* Subtle motion-blur effect via partial clear */
-    ctx.globalAlpha = 1;
-
-    GEARS.forEach(g => drawGear(g, ctx));
-
-    /* Belt / chain lines between connected gears */
-    ctx.strokeStyle = 'rgba(200,192,176,0.2)';
-    ctx.lineWidth = 1.5 / scale;
-    ctx.setLineDash([4/scale, 6/scale]);
-    [[0,1],[0,4],[1,2],[1,3],[0,6],[6,7]].forEach(([a,b])=>{
-      ctx.beginPath();
-      ctx.moveTo(GEARS[a].x, GEARS[a].y);
-      ctx.lineTo(GEARS[b].x, GEARS[b].y);
-      ctx.stroke();
-    });
-    ctx.setLineDash([]);
-
-    ctx.restore();
-
-    /* Tagline fade in at 20% */
-    if(tRaw > 0.2) tagline.style.opacity = Math.min((tRaw-0.2)/0.15, 1);
-
-    /* Crossfade out at 85% */
-    if(tRaw > 0.80){
-      const fadeT = (tRaw - 0.80) / 0.20;
-      gearStage.style.opacity = 1 - fadeT;
-    }
-
-    if(tRaw < 1){
-      rafId = requestAnimationFrame(tick);
-    } else {
-      done = true;
-      /* Switch to model stage */
-      gearStage.style.display = 'none';
-      modelStage.style.display = 'block';
-      startFairyTour();
-    }
-  }
-
-  /* Kick off immediately */
-  requestAnimationFrame(tick);
-
-  window.addEventListener('resize', resize);
-})();
-
-/* ══════════════════════════════════════════════
-   PHASE 2 — FÉE CAMERA TOUR
-   Parcours organique, comme une fée qui vole
-══════════════════════════════════════════════ */
-function startFairyTour(){
-  const mv = document.getElementById('mv');
-  if(!mv) return;
-
-  /* ── Waypoints fée ──
-     theta = azimut (horizontal °), phi = élévation (° depuis le haut),
-     radius = distance (m), duration = ms entre ce point et le suivant
-     La fée oscille, s'approche, s'éloigne, plonge, tourne, s'enroule…
-  */
-  const WAYPOINTS = [
-    /* Arrivée plongeante depuis le dessus — moteur en gros plan */
-    { label:'Vue moteur — gros plan',  theta:-55,  phi:60,  radius:0.38, dur:2400 },
-    /* Remontée légère, pivot côté droit */
-    { label:'Axe X — courroie',         theta:20,   phi:75,  radius:0.55, dur:2200 },
-    /* La fée s'éloigne pour voir l'ensemble */
-    { label:'Vue d\'ensemble',          theta:60,   phi:65,  radius:0.92, dur:2000 },
-    /* Glisse vers l\'arrière, un peu haute */
-    { label:'Face arrière',             theta:185,  phi:62,  radius:0.88, dur:2600 },
-    /* Pique vers le bas — dessous de la machine */
-    { label:'Dessous — châssis',        theta:200,  phi:110, radius:0.72, dur:1800 },
-    /* Remonte rapidement, côté gauche */
-    { label:'Côté gauche',              theta:270,  phi:72,  radius:0.82, dur:2000 },
-    /* Passe par-dessus — vue plongeante */
-    { label:'Vue de dessus — rails',    theta:290,  phi:25,  radius:0.80, dur:2200 },
-    /* Descend en spirale vers la tête porte-stylo */
-    { label:'Tête porte-stylo',         theta:315,  phi:85,  radius:0.40, dur:2000 },
-    /* Envol final — position 3/4 haute */
-    { label:'Vue d\'ensemble finale',   theta:-35,  phi:58,  radius:0.98, dur:2400 },
-  ];
-
-  const labelEl   = document.getElementById('cam-label-txt');
-  const bar       = document.getElementById('cam-bar');
-  const progress  = document.getElementById('cam-progress');
-  const btnPause  = document.getElementById('cbtn-pause');
-  const btnRestart= document.getElementById('cbtn-restart');
-  const btnFree   = document.getElementById('cbtn-free');
-  const freeBanner= document.getElementById('free-banner');
-  const btnReplay = document.getElementById('cbtn-replay');
-
-  let step = 0, paused = false, freeMode = false;
-  let timer = null, raf = null, progStart = null, progDur = 0;
-
-  function easeInOutCubic(t){ return t<0.5?4*t*t*t:(t-1)*(2*t-2)*(2*t-2)+1; }
-
-  function gotoStep(i){
-    if(freeMode) return;
+function updateWaypointLabels(t){
+  const labels = document.querySelectorAll('.fly-label');
+  labels.forEach((el, i) => {
     const wp = WAYPOINTS[i];
-    if(!wp){ enterFree(); return; }
+    if(!wp) return;
+    const dist = Math.abs(t - wp.t);
+    const alpha = dist < 0.06 ? Math.max(0, 1 - dist / 0.06) : 0;
+    el.style.opacity = alpha;
+  });
+}
 
-    /* Animate label */
-    labelEl.style.opacity = '0';
-    setTimeout(()=>{ labelEl.textContent = wp.label; labelEl.style.opacity='1'; }, 120);
+function enterFreeMode(){
+  if(flyDone) return;
+  flyDone = true;
+  // Snap to final spline position
+  splinePos.getPoint(1, camPos);
+  camera.position.copy(camPos);
+  controls.target.set(0, 0.05, 0);
+  controls.enabled = true;
+  // hide scroll hint, show free hint
+  scrollHint.style.display = 'none';
+  freeHint.style.display = 'flex';
+  // hide labels
+  document.querySelectorAll('.fly-label').forEach(el => el.style.opacity = 0);
+  progressBar.style.width = '100%';
+}
 
-    /* Set camera orbit — model-viewer interpolates smoothly */
-    mv.cameraOrbit = `${wp.theta}deg ${wp.phi}deg ${wp.radius}m`;
+// ── GLTF Load ──
+const loader = new GLTFLoader();
+let machineModel = null;
 
-    /* Progress bar */
-    progStart = performance.now();
-    progDur   = wp.dur;
-    animBar();
+loader.load(
+  'assets/images/models/machine (2).gltf',
+  (gltf) => {
+    machineModel = gltf.scene;
 
-    timer = setTimeout(()=>{ step++; gotoStep(step); }, wp.dur);
+    // Center and normalize
+    const box = new THREE.Box3().setFromObject(machineModel);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const scale = 0.5 / maxDim;
+    machineModel.scale.setScalar(scale);
+    machineModel.position.sub(center.multiplyScalar(scale));
+
+    // Materials — make it look nice, slight metallic
+    machineModel.traverse(child => {
+      if(child.isMesh){
+        child.castShadow = false;
+        child.receiveShadow = false;
+        if(child.material){
+          const mats = Array.isArray(child.material) ? child.material : [child.material];
+          mats.forEach(m => {
+            if(m.isMeshStandardMaterial || m.isMeshPhysicalMaterial){
+              m.metalness = Math.max(m.metalness || 0, 0.4);
+              m.roughness = Math.min(m.roughness !== undefined ? m.roughness : 0.6, 0.75);
+              m.envMapIntensity = 0.8;
+            }
+          });
+        }
+      }
+    });
+
+    scene.add(machineModel);
+
+    // init camera at first spline point
+    splinePos.getPoint(0, camPos);
+    splineLook.getPoint(0.04, camLook);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
+
+    animate();
+  },
+  undefined,
+  (err) => {
+    console.warn('GLTF load error (expected in preview — use actual server):', err);
+    // Still run the scene without the model
+    animate();
+  }
+);
+
+// ── Render loop ──
+const clock = new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = clock.getDelta();
+
+  if(!flyDone){
+    const t = getScrollT();
+    currentT = t;
+    progressBar.style.width = (t * 100) + '%';
+    applyFlyCamera(t);
+    updateWaypointLabels(t);
+
+    if(t >= 0.98) enterFreeMode();
+  } else {
+    controls.update();
   }
 
-  function animBar(){
-    if(raf) cancelAnimationFrame(raf);
-    function frame(now){
-      if(paused || freeMode) return;
-      const el = now - progStart;
-      const globalT = step/WAYPOINTS.length + Math.min(el,progDur)/progDur/WAYPOINTS.length;
-      bar.style.width = (Math.min(globalT,1)*100)+'%';
-      if(el < progDur) raf = requestAnimationFrame(frame);
-    }
-    raf = requestAnimationFrame(frame);
-  }
+  // Animate point lights slightly for mood
+  const time = clock.elapsedTime;
+  pt1.intensity = 0.6 + 0.2 * Math.sin(time * 1.7);
+  pt2.intensity = 0.4 + 0.15 * Math.sin(time * 2.3 + 1.2);
 
-  function enterFree(){
-    freeMode = true;
-    clearTimeout(timer);
-    if(raf) cancelAnimationFrame(raf);
-    labelEl.style.opacity = '0';
-    progress.style.opacity = '0';
-    bar.style.width = '100%';
-    freeBanner.style.display = 'flex';
-    btnFree.style.display = 'none';
-    btnPause.style.display = 'none';
-  }
-
-  function startTour(from){
-    freeMode = false; paused = false; step = from || 0;
-    bar.style.width = '0%';
-    progress.style.opacity = '1';
-    freeBanner.style.display = 'none';
-    btnFree.style.display = '';
-    btnPause.style.display = '';
-    btnPause.textContent = '⏸';
-    labelEl.style.opacity = '1';
-    gotoStep(step);
-  }
-
-  btnPause.onclick = ()=>{
-    if(freeMode) return;
-    paused = !paused;
-    btnPause.textContent = paused ? '▶' : '⏸';
-    if(!paused){ clearTimeout(timer); gotoStep(step); }
-    else { clearTimeout(timer); if(raf) cancelAnimationFrame(raf); }
-  };
-  btnRestart.onclick = ()=>{ clearTimeout(timer); if(raf) cancelAnimationFrame(raf); startTour(0); };
-  btnFree.onclick    = ()=> enterFree();
-  btnReplay.onclick  = ()=> startTour(0);
-
-  /* Start when model loaded */
-  mv.addEventListener('load', ()=> setTimeout(()=> startTour(0), 400));
-  setTimeout(()=>{ if(step===0 && !freeMode) startTour(0); }, 2500);
+  renderer.render(scene, camera);
 }
 </script>
