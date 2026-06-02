@@ -115,14 +115,30 @@ nav{padding:12px 0;flex:1}
 .btn-outline:hover{border-color:rgba(255,255,255,0.3);color:var(--text)}
 
 .home-body{padding:56px 64px;display:grid;grid-template-columns:1fr 1fr;gap:56px}
-.home-section h2{font-family:var(--serif);font-size:22px;color:var(--text);margin-bottom:16px;font-weight:400;font-style:italic;}
+
+/* Ajustement des espacements pour les titres */
+.home-body h2 {
+  font-family:var(--serif);
+  font-size:24px;
+  color:var(--text);
+  margin-bottom:24px; /* Espace sous le titre */
+  font-weight:400;
+  font-style:italic;
+}
+
 .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .info-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:20px;transition:border-color 0.15s;}
 .info-card:hover{border-color:rgba(230,48,48,0.3)}
 .info-card h3{font-size:13px;font-weight:500;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em}
 .info-card p{font-size:13px;color:var(--text2);line-height:1.6}
 
-.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+/* Ajustement de l'espacement pour la grille de l'équipe */
+.team-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:20px; /* Espace au-dessus des cartes */
+}
 .team-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;align-items:center;gap:12px;transition:border-color 0.15s;}
 .team-card:hover{border-color:rgba(230,48,48,0.3)}
 .team-avatar{width:38px;height:38px;border-radius:50%;background:rgba(230,48,48,0.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--accent);flex-shrink:0;border:1px solid rgba(230,48,48,0.25);}
@@ -221,7 +237,6 @@ td{padding:10px 16px;color:var(--text2);border-bottom:1px solid rgba(255,255,255
   </nav>
 </aside>
 
-<!-- MAIN : Ici que les pages s'injectent -->
 <main id="main">
   <div id="page-container"></div>
 </main>
@@ -288,17 +303,25 @@ document.addEventListener('DOMContentLoaded', () => {
   showPage(PAGES.includes(hash) ? hash : 'home');
 });
 
-// ── ANIMATION 3D ──
+// ── ANIMATION 3D FAÇON APPLE ──
 document.addEventListener('scroll', () => {
   const modelViewer = document.querySelector('model-viewer');
-  if (modelViewer) {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (scrollHeight > 0) {
-      const progress = scrollTop / scrollHeight;
-      const rotation = progress * 360;
-      modelViewer.setAttribute('camera-orbit', `${rotation}deg 75deg auto`);
+  const wrap = document.querySelector('.model-wrap');
+  
+  if (modelViewer && wrap) {
+    const rect = wrap.getBoundingClientRect();
+    const stickyTop = 100; 
+    const scrollableDistance = rect.height - 500; 
+    let progress = 0;
+    
+    if (rect.top <= stickyTop) {
+        progress = (stickyTop - rect.top) / scrollableDistance;
     }
+    
+    progress = Math.max(0, Math.min(1, progress));
+    const rotation = progress * 360; 
+    
+    modelViewer.setAttribute('camera-orbit', `${rotation}deg 75deg auto`);
   }
 });
 </script>
