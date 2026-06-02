@@ -28,17 +28,324 @@
         <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
       </div>
     </div>
+
+    <!-- ── 3D MODEL CINEMATIC VIEWER ── -->
     <div class="model-wrap">
       <h2>Modèle 3D</h2>
-      <div class="model-viewer-wrap">
+
+      <div class="model-viewer-wrap" id="model-viewer-wrap">
+
+        <!-- Overlay label -->
+        <div id="camera-label">
+          <span id="camera-label-text">Vue moteur</span>
+        </div>
+
+        <!-- Progress bar -->
+        <div id="tour-progress">
+          <div id="tour-progress-bar"></div>
+        </div>
+
+        <!-- Control buttons -->
+        <div id="viewer-controls">
+          <button class="viewer-btn" id="btn-play-pause" title="Pause/Reprendre">⏸</button>
+          <button class="viewer-btn" id="btn-restart" title="Recommencer">↺</button>
+          <button class="viewer-btn" id="btn-free" title="Mode libre">🖱 Libre</button>
+        </div>
+
+        <!-- Free mode overlay -->
+        <div id="free-mode-banner" style="display:none">
+          <span>Mode libre — faites glisser pour tourner</span>
+          <button class="viewer-btn-sm" id="btn-replay">▶ Rejouer la séquence</button>
+        </div>
+
         <model-viewer
+          id="mv"
           src="assets/images/models/machine (2).gltf"
-          shadow-intensity="1"
-          environment-image="neutral" 
+          camera-controls
+          shadow-intensity="0"
+          environment-image="neutral"
           exposure="0.8"
-          alt="Modèle 3D Machine That Draw">
+          alt="Modèle 3D Machine That Draw"
+          style="width:100%;height:520px;background:#111418">
         </model-viewer>
+
       </div>
     </div>
-  </div>
-</div>
+
+  </div><!-- end home-body -->
+</div><!-- end page-home -->
+
+<style>
+/* ── Model viewer wrapper ── */
+#model-viewer-wrap {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111418;
+}
+
+/* ── Camera label overlay ── */
+#camera-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  pointer-events: none;
+}
+#camera-label-text {
+  display: inline-block;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(230,48,48,0.35);
+  color: #e63030;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: opacity 0.5s;
+}
+
+/* ── Progress bar ── */
+#tour-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.07);
+  z-index: 10;
+}
+#tour-progress-bar {
+  height: 100%;
+  background: var(--accent, #e63030);
+  width: 0%;
+  transition: width 0.15s linear;
+}
+
+/* ── Viewer controls ── */
+#viewer-controls {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  gap: 7px;
+}
+.viewer-btn {
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text2, #9a9490);
+  font-size: 12px;
+  padding: 5px 11px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.viewer-btn:hover {
+  border-color: rgba(230,48,48,0.5);
+  color: #e63030;
+}
+
+/* ── Free mode banner ── */
+#free-mode-banner {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--text2, #9a9490);
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+.viewer-btn-sm {
+  background: rgba(230,48,48,0.15);
+  border: 1px solid rgba(230,48,48,0.4);
+  color: #e63030;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+.viewer-btn-sm:hover { background: rgba(230,48,48,0.28); }
+</style>
+
+<script>
+(function() {
+  // Wait for model-viewer to be ready
+  const mv = document.getElementById('mv');
+  if (!mv) return;
+
+  // ── Camera tour keyframes ──
+  // Each step: { label, theta (deg), phi (deg), radius (m), duration (ms), easing }
+  // theta = horizontal rotation (azimuth), phi = vertical elevation
+  const TOUR = [
+    // 1. Vue moteur — gros plan côté moteur, angle bas
+    { label: 'Vue moteur',        theta: -60,  phi: 82,   radius: 0.45, duration: 2800, easing: 'ease-in-out' },
+    // 2. Zoom arrière progressif
+    { label: 'Zoom arrière',      theta: -60,  phi: 75,   radius: 0.80, duration: 2200, easing: 'ease-in-out' },
+    // 3. Vue de face légèrement haute
+    { label: 'Face avant',        theta: 0,    phi: 70,   radius: 0.90, duration: 2600, easing: 'ease-in-out' },
+    // 4. Côté droit
+    { label: 'Côté droit',        theta: 90,   phi: 72,   radius: 0.85, duration: 2400, easing: 'ease-in-out' },
+    // 5. Vue arrière
+    { label: 'Face arrière',      theta: 180,  phi: 68,   radius: 0.88, duration: 2400, easing: 'ease-in-out' },
+    // 6. Côté gauche
+    { label: 'Côté gauche',       theta: 270,  phi: 72,   radius: 0.85, duration: 2400, easing: 'ease-in-out' },
+    // 7. Vue plongeante dessus
+    { label: 'Vue de dessus',     theta: 0,    phi: 20,   radius: 0.95, duration: 2600, easing: 'ease-in-out' },
+    // 8. Vue 3/4 finale — position de repos
+    { label: 'Vue d\'ensemble',   theta: -40,  phi: 65,   radius: 0.95, duration: 2200, easing: 'ease-in-out' },
+  ];
+
+  const DEG = Math.PI / 180;
+  const RAD = 180 / Math.PI;
+
+  let currentStep = 0;
+  let paused = false;
+  let freeMode = false;
+  let stepTimer = null;
+  let progressStart = null;
+  let progressDuration = 0;
+  let rafId = null;
+
+  const labelEl   = document.getElementById('camera-label-text');
+  const progressBar = document.getElementById('tour-progress-bar');
+  const btnPlayPause = document.getElementById('btn-play-pause');
+  const btnRestart  = document.getElementById('btn-restart');
+  const btnFree     = document.getElementById('btn-free');
+  const freeBanner  = document.getElementById('free-mode-banner');
+  const btnReplay   = document.getElementById('btn-replay');
+  const tourProgress = document.getElementById('tour-progress');
+
+  // ── Animate camera to a target step ──
+  function animateToStep(stepIdx) {
+    if (freeMode) return;
+    const step = TOUR[stepIdx];
+    if (!step) {
+      enterFreeMode();
+      return;
+    }
+
+    labelEl.textContent = step.label;
+    labelEl.style.opacity = '0';
+    setTimeout(() => { labelEl.style.opacity = '1'; }, 80);
+
+    // Convert spherical → model-viewer camera-orbit string
+    // model-viewer: camera-orbit = "theta phi radius"
+    // theta: azimuthal (horizontal), phi: polar (vertical from top)
+    const orbit = `${step.theta}deg ${step.phi}deg ${step.radius}m`;
+    mv.cameraOrbit = orbit;
+
+    // Progress animation
+    progressStart = performance.now();
+    progressDuration = step.duration;
+    animateProgress();
+
+    // Schedule next step
+    stepTimer = setTimeout(() => {
+      currentStep++;
+      animateToStep(currentStep);
+    }, step.duration);
+  }
+
+  function animateProgress() {
+    if (rafId) cancelAnimationFrame(rafId);
+    function frame(now) {
+      if (paused || freeMode) return;
+      const elapsed = now - progressStart;
+      const totalProgress = (currentStep / TOUR.length) + (Math.min(elapsed, progressDuration) / progressDuration) / TOUR.length;
+      progressBar.style.width = (Math.min(totalProgress, 1) * 100) + '%';
+      if (elapsed < progressDuration) {
+        rafId = requestAnimationFrame(frame);
+      }
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function enterFreeMode() {
+    freeMode = true;
+    clearTimeout(stepTimer);
+    if (rafId) cancelAnimationFrame(rafId);
+
+    // Transition: enable full user controls (already on by default)
+    labelEl.style.opacity = '0';
+    tourProgress.style.opacity = '0';
+    freeBanner.style.display = 'flex';
+    btnFree.style.display = 'none';
+    btnPlayPause.style.display = 'none';
+    progressBar.style.width = '100%';
+  }
+
+  function startTour(fromStep) {
+    freeMode = false;
+    currentStep = fromStep || 0;
+    paused = false;
+    progressBar.style.width = '0%';
+    tourProgress.style.opacity = '1';
+    freeBanner.style.display = 'none';
+    btnFree.style.display = '';
+    btnPlayPause.style.display = '';
+    btnPlayPause.textContent = '⏸';
+    labelEl.style.opacity = '1';
+    animateToStep(currentStep);
+  }
+
+  // ── Controls ──
+  btnPlayPause.addEventListener('click', () => {
+    if (freeMode) return;
+    paused = !paused;
+    btnPlayPause.textContent = paused ? '▶' : '⏸';
+    if (!paused) {
+      // Resume: restart current step from scratch
+      clearTimeout(stepTimer);
+      animateToStep(currentStep);
+    } else {
+      clearTimeout(stepTimer);
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+  });
+
+  btnRestart.addEventListener('click', () => {
+    clearTimeout(stepTimer);
+    if (rafId) cancelAnimationFrame(rafId);
+    startTour(0);
+  });
+
+  btnFree.addEventListener('click', () => {
+    enterFreeMode();
+  });
+
+  btnReplay.addEventListener('click', () => {
+    startTour(0);
+  });
+
+  // ── Start when model is loaded ──
+  mv.addEventListener('load', () => {
+    // Small delay to let the model settle
+    setTimeout(() => startTour(0), 600);
+  });
+
+  // Fallback: start after 2s even if event missed
+  setTimeout(() => {
+    if (currentStep === 0 && !freeMode) startTour(0);
+  }, 2500);
+
+})();
+</script>
