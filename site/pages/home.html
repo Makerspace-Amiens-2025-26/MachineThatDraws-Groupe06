@@ -1,10 +1,61 @@
-<div class="page active" id="page-home">
+<div class="page active" id="page-home" style="overflow:hidden">
 
-  <!-- ══ HERO ══ -->
-  <div class="home-hero">
-    <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025/2026</div>
+<!-- ══════════════════════════════════════════
+     SECTION 1 — SCROLL CINÉMATIQUE 3D
+     La caméra vole à travers la machine via scroll
+════════════════════════════════════════════ -->
+<div id="cinema-wrap" style="position:relative;width:100%;height:400vh;background:#080808;">
+
+  <!-- Canvas Three.js collé à l'écran pendant le scroll -->
+  <div id="cinema-sticky" style="position:sticky;top:0;width:100%;height:100vh;overflow:hidden;">
+    <canvas id="cinema-canvas" style="position:absolute;inset:0;width:100%;height:100%"></canvas>
+
+    <!-- Overlay texte qui apparaît/disparaît au scroll -->
+    <div id="cinema-ui" style="position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end;padding:48px 56px;">
+
+      <div id="cin-badge" style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:500;opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s">
+        Makerspace Amiens · Groupe 06 · 2025-2026
+      </div>
+      <h1 id="cin-title" style="font-family:'Instrument Serif',serif;font-size:clamp(40px,5vw,68px);color:#f0ece8;line-height:1.06;font-style:italic;margin-bottom:16px;opacity:0;transform:translateY(24px);transition:opacity 0.7s 0.1s,transform 0.7s 0.1s">
+        Machine That Draw
+      </h1>
+      <p id="cin-sub" style="font-size:15px;color:#9a9490;max-width:460px;line-height:1.7;opacity:0;transform:translateY(20px);transition:opacity 0.7s 0.2s,transform 0.7s 0.2s">
+        Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z.
+      </p>
+
+      <!-- Progression scroll -->
+      <div id="cin-scroll-hint" style="margin-top:32px;display:flex;align-items:center;gap:12px;opacity:0;transition:opacity 0.5s 0.8s">
+        <div style="width:32px;height:1px;background:var(--accent)"></div>
+        <span style="font-size:11px;letter-spacing:0.1em;color:#555250;text-transform:uppercase">Scroll pour explorer</span>
+        <div id="cin-progress-bar" style="flex:1;max-width:120px;height:1px;background:rgba(255,255,255,0.08);position:relative;">
+          <div id="cin-progress-fill" style="position:absolute;left:0;top:0;height:100%;width:0%;background:var(--accent);transition:width 0.1s"></div>
+        </div>
+      </div>
+
+      <!-- Phase labels -->
+      <div id="cin-phase-label" style="position:absolute;top:40px;left:56px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#555250;opacity:0;transition:opacity 0.4s"></div>
+
+    </div>
+
+    <!-- Vignette overlay -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(8,8,8,0.55) 100%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,#080808);pointer-events:none"></div>
+    <div style="position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(#080808,transparent);pointer-events:none"></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — CONTENU HOME classique (après le scroll)
+════════════════════════════════════════════ -->
+<div id="home-content" style="background:var(--bg)">
+
+  <!-- Hero réduit post-cinéma -->
+  <div style="padding:56px 64px 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(230,48,48,0.07) 0%,transparent 65%);pointer-events:none"></div>
+    <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
     <h1 class="home-title">Machine That Draw</h1>
-    <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
+    <p class="home-sub">Traceur vectoriel automatisé reproduisant n'importe quel fichier numérique en tracé physique sur papier.</p>
     <div class="home-btns">
       <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
       <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
@@ -12,8 +63,8 @@
     </div>
   </div>
 
-  <!-- ══ PROJECT + TEAM ══ -->
   <div class="home-body">
+    <!-- Projet -->
     <div>
       <h2>Le projet</h2>
       <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.</p>
@@ -23,6 +74,8 @@
         <div class="info-card"><h3>Logiciel</h3><p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p></div>
       </div>
     </div>
+
+    <!-- Équipe -->
     <div>
       <h2>L'équipe</h2>
       <div class="team-grid">
@@ -32,357 +85,317 @@
         <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
       </div>
     </div>
-  </div>
 
-  <!-- ══ 3D SCROLL EXPERIENCE ══ -->
-  <div class="model-wrap" id="model-section">
-    <div class="model-scroll-label">
-      <span class="model-scroll-hint" id="scroll-hint">↓ Scrollez pour explorer la machine</span>
-      <span class="model-free-hint" id="free-hint" style="display:none">✦ Mode libre — cliquez et faites pivoter</span>
-    </div>
-
-    <!-- sticky container -->
-    <div class="model-sticky-outer" id="sticky-outer">
-      <div class="model-sticky-inner" id="sticky-inner">
-        <canvas id="three-canvas"></canvas>
-        <div class="model-progress-wrap">
-          <div class="model-progress-bar" id="model-progress"></div>
-        </div>
-        <!-- waypoint labels -->
-        <div class="fly-label" id="lbl-0" style="opacity:0">Vue d'ensemble</div>
-        <div class="fly-label" id="lbl-1" style="opacity:0">Axe X · Courroie GT2</div>
-        <div class="fly-label" id="lbl-2" style="opacity:0">Tête porte-stylo</div>
-        <div class="fly-label" id="lbl-3" style="opacity:0">PCB & Électronique</div>
-        <div class="fly-label" id="lbl-4" style="opacity:0">Structure complète</div>
+    <!-- Modèle 3D interactif final -->
+    <div class="model-wrap">
+      <h2>Modèle 3D — Exploration libre</h2>
+      <div class="model-viewer-wrap">
+        <model-viewer
+          src="assets/images/models/machine (2).gltf"
+          camera-controls auto-rotate auto-rotate-delay="1000"
+          rotation-per-second="20deg" shadow-intensity="0"
+          environment-image="neutral" exposure="0.8"
+          alt="Modèle 3D Machine That Draw">
+        </model-viewer>
       </div>
     </div>
   </div>
 
 </div>
 
-<style>
-.model-wrap{
-  padding: 0 0 0 0;
-  border-top: 1px solid var(--border);
-}
-.model-scroll-label{
-  padding: 28px 64px 0;
-  min-height: 36px;
-}
-.model-scroll-hint, .model-free-hint{
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.model-sticky-outer{
-  height: 400vh; /* scroll travel distance */
-  position: relative;
-}
-.model-sticky-inner{
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  background: #0a0c10;
-}
-#three-canvas{
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-}
-.model-progress-wrap{
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 2px;
-  background: rgba(255,255,255,0.07);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.model-progress-bar{
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--accent-dim, #991f1f), var(--accent, #e63030), #ff7070);
-  box-shadow: 0 0 8px rgba(230,48,48,0.7);
-  transition: width 0.05s linear;
-  border-radius: 2px;
-}
-.fly-label{
-  position: absolute;
-  bottom: 56px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(230,48,48,0.8);
-  font-weight: 500;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-  font-family: var(--mono, monospace);
-  white-space: nowrap;
-}
-@media(max-width:768px){
-  .model-scroll-label{ padding: 20px 24px 0; }
-}
-</style>
+<!-- ══════════════════════════════════════════
+     SCRIPT THREE.JS — CINÉMA SCROLL
+════════════════════════════════════════════ -->
+<script>
+(function() {
 
-<script type="module">
-// ── Three.js fly-through + orbit ──
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/controls/OrbitControls.js';
-
-const canvas  = document.getElementById('three-canvas');
-const outer   = document.getElementById('sticky-outer');
-const progressBar = document.getElementById('model-progress');
-const scrollHint  = document.getElementById('scroll-hint');
-const freeHint    = document.getElementById('free-hint');
-
-// ── Renderer ──
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setClearColor(0x090b10, 1);
-renderer.shadowMap.enabled = false;
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.2;
-
-// ── Scene ──
-const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x090b10, 0.8);
-
-// ── Camera ──
-const camera = new THREE.PerspectiveCamera(55, 1, 0.001, 50);
-camera.position.set(0, 2, 3);
-
-// ── Lights ──
-const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-scene.add(ambient);
-const key = new THREE.DirectionalLight(0xffd5a0, 1.8);
-key.position.set(2, 3, 2);
-scene.add(key);
-const fill = new THREE.DirectionalLight(0x8aaeff, 0.6);
-fill.position.set(-2, 1, -1);
-scene.add(fill);
-const rim = new THREE.DirectionalLight(0xff4444, 0.35);
-rim.position.set(0, -1, -2);
-scene.add(rim);
-// subtle point lights inside the machine for the fly-through glow
-const pt1 = new THREE.PointLight(0xff3333, 0.8, 1.5);
-pt1.position.set(0, 0.1, 0);
-scene.add(pt1);
-const pt2 = new THREE.PointLight(0x3366ff, 0.5, 1.2);
-pt2.position.set(0.15, 0.2, 0.1);
-scene.add(pt2);
-
-// ── Resize ──
-function resize(){
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  renderer.setSize(w, h, false);
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-}
-new ResizeObserver(resize).observe(canvas);
-resize();
-
-// ── OrbitControls (disabled during fly) ──
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-controls.dampingFactor = 0.06;
-controls.minDistance = 0.05;
-controls.maxDistance = 5;
-controls.enabled = false;
-let orbitTarget = new THREE.Vector3(0, 0, 0);
-
-// ── Camera spline path through the machine ──
-// Points are in model space (machine fits roughly in [-0.3,0.3] on each axis)
-// We weave around internal structures, under gantry, through frame
-const PATH_POS = [
-  new THREE.Vector3( 0.00,  0.55,  0.80),  // 0  — loin, vue ensemble
-  new THREE.Vector3( 0.25,  0.35,  0.55),  // 1  — approche coin
-  new THREE.Vector3( 0.28,  0.18,  0.30),  // 2  — entre le cadre et le rail X
-  new THREE.Vector3( 0.10,  0.05,  0.10),  // 3  — inside low, near motors
-  new THREE.Vector3(-0.15,  0.08, -0.05),  // 4  — traverse l'axe Y
-  new THREE.Vector3(-0.25,  0.22,  0.05),  // 5  — remonte vers tête
-  new THREE.Vector3(-0.05,  0.28,  0.02),  // 6  — sous la tête porte-stylo
-  new THREE.Vector3( 0.18,  0.20, -0.12),  // 7  — côté PCB
-  new THREE.Vector3( 0.05,  0.10, -0.30),  // 8  — sortie arrière
-  new THREE.Vector3( 0.00,  0.40, -0.55),  // 9  — recul final
-  new THREE.Vector3( 0.00,  0.30, -0.80),  // 10 — vue arrière complète → merge to orbit
-];
-
-// Where the camera looks at each point (look-ahead on the spline)
-const PATH_LOOK = [
-  new THREE.Vector3( 0.00,  0.10,  0.00),
-  new THREE.Vector3( 0.10,  0.05,  0.10),
-  new THREE.Vector3( 0.00,  0.05,  0.00),
-  new THREE.Vector3(-0.15,  0.08, -0.05),
-  new THREE.Vector3(-0.25,  0.22,  0.05),
-  new THREE.Vector3(-0.05,  0.28,  0.02),
-  new THREE.Vector3( 0.18,  0.20, -0.12),
-  new THREE.Vector3( 0.05,  0.10, -0.30),
-  new THREE.Vector3( 0.00,  0.40, -0.55),
-  new THREE.Vector3( 0.00,  0.15,  0.00), // final look → center
-  new THREE.Vector3( 0.00,  0.00,  0.00),
-];
-
-// Waypoint labels (label index → t position 0-1)
-const WAYPOINTS = [
-  { t: 0.00, label: 0 },
-  { t: 0.22, label: 1 },
-  { t: 0.45, label: 2 },
-  { t: 0.62, label: 3 },
-  { t: 0.88, label: 4 },
-];
-
-const splinePos  = new THREE.CatmullRomCurve3(PATH_POS, false, 'catmullrom', 0.5);
-const splineLook = new THREE.CatmullRomCurve3(PATH_LOOK, false, 'catmullrom', 0.5);
-
-// ── State ──
-let flyDone = false;
-let currentT = 0;
-let lastT = -1;
-
-// ── Scroll handler ──
-function getScrollT(){
-  const rect = outer.getBoundingClientRect();
-  const totalScroll = outer.offsetHeight - window.innerHeight;
-  if(totalScroll <= 0) return 0;
-  const scrolled = -rect.top;
-  return Math.max(0, Math.min(1, scrolled / totalScroll));
+// Attendre que Three.js soit disponible (chargé en module dans index.html déjà)
+// On le charge ici dynamiquement
+function loadScript(src, cb) {
+  const s = document.createElement('script');
+  s.src = src;
+  s.onload = cb;
+  document.head.appendChild(s);
 }
 
-// smooth camera target
-const camPos  = new THREE.Vector3();
-const camLook = new THREE.Vector3();
-const _tmpPos  = new THREE.Vector3();
-const _tmpLook = new THREE.Vector3();
-const _upVec   = new THREE.Vector3(0, 1, 0);
-
-function applyFlyCamera(t){
-  splinePos.getPoint(t, _tmpPos);
-  splineLook.getPoint(Math.min(t + 0.04, 1.0), _tmpLook);
-  camPos.lerp(_tmpPos, 0.07);
-  camLook.lerp(_tmpLook, 0.07);
-  camera.position.copy(camPos);
-  camera.lookAt(camLook);
-}
-
-function updateWaypointLabels(t){
-  const labels = document.querySelectorAll('.fly-label');
-  labels.forEach((el, i) => {
-    const wp = WAYPOINTS[i];
-    if(!wp) return;
-    const dist = Math.abs(t - wp.t);
-    const alpha = dist < 0.06 ? Math.max(0, 1 - dist / 0.06) : 0;
-    el.style.opacity = alpha;
+// Charger Three.js + GLTFLoader
+loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', () => {
+  // GLTFLoader r128
+  loadScript('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js', () => {
+    initCinema();
   });
-}
+});
 
-function enterFreeMode(){
-  if(flyDone) return;
-  flyDone = true;
-  // Snap to final spline position
-  splinePos.getPoint(1, camPos);
-  camera.position.copy(camPos);
-  controls.target.set(0, 0.05, 0);
-  controls.enabled = true;
-  // hide scroll hint, show free hint
-  scrollHint.style.display = 'none';
-  freeHint.style.display = 'flex';
-  // hide labels
-  document.querySelectorAll('.fly-label').forEach(el => el.style.opacity = 0);
-  progressBar.style.width = '100%';
-}
+function initCinema() {
+  const canvas = document.getElementById('cinema-canvas');
+  if (!canvas) return;
 
-// ── GLTF Load ──
-const loader = new GLTFLoader();
-let machineModel = null;
+  const W = canvas.offsetWidth || window.innerWidth;
+  const H = canvas.offsetHeight || window.innerHeight;
 
-loader.load(
-  'assets/images/models/machine (2).gltf',
-  (gltf) => {
-    machineModel = gltf.scene;
+  // ── Renderer ──
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.9;
+  renderer.setClearColor(0x080808, 1);
 
-    // Center and normalize
-    const box = new THREE.Box3().setFromObject(machineModel);
-    const size = new THREE.Vector3();
-    box.getSize(size);
-    const center = new THREE.Vector3();
-    box.getCenter(center);
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const scale = 0.5 / maxDim;
-    machineModel.scale.setScalar(scale);
-    machineModel.position.sub(center.multiplyScalar(scale));
+  // ── Scene ──
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x080808, 0.04);
 
-    // Materials — make it look nice, slight metallic
-    machineModel.traverse(child => {
-      if(child.isMesh){
-        child.castShadow = false;
-        child.receiveShadow = false;
-        if(child.material){
-          const mats = Array.isArray(child.material) ? child.material : [child.material];
-          mats.forEach(m => {
-            if(m.isMeshStandardMaterial || m.isMeshPhysicalMaterial){
-              m.metalness = Math.max(m.metalness || 0, 0.4);
-              m.roughness = Math.min(m.roughness !== undefined ? m.roughness : 0.6, 0.75);
-              m.envMapIntensity = 0.8;
-            }
-          });
+  // ── Lights ──
+  const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambient);
+  const key = new THREE.DirectionalLight(0xffffff, 1.2);
+  key.position.set(5, 8, 5);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xe63030, 0.3);
+  fill.position.set(-5, 2, -3);
+  scene.add(fill);
+  const rim = new THREE.DirectionalLight(0x4488ff, 0.2);
+  rim.position.set(0, -3, -8);
+  scene.add(rim);
+
+  // ── Camera ──
+  const camera = new THREE.PerspectiveCamera(55, W/H, 0.01, 200);
+
+  // ── Grille de fond (effet technique) ──
+  const gridHelper = new THREE.GridHelper(40, 40, 0x1a1a1a, 0x111111);
+  gridHelper.position.y = -2;
+  scene.add(gridHelper);
+
+  // ── Particules ──
+  const partGeo = new THREE.BufferGeometry();
+  const partCount = 300;
+  const partPos = new Float32Array(partCount * 3);
+  for (let i = 0; i < partCount * 3; i++) partPos[i] = (Math.random() - 0.5) * 20;
+  partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
+  const partMat = new THREE.PointsMaterial({ color: 0xe63030, size: 0.03, transparent: true, opacity: 0.4 });
+  scene.add(new THREE.Points(partGeo, partMat));
+
+  // ── Modèle ──
+  let model = null;
+  let modelLoaded = false;
+  let modelCenter = new THREE.Vector3();
+  let modelSize = new THREE.Vector3();
+
+  // Chemin du modèle (même que dans le HTML existant)
+  const MODEL_PATH = 'assets/images/models/machine (2).gltf';
+
+  const loader = new THREE.GLTFLoader();
+  loader.load(MODEL_PATH, (gltf) => {
+    model = gltf.scene;
+
+    // Centrer le modèle
+    const box = new THREE.Box3().setFromObject(model);
+    box.getCenter(modelCenter);
+    box.getSize(modelSize);
+    model.position.sub(modelCenter);
+
+    // Matériaux améliorés
+    model.traverse(child => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        if (child.material) {
+          child.material.envMapIntensity = 0.5;
         }
       }
     });
 
-    scene.add(machineModel);
+    scene.add(model);
+    modelLoaded = true;
 
-    // init camera at first spline point
-    splinePos.getPoint(0, camPos);
-    splineLook.getPoint(0.04, camLook);
-    camera.position.copy(camPos);
-    camera.lookAt(camLook);
+    // Une fois chargé, on calcule les waypoints en fonction des dimensions réelles
+    setupCameraPath(modelSize);
+  }, undefined, (err) => {
+    // Si le modèle ne charge pas, on fait quand même une scène sympa
+    console.warn('Modèle non trouvé, mode fallback', err);
+    setupFallbackScene();
+    setupCameraPath(new THREE.Vector3(4, 2, 4));
+    modelLoaded = true;
+  });
 
-    animate();
-  },
-  undefined,
-  (err) => {
-    console.warn('GLTF load error (expected in preview — use actual server):', err);
-    // Still run the scene without the model
-    animate();
+  // ── Path caméra ──
+  // keyframes: [position, lookAt, label] à t=0..1
+  let cameraKeyframes = [];
+
+  function setupCameraPath(size) {
+    const s = Math.max(size.x, size.y, size.z);
+    const r = s * 0.5;
+
+    cameraKeyframes = [
+      // 0 — Vue de loin, on découvre la machine
+      { t: 0,    pos: new THREE.Vector3(r*3.5, r*2.5, r*4),   look: new THREE.Vector3(0, 0, 0),           label: 'Vue d\'ensemble' },
+      // 0.15 — Approche frontale
+      { t: 0.15, pos: new THREE.Vector3(r*1.8, r*1.2, r*2.8), look: new THREE.Vector3(0, 0, 0),           label: 'Approche' },
+      // 0.3 — On passe SUR le dessus, entre les barres
+      { t: 0.30, pos: new THREE.Vector3(r*0.1, r*1.6, r*0.1), look: new THREE.Vector3(r*0.5, -r*0.5, 0), label: 'Axes X/Y' },
+      // 0.45 — Vol ras des tiges axe X (comme une fée)
+      { t: 0.45, pos: new THREE.Vector3(-r*0.8, r*0.2, r*0.3),look: new THREE.Vector3(r*0.8, r*0.2, 0),  label: 'Tiges linéaires' },
+      // 0.6 — Plongeon vers la tête porte-stylo
+      { t: 0.60, pos: new THREE.Vector3(0, -r*0.1, r*0.8),    look: new THREE.Vector3(0, -r*0.3, 0),     label: 'Tête porte-stylo' },
+      // 0.75 — Tour latéral
+      { t: 0.75, pos: new THREE.Vector3(-r*2.2, r*0.6, -r*1.5),look: new THREE.Vector3(0, 0, 0),         label: 'Structure cartésienne' },
+      // 0.9 — Remontée finale, vue de dessus légèrement inclinée
+      { t: 0.90, pos: new THREE.Vector3(r*1.2, r*3, r*1.5),   look: new THREE.Vector3(0, 0, 0),          label: 'Machine complète' },
+      // 1.0 — Position finale interactive
+      { t: 1.0,  pos: new THREE.Vector3(r*2.5, r*1.8, r*3.2), look: new THREE.Vector3(0, 0, 0),          label: '' },
+    ];
+
+    // Position initiale
+    camera.position.copy(cameraKeyframes[0].pos);
+    camera.lookAt(cameraKeyframes[0].look);
   }
-);
 
-// ── Render loop ──
-const clock = new THREE.Clock();
-function animate(){
-  requestAnimationFrame(animate);
-  const dt = clock.getDelta();
-
-  if(!flyDone){
-    const t = getScrollT();
-    currentT = t;
-    progressBar.style.width = (t * 100) + '%';
-    applyFlyCamera(t);
-    updateWaypointLabels(t);
-
-    if(t >= 0.98) enterFreeMode();
-  } else {
-    controls.update();
+  function setupFallbackScene() {
+    // Grille de barres métalliques fake
+    const mat = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.8, roughness: 0.3 });
+    for (let i = 0; i < 5; i++) {
+      const geo = new THREE.CylinderGeometry(0.04, 0.04, 4, 8);
+      const m = new THREE.Mesh(geo, mat);
+      m.position.set((i - 2) * 0.8, 0, 0);
+      m.rotation.x = Math.PI / 2;
+      scene.add(m);
+    }
+    const geo2 = new THREE.CylinderGeometry(0.04, 0.04, 3, 8);
+    const m2 = new THREE.Mesh(geo2, mat);
+    m2.rotation.z = Math.PI / 2;
+    scene.add(m2);
   }
 
-  // Animate point lights slightly for mood
-  const time = clock.elapsedTime;
-  pt1.intensity = 0.6 + 0.2 * Math.sin(time * 1.7);
-  pt2.intensity = 0.4 + 0.15 * Math.sin(time * 2.3 + 1.2);
+  // ── Interpolation caméra ──
+  function lerpV3(a, b, t) { return new THREE.Vector3().lerpVectors(a, b, t); }
 
-  renderer.render(scene, camera);
+  function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  // Smooth step
+  function smoothStep(t) { return t * t * (3 - 2 * t); }
+
+  function getCameraAtScroll(progress) {
+    if (cameraKeyframes.length < 2) return null;
+
+    // Trouver les deux keyframes entourant progress
+    let i = 0;
+    while (i < cameraKeyframes.length - 2 && cameraKeyframes[i + 1].t <= progress) i++;
+    const kf0 = cameraKeyframes[i];
+    const kf1 = cameraKeyframes[i + 1];
+
+    const span = kf1.t - kf0.t;
+    const local = span > 0 ? (progress - kf0.t) / span : 0;
+    const eased = smoothStep(Math.max(0, Math.min(1, local)));
+
+    return {
+      pos: lerpV3(kf0.pos, kf1.pos, eased),
+      look: lerpV3(kf0.look, kf1.look, eased),
+      label: kf1.label || kf0.label
+    };
+  }
+
+  // ── Scroll ──
+  const wrap = document.getElementById('cinema-wrap');
+  let scrollProgress = 0;
+  let currentLabel = '';
+
+  function onScroll() {
+    if (!wrap) return;
+    const rect = wrap.getBoundingClientRect();
+    const total = wrap.offsetHeight - window.innerHeight;
+    const scrolled = -rect.top;
+    scrollProgress = Math.max(0, Math.min(1, scrolled / total));
+
+    // Progress bar
+    const fill = document.getElementById('cin-progress-fill');
+    if (fill) fill.style.width = (scrollProgress * 100) + '%';
+
+    // Label
+    if (cameraKeyframes.length > 0) {
+      const state = getCameraAtScroll(scrollProgress);
+      if (state && state.label !== currentLabel) {
+        currentLabel = state.label;
+        const lbl = document.getElementById('cin-phase-label');
+        if (lbl) {
+          lbl.textContent = state.label;
+          lbl.style.opacity = state.label ? '1' : '0';
+        }
+      }
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ── Intro animation ──
+  setTimeout(() => {
+    const badge = document.getElementById('cin-badge');
+    const title = document.getElementById('cin-title');
+    const sub = document.getElementById('cin-sub');
+    const hint = document.getElementById('cin-scroll-hint');
+    if (badge) { badge.style.opacity = '1'; badge.style.transform = 'none'; }
+    setTimeout(() => { if (title) { title.style.opacity = '1'; title.style.transform = 'none'; } }, 150);
+    setTimeout(() => { if (sub) { sub.style.opacity = '1'; sub.style.transform = 'none'; } }, 300);
+    setTimeout(() => { if (hint) hint.style.opacity = '1'; }, 800);
+  }, 300);
+
+  // ── Cible caméra smooth ──
+  const camTarget = { pos: new THREE.Vector3(), look: new THREE.Vector3() };
+  let initialized = false;
+
+  // ── Render loop ──
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.01;
+
+    // Rotation très légère du modèle quand pas en scroll
+    if (model) {
+      model.rotation.y += 0.001;
+    }
+
+    // Particules légère pulsation
+    partMat.opacity = 0.25 + 0.15 * Math.sin(time);
+
+    // Camera position selon scroll
+    if (cameraKeyframes.length > 0) {
+      const state = getCameraAtScroll(scrollProgress);
+      if (state) {
+        if (!initialized) {
+          camTarget.pos.copy(state.pos);
+          camTarget.look.copy(state.look);
+          initialized = true;
+        } else {
+          // Lerp smooth pour la caméra
+          camTarget.pos.lerp(state.pos, 0.06);
+          camTarget.look.lerp(state.look, 0.06);
+        }
+        // Légère oscillation de fée
+        const fairyX = Math.sin(time * 0.7) * 0.05;
+        const fairyY = Math.cos(time * 1.1) * 0.04;
+        camera.position.set(
+          camTarget.pos.x + fairyX,
+          camTarget.pos.y + fairyY,
+          camTarget.pos.z
+        );
+        camera.lookAt(camTarget.look);
+      }
+    }
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // ── Resize ──
+  function onResize() {
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  }
+  window.addEventListener('resize', onResize);
 }
+
+})();
 </script>
+</div>
