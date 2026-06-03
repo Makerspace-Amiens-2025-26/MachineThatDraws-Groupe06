@@ -3,19 +3,32 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Électronique & PCB</div>
   <div class="page-eyebrow">Électronique — 03</div>
   <h1 class="page-title">Liste des composants (BOM)</h1>
-  <p class="page-lead">Liste complète des composants utilisés sur le PCB de la MachineThatDraw.</p>
+  <p class="page-lead">Liste complète des composants utilisés sur le PCB de la MachineThatDraw, avec leur coût et la justification du choix.</p>
 
   <h2>Composants</h2>
   <div class="table-wrap"><table>
-    <thead><tr><th>Référence</th><th>Composant</th><th>Modèle</th><th>Qté</th></tr></thead>
+    <thead><tr><th>Référence</th><th>Composant</th><th>Modèle</th><th>Qté</th><th>Coût</th></tr></thead>
     <tbody>
-      <tr><td class="td-mono">U1</td><td>Microcontrôleur</td><td>ESP32-S3-UNO</td><td>1</td></tr>
-      <tr><td class="td-mono">A1, A2</td><td>Driver moteur</td><td>A4988</td><td>2</td></tr>
-      <tr><td class="td-mono">U2</td><td>Régulateur DC/DC</td><td>R-78E5.0-1.0</td><td>1</td></tr>
-      <tr><td class="td-mono">J1</td><td>Connecteur alim.</td><td>Barrel Jack Switch</td><td>1</td></tr>
-      <tr><td class="td-mono">J2, J3</td><td>Connecteur moteur</td><td>Conn_01x04</td><td>2</td></tr>
-      <tr><td class="td-mono">C1, C2</td><td>Condensateur</td><td>10µF, 100µF</td><td>2</td></tr>
-      <tr><td class="td-mono">M1</td><td>Servo-moteur</td><td>SG90 / MG90S</td><td>1</td></tr>
+      <tr><td class="td-mono">U1</td><td>Microcontrôleur</td><td>ESP32-S3-UNO</td><td>1</td><td>~29,30 €</td></tr>
+      <tr><td class="td-mono">A1, A2</td><td>Driver moteur pas-à-pas</td><td>A4988</td><td>2</td><td>~17 € (les 2)</td></tr>
+      <tr><td class="td-mono">U2</td><td>Régulateur DC/DC</td><td>R-78E5.0-1.0</td><td>1</td><td>—</td></tr>
+      <tr><td class="td-mono">J1</td><td>Connecteur alim. avec inter.</td><td>Barrel Jack Switch</td><td>1</td><td>—</td></tr>
+      <tr><td class="td-mono">J2, J3</td><td>Connecteur moteur</td><td>Conn_01x04</td><td>2</td><td>—</td></tr>
+      <tr><td class="td-mono">C1, C2</td><td>Condensateur</td><td>10µF, 100µF</td><td>2</td><td>—</td></tr>
+      <tr><td class="td-mono">M1</td><td>Servo-moteur (axe Z)</td><td>SG90 / MG90S</td><td>1</td><td>7–10 €</td></tr>
+      <tr><td class="td-mono">SW1</td><td>Bouton d'urgence</td><td>—</td><td>1</td><td>~3,30 €</td></tr>
+      <tr><td class="td-mono">S1–S4</td><td>Capteurs fin de course</td><td>Limit switch mécanique</td><td>4</td><td>~1,20 € / unité</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Justification des choix</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Composant</th><th>Justification</th></tr></thead>
+    <tbody>
+      <tr><td>NEMA 17</td><td>Moteur pas-à-pas choisi pour la précision : avance d'un angle fixe à la fois, contrôle exact de la position. Couple parfaitement adapté pour déplacer les courroies sous tension. ~4,13 € pièce.</td></tr>
+      <tr><td>A4988</td><td>Compatibilité directe avec le CNC Shield, support du micro-pas jusqu'au 1/16, courant de sortie 2A adapté aux NEMA 17. Courant réglé via le potentiomètre Vref.</td></tr>
+      <tr><td>R-78E5.0-1.0</td><td>Régulateur DC/DC efficace — convertit les 12V de l'alimentation en 5V stable pour l'ESP32 et les drivers.</td></tr>
+      <tr><td>SG90/MG90S</td><td>Servo petit format, suffisant pour lever/baisser un stylo. Associé à un système pignon-crémaillère pour garder le stylo vertical.</td></tr>
     </tbody>
   </table></div>
 
@@ -25,11 +38,18 @@
     <tbody>
       <tr><td class="td-mono">U1</td><td>GPIO STEP/DIR</td><td>A4988 #1 (Moteur X)</td></tr>
       <tr><td class="td-mono">U1</td><td>GPIO STEP/DIR</td><td>A4988 #2 (Moteur Y)</td></tr>
-      <tr><td class="td-mono">U1</td><td>PWM</td><td>Servo-moteur</td></tr>
+      <tr><td class="td-mono">U1</td><td>PWM</td><td>Servo-moteur M1</td></tr>
+      <tr><td class="td-mono">U1</td><td>GPIO</td><td>4× Limit switches (Xmin, Xmax, Ymin, Ymax)</td></tr>
       <tr><td class="td-mono">A1/A2</td><td>VMOT</td><td>12V (J1)</td></tr>
       <tr><td class="td-mono">A1/A2</td><td>VDD</td><td>5V (U2)</td></tr>
       <tr><td class="td-mono">U2</td><td>Vin / Vout</td><td>12V → 5V (U1, A1, A2)</td></tr>
     </tbody>
   </table></div>
+
+  <h2>Alternatives identifiées (post-projet)</h2>
+  <div class="callout">
+    <strong>TMC2208 / TMC2209</strong> (~5–6 € pièce) — remplacement des A4988 recommandé pour une future version. Avantages : bien plus silencieux, meilleure gestion thermique, interpolation jusqu'au 1/256 micro-pas, amélioration directe de la qualité du tracé.<br><br>
+    <strong>Arduino Nano</strong> (~5–8 €) — alternative à l'ESP32 Uno pour réduire les coûts sans perte de performance GRBL.
+  </div>
 </div>
 </div>

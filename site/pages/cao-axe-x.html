@@ -9,15 +9,16 @@
   <div class="placeholder">✏️ Ajoute une capture OnShape de l'axe X — vue de face et vue de dessus</div>
 
   <h2>Conception</h2>
-  <div class="placeholder">✏️ Décris comment le chariot est guidé, comment la courroie est fixée, comment le stylo est centré.</div>
+  <p>Le mouvement de l'axe X est initié par les instructions de l'ESP32 envoyées au premier moteur pas-à-pas NEMA 17. Ce moteur entraîne une <strong>courroie GT2</strong>, maintenue en tension par une poulie, qui fait coulisser une plateforme mobile le long de deux barres de guidage en acier Ø6 mm. L'axe X a une plateforme qui coulisse sur les deux barres, entraînée par la courroie reliée au moteur n°1 et à une poulie de renvoi.</p>
 
   <h2>Pièces CAO</h2>
   <div class="table-wrap"><table>
     <thead><tr><th>Pièce</th><th>Matériau</th><th>Description</th></tr></thead>
     <tbody>
-      <tr><td>Chariot X</td><td class="td-todo">✏️ PLA / PETG</td><td class="td-todo">✏️ Support des bagues, fixation de la tête stylo</td></tr>
-      <tr><td>Support moteur X</td><td class="td-todo">✏️</td><td class="td-todo">✏️ Maintien du NEMA 17 en bout de course</td></tr>
-      <tr><td>Tendeur courroie X</td><td class="td-todo">✏️</td><td class="td-todo">✏️ Réglage de la tension de la courroie GT2</td></tr>
+      <tr><td>Chariot X</td><td class="td-mono">PLA / PETG</td><td>Plateforme mobile sur les tiges Y — support des bagues LM6UU et point d'attache de la courroie X</td></tr>
+      <tr><td>Support moteur X</td><td class="td-mono">PLA</td><td>Maintien du NEMA 17 en bout de course — alignement de la poulie GT2</td></tr>
+      <tr><td>Poulie de renvoi X</td><td>—</td><td>Renvoi de la courroie GT2 à l'extrémité opposée au moteur</td></tr>
+      <tr><td>Tendeur courroie X</td><td class="td-mono">PLA</td><td>Réglage de la tension de la courroie GT2</td></tr>
     </tbody>
   </table></div>
 
@@ -25,7 +26,8 @@
   <div class="table-wrap"><table>
     <tbody>
       <tr><td>Longueur de déplacement X</td><td class="td-todo">✏️ mm</td></tr>
-      <tr><td>Diamètre des tiges</td><td>6 mm</td></tr>
+      <tr><td>Diamètre des tiges</td><td>6 mm (acier)</td></tr>
+      <tr><td>Bagues de glissement</td><td>LM6UU</td></tr>
       <tr><td>Pas de la courroie</td><td>2 mm (GT2)</td></tr>
       <tr><td>Dents de la poulie</td><td>20 dents</td></tr>
     </tbody>

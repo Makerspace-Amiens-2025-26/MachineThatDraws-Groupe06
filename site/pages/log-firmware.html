@@ -3,16 +3,16 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Logiciels</div>
   <div class="page-eyebrow">Logiciels — 02</div>
   <h1 class="page-title">Firmware ESP32</h1>
-  <p class="page-lead">Le firmware tourne sur l'ESP32-S3-UNO et interprète les commandes G-code reçues en série pour piloter les deux drivers A4988 et le servo.</p>
+  <p class="page-lead">Le firmware tourne sur l'ESP32-S3-UNO et interprète les commandes G-code reçues en série pour piloter les deux drivers A4988 et le servo. Il calcule, pour chaque moteur, le nombre de pas nécessaires pour atteindre chaque coordonnée cible.</p>
 
   <h2>Commandes G-code supportées</h2>
   <div class="table-wrap"><table>
     <thead><tr><th>Commande</th><th>Action</th></tr></thead>
     <tbody>
-      <tr><td class="td-mono">G0 X__ Y__</td><td>Déplacement rapide sans tracé (stylo levé)</td></tr>
-      <tr><td class="td-mono">G1 X__ Y__ F__</td><td>Déplacement avec tracé (stylo baissé)</td></tr>
-      <tr><td class="td-mono">M3</td><td>Baisser le stylo</td></tr>
-      <tr><td class="td-mono">M5</td><td>Lever le stylo</td></tr>
+      <tr><td class="td-mono">G0 X__ Y__</td><td>Déplacement rapide sans tracé (stylo levé — M5 implicite)</td></tr>
+      <tr><td class="td-mono">G1 X__ Y__ F__</td><td>Déplacement avec tracé (stylo baissé — M3 implicite). F = vitesse en mm/min</td></tr>
+      <tr><td class="td-mono">M3</td><td>Baisser le stylo (servo à l'angle "bas")</td></tr>
+      <tr><td class="td-mono">M5</td><td>Lever le stylo (servo à l'angle "haut")</td></tr>
       <tr><td class="td-mono">G28</td><td class="td-todo">✏️ Retour à l'origine — si implémenté</td></tr>
     </tbody>
   </table></div>
@@ -48,13 +48,13 @@ void loop() {
   <h2>Paramètres de calibration</h2>
   <div class="table-wrap"><table>
     <tbody>
-      <tr><td>Pas/mm axe X</td><td class="td-todo">✏️ ex : 80 pas/mm</td></tr>
-      <tr><td>Pas/mm axe Y</td><td class="td-todo">✏️ ex : 80 pas/mm</td></tr>
-      <tr><td>Vitesse G0</td><td class="td-todo">✏️ ex : 5000 mm/min</td></tr>
-      <tr><td>Vitesse G1</td><td class="td-todo">✏️ ex : 2000 mm/min</td></tr>
-      <tr><td>Angle servo levé</td><td class="td-todo">✏️ ex : 90°</td></tr>
-      <tr><td>Angle servo baissé</td><td class="td-todo">✏️ ex : 50°</td></tr>
-      <tr><td>Port série</td><td>115200 bauds</td></tr>
+      <tr><td>Pas/mm axe X</td><td class="td-todo">✏️ ex : 80 pas/mm</td><td>Formule : (pas_moteur × micro-pas) / (pas_courroie × dents_poulie)<br>GT2 20 dents, 1/16 micro-pas : (200 × 16) / (2 × 20) = <strong>80 pas/mm</strong></td></tr>
+      <tr><td>Pas/mm axe Y</td><td class="td-todo">✏️ ex : 80 pas/mm</td><td>Même calcul que l'axe X</td></tr>
+      <tr><td>Vitesse G0</td><td class="td-todo">✏️ ex : 5000 mm/min</td><td>Déplacement rapide sans tracé</td></tr>
+      <tr><td>Vitesse G1</td><td class="td-todo">✏️ ex : 2000 mm/min</td><td>Déplacement avec tracé</td></tr>
+      <tr><td>Angle servo levé</td><td class="td-todo">✏️ ex : 90°</td><td>Commande M5</td></tr>
+      <tr><td>Angle servo baissé</td><td class="td-todo">✏️ ex : 50°</td><td>Commande M3</td></tr>
+      <tr><td>Port série</td><td>115200 bauds</td><td>Communication USB PC ↔ ESP32</td></tr>
     </tbody>
   </table></div>
 </div>

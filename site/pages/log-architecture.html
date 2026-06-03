@@ -3,32 +3,46 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Logiciels</div>
   <div class="page-eyebrow">Logiciels — 01</div>
   <h1 class="page-title">Architecture logicielle</h1>
-  <p class="page-lead">La chaîne logicielle se décompose en deux grandes parties : la génération du G-code côté PC, et l'interprétation côté microcontrôleur.</p>
+  <p class="page-lead">La chaîne logicielle se décompose en deux grandes parties : la génération du G-code côté PC, et l'interprétation côté microcontrôleur. La chaîne open-source (G-code + firmware GRBL) a été retenue car elle est éprouvée, bien documentée, et évitait de tout reprogrammer.</p>
 
-  <h2>Flux de données</h2>
-  <pre>[PC]
-  1. Fichier image ou vectoriel (SVG, PNG...)
-  2. Logiciel de conversion → fichier G-code (.gcode)
-  3. Envoi série (USB) vers l'ESP32
+  <h2>Flux de données — de l'idée au tracé</h2>
+  <pre>[1. Création du contenu — PC]
+  Fichier numérique : dessin vectoriel (SVG, DXF) ou bitmap (PNG, JPG)
+  → Logiciel de traitement : Processing ou Inkscape
+  → Vectorisation si besoin (bitmap → SVG)
+  → Génération du G-code : liste de coordonnées (X, Y) et instructions de mouvement
 
-[ESP32]
-  4. Réception du G-code
-  5. Interprétation des commandes (G0, G1, M3, M5...)
-  6. Génération des signaux STEP/DIR vers les A4988
-  7. Les moteurs NEMA 17 déplacent la tête
+[2. Transmission — PC → ESP32]
+  Envoi via port série (USB)
+  Le logiciel "Sender" envoie les lignes de G-code une par une
 
-[Mécanique]
-  8. Le stylo trace le dessin sur la feuille</pre>
+[3. Traitement — ESP32 + Firmware]
+  Réception et interprétation du G-code
+  Calcul du nombre de pas STEP/DIR par axe pour atteindre chaque coordonnée cible
+  Génération des signaux électriques
+
+[4. Amplification — Drivers A4988]
+  Le signal logique ESP32 (trop faible) est amplifié
+  Le driver puise dans l'alimentation 12V externe
+  → Impulsions de courant haute intensité vers les bobines des moteurs
+
+[5. Action mécanique — NEMA 17 + Courroies]
+  Rotations précises des moteurs ("pas")
+  Transmises via courroies GT2 aux chariots
+  → Le stylo trace le dessin sur la feuille</pre>
 
   <h2>Logiciels utilisés</h2>
   <div class="table-wrap"><table>
     <thead><tr><th>Outil</th><th>Rôle</th><th>Type</th></tr></thead>
     <tbody>
-      <tr><td class="td-todo">✏️</td><td>Conversion image → G-code</td><td>PC</td></tr>
-      <tr><td>Arduino IDE / PlatformIO</td><td>Développement firmware</td><td>PC</td></tr>
-      <tr><td>Terminal série</td><td>Envoi G-code</td><td>PC</td></tr>
+      <tr><td><strong>Processing</strong></td><td>Création/manipulation du dessin et génération du G-code — maîtrise démontrée dans le cadre du projet</td><td>PC</td></tr>
+      <tr><td>Inkscape (+ extension)</td><td>Création de fichiers vectoriels SVG et export G-code alternatif</td><td>PC</td></tr>
+      <tr><td>Logiciel Sender G-code</td><td>Envoi du fichier G-code en série vers l'ESP32</td><td>PC</td></tr>
+      <tr><td>Arduino IDE / PlatformIO</td><td>Développement et upload du firmware sur l'ESP32-S3-UNO</td><td>PC</td></tr>
+      <tr><td>Terminal série</td><td>Envoi et debug des commandes G-code</td><td>PC</td></tr>
     </tbody>
   </table></div>
-  <div class="placeholder">✏️ Décris en détail les logiciels que vous utilisez pour préparer les fichiers.</div>
+
+  <div class="callout"><strong>Note pédagogique :</strong> L'utilisation de <strong>Processing</strong> pour générer le G-code est une exigence du projet — elle démontre la maîtrise du codage au-delà de l'utilisation d'outils préfabriqués.</div>
 </div>
 </div>

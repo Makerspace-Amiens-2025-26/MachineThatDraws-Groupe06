@@ -1,15 +1,15 @@
-<div class="page active" id="page-cao-tete">
+<div class="page" id="page-cao-tete">
 <div class="page-content">
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Conception CAO</div>
   <div class="page-eyebrow">Conception CAO — 04</div>
   <h1 class="page-title">Tête porte-stylo</h1>
-  <p class="page-lead">La tête porte-stylo est la pièce terminale de la machine. Elle est fixée sur le chariot X et embarque le servo-moteur qui contrôle le contact du stylo avec le papier.</p>
+  <p class="page-lead">La tête porte-stylo est la pièce terminale de la machine. Elle coulisse sur l'axe Y et embarque le servo-moteur qui contrôle le contact du stylo avec le papier via un système pignon-crémaillère.</p>
 
   <h2>Vue CAO</h2>
-  <model-viewer src="https://raw.githubusercontent.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06/main/site/assets/images/models/portestylos.gltf" camera-controls auto-rotate shadow-intensity="0.5" tone-mapping="commerce" exposure="1.4" style="width:100%;height:420px;background:transparent;border-radius:8px;"></model-viewer>
+  <div class="placeholder">✏️ Ajoute une capture OnShape de la tête — vue éclatée si possible</div>
 
   <h2>Fonctionnement</h2>
-  <p>Le servo-moteur reçoit un signal PWM de l'ESP32. Deux angles sont programmés :</p>
+  <p>Plutôt qu'un simple bras servo qui ferait tourner le stylo, nous avons opté pour un <strong>système mécanique pignon-crémaillère glissant dans un rail</strong>. Ce mécanisme permet de toujours garder le stylo <strong>vertical</strong> lors de la levée/descente, et l'appui du stylo sur la feuille est très précisément réglable. Le servo-moteur reçoit un signal PWM de l'ESP32.</p>
   <div class="table-wrap"><table>
     <thead><tr><th>Position</th><th>Angle servo</th><th>Commande G-code</th></tr></thead>
     <tbody>
@@ -22,18 +22,17 @@
   <div class="table-wrap"><table>
     <thead><tr><th>Pièce</th><th>Matériau</th><th>Description</th></tr></thead>
     <tbody>
-      <tr><td>Corps de la tête</td><td class="td-todo">✏️ PETG</td><td class="td-todo">✏️ Support principal, fixation sur chariot X</td></tr>
-      <tr><td>Bras servo</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Convertit la rotation du servo en translation du stylo</td></tr>
-      <tr><td>Manchon stylo</td><td class="td-todo">✏️ PLA</td><td class="td-todo">✏️ Maintien du stylo — adapté au diamètre utilisé</td></tr>
+      <tr><td>Corps de la tête</td><td class="td-mono">PETG</td><td>Support principal coulissant sur les tiges de l'axe Y — accueille le servomoteur et le rail crémaillère</td></tr>
+      <tr><td>Pignon-crémaillère + rail</td><td class="td-mono">PLA</td><td>Convertit la rotation du servo en translation verticale du stylo — maintient le stylo toujours vertical</td></tr>
+      <tr><td>Manchon stylo</td><td class="td-mono">PLA</td><td>Maintien du stylo — adapté au diamètre utilisé</td></tr>
+      <tr><td>Plaque de maintien</td><td class="td-mono">PLA</td><td>Fixe les barres de l'axe Y à l'autre extrémité pour garantir la rigidité — sert aussi de point d'attache pour la courroie Y</td></tr>
     </tbody>
   </table></div>
 
   <h2>Compatibilité</h2>
-  <div class="placeholder">✏️ Quels types de stylos ou feutres peuvent être utilisés ? Ø du manchon ? Poids maximal ?</div>
+  <div class="callout">Le système pignon-crémaillère a été préféré à un simple support direct entre le servo et le stylo. Il garantit que le stylo reste toujours perpendiculaire à la feuille, et l'appui est réglable avec précision — ce qui améliore directement la qualité du tracé.</div>
+
   <h2>Photos</h2>
-  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;">
-    <img src="/MachineThatDraws-Groupe06/images/supportstylo1.PNG" alt="Tête porte-stylo 1" style="width:220px;height:220px;object-fit:cover;border-radius:8px;">
-    <img src="/MachineThatDraws-Groupe06/images/supportstylo2.jpeg" alt="Tête porte-stylo 2" style="width:220px;height:220px;object-fit:cover;border-radius:8px;">
-  </div>
+  <div class="placeholder">📷 Ajoute des photos de la tête assemblée et du stylo en position haute/basse</div>
 </div>
 </div>

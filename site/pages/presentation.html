@@ -6,10 +6,17 @@
   <p class="page-lead">Le Groupe 06 a conçu et assemblé cette machine au MakerSpace d'UniLaSalle Amiens au cours de l'année 2025-2026. Toutes les pièces structurelles ont été modélisées sous OnShape puis imprimées en 3D, et le PCB de contrôle a été conçu sous KiCad.</p>
 
   <h2>Qu'est-ce que la MachineThatDraw ?</h2>
-  <p>La MachineThatDraw est une CNC cartésienne à deux axes pilotée par un <strong>ESP32-S3-UNO</strong>. Deux moteurs NEMA 17 déplacent le chariot en X et en Y, tandis qu'un servo-moteur lève ou abaisse le stylo pour contrôler le contact avec le papier.</p>
+  <p>La MachineThatDraw est une CNC cartésienne à deux axes pilotée par un <strong>ESP32-S3-UNO</strong>. Deux moteurs NEMA 17 déplacent le chariot en X et en Y, tandis qu'un servo-moteur lève ou abaisse le stylo pour contrôler le contact avec le papier. Elle est capable de traduire un fichier vectoriel en un dessin au stylo avec précision, en s'appuyant sur la chaîne G-code + firmware GRBL.</p>
+
+  <h2>Nos sources d'inspiration</h2>
+  <ul>
+    <li>Machines du commerce : <strong>Axidraw</strong> (traceur/plotter de référence)</li>
+    <li>Projets open-source partagés par des communautés de makers</li>
+    <li>Documentation Open Hardware pour la cinématique des axes et le pilotage GRBL</li>
+  </ul>
 
   <h2>Photo de la machine</h2>
-  <img src="/MachineThatDraws-Groupe06/images/machinecomplet.jpeg" alt="Machine That Draw — vue complète" style="width:100%;max-width:700px;border-radius:8px;display:block;">
+  <div class="placeholder">📷 Ajoute ici une photo de la machine finale assemblée — vue de face, de 3/4, ou en fonctionnement</div>
 
   <h2>Modèle 3D</h2>
   <p>Notre modèle 3D complet est disponible sur OnShape :</p>
@@ -18,12 +25,14 @@
   <h2>Fiche technique</h2>
   <div class="table-wrap"><table>
     <tbody>
-      <tr><td>Zone de dessin</td><td class="td-todo">100mm × 130mm</td></tr>
-      <tr><td>Résolution</td><td class="td-todo">1mm</td></tr>
-      <tr><td>Format papier</td><td class="td-todo">A4</td></tr>
+      <tr><td>Zone de dessin</td><td class="td-todo">✏️ ___ mm × ___ mm</td></tr>
+      <tr><td>Résolution</td><td class="td-todo">✏️ ex : 0.1 mm</td></tr>
+      <tr><td>Vitesse max</td><td class="td-todo">✏️ ex : 3 000 mm/min</td></tr>
+      <tr><td>Format papier</td><td class="td-todo">✏️ ex : A4</td></tr>
       <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO</td></tr>
       <tr><td>Drivers moteurs</td><td class="td-mono">2× A4988</td></tr>
-      <tr><td>Alimentation</td><td class="td-todo">12V</td></tr>
+      <tr><td>Alimentation</td><td>12V DC</td></tr>
+      <tr><td>Coût total estimé</td><td>~76 € (hors PCB, impressions et visserie)</td></tr>
     </tbody>
   </table></div>
 </div>

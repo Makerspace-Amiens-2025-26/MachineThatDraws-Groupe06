@@ -9,10 +9,10 @@
 
   <h2>Objectifs techniques</h2>
   <div class="obj-grid">
-    <div class="obj-card"><div class="obj-icon">⚙️</div><div class="obj-title">Automatisation</div><div class="obj-desc">Reproduire des formes et des caractères de manière autonome à partir d'un fichier G-code.</div></div>
-    <div class="obj-card"><div class="obj-icon">🎯</div><div class="obj-title">Précision</div><div class="obj-desc">Assurer un mouvement fluide des moteurs pas-à-pas pour un rendu propre et fidèle.</div></div>
-    <div class="obj-card"><div class="obj-icon">🖊️</div><div class="obj-title">Polyvalence</div><div class="obj-desc">Permettre l'utilisation de différents types de stylos ou feutres.</div></div>
-    <div class="obj-card"><div class="obj-icon">📦</div><div class="obj-title">Compacité</div><div class="obj-desc">Concevoir une machine facilement transportable et rangeable.</div></div>
+    <div class="obj-card"><div class="obj-icon">⚙️</div><div class="obj-title">Automatisation</div><div class="obj-desc">Reproduire des formes et des caractères de manière autonome à partir d'un fichier G-code, sans intervention humaine pendant le tracé.</div></div>
+    <div class="obj-card"><div class="obj-icon">🎯</div><div class="obj-title">Précision</div><div class="obj-desc">Respecter les échelles et les proportions du dessin initial. Assurer des mouvements fluides sans saut de pas des moteurs NEMA 17.</div></div>
+    <div class="obj-card"><div class="obj-icon">🖊️</div><div class="obj-title">Polyvalence</div><div class="obj-desc">Permettre l'utilisation de différents types de stylos ou feutres grâce à un manchon adaptable sur la tête porte-stylo.</div></div>
+    <div class="obj-card"><div class="obj-icon">📦</div><div class="obj-title">Compacité & modularité</div><div class="obj-desc">Concevoir une machine facilement transportable, avec des pièces modulaires permettant des modifications ultérieures.</div></div>
   </div>
 
   <h2>Contraintes imposées</h2>
@@ -20,13 +20,16 @@
     <thead><tr><th>Contrainte</th><th>Détail</th></tr></thead>
     <tbody>
       <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO</td></tr>
-      <tr><td>Moteurs axes X/Y</td><td>2× NEMA 17</td></tr>
-      <tr><td>Axe Z (stylo)</td><td>Servo-moteur</td></tr>
-      <tr><td>Format d'entrée</td><td>Fichier G-code</td></tr>
+      <tr><td>Moteurs axes X/Y</td><td>2× NEMA 17 (moteurs pas-à-pas)</td></tr>
+      <tr><td>Axe Z (stylo)</td><td>Servo-moteur (SG90 / MG90S)</td></tr>
+      <tr><td>Format d'entrée</td><td>Fichier G-code (G0, G1, M3, M5)</td></tr>
+      <tr><td>Budget</td><td>Budget contenu — composants pilotables par Arduino</td></tr>
+      <tr><td>Fabrication</td><td>Pièces imprimées 3D au MakerSpace d'UniLaSalle Amiens</td></tr>
     </tbody>
   </table></div>
 
   <h2>Ce que nous avons appris</h2>
-  <div class="placeholder">✏️ Raconte ici ce que vous avez découvert — les galères, les surprises, ce que vous referiez différemment.</div>
+  <p>Ce projet nous a appris à faire dialoguer trois univers différents : l'informatique, l'électronique et la mécanique. Chaque détail compte : une petite erreur de montage mécanique peut bloquer tout le programme informatique, et inversement. Nous avons aussi compris la valeur des solutions open-source éprouvées, qui nous ont fait gagner un temps précieux.</p>
+  <div class="callout">Après nos premiers tests, nous avons identifié plusieurs pistes d'amélioration : utiliser des drivers TMC2208/2209 (plus silencieux, meilleure gestion thermique), remplacer l'Arduino Uno par un Nano (4× moins cher, même performance GRBL), et opter pour des capteurs optiques plutôt que des switches mécaniques pour le homing.</div>
 </div>
 </div>

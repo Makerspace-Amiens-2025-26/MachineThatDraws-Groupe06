@@ -3,25 +3,26 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Logiciels</div>
   <div class="page-eyebrow">Logiciels — 03</div>
   <h1 class="page-title">Conversion G-code</h1>
-  <p class="page-lead">Avant d'envoyer un dessin à la machine, le fichier source doit être converti en une liste d'instructions G-code que le firmware peut interpréter.</p>
+  <p class="page-lead">Avant d'envoyer un dessin à la machine, le fichier source doit être converti en une liste d'instructions G-code que le firmware peut interpréter. La chaîne retenue utilise Processing pour la génération, conformément aux exigences du projet.</p>
 
   <h2>Processus de conversion</h2>
   <div class="steps-list">
-    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Préparation du fichier source</div><div class="step-desc">Dessin vectoriel (SVG) ou image bitmap (PNG, JPG)</div></div></div>
-    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Vectorisation</div><div class="step-desc">Si le fichier est une image bitmap, on le convertit d'abord en SVG</div></div></div>
-    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Génération des trajectoires</div><div class="step-desc">Le logiciel calcule l'ordre de parcours des contours</div></div></div>
-    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Export G-code</div><div class="step-desc">Fichier .gcode prêt à être envoyé en série à l'ESP32</div></div></div>
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Préparation du fichier source</div><div class="step-desc">Dessin vectoriel (SVG, DXF) ou image bitmap (PNG, JPG). Les SVG sont directement utilisables ; les bitmaps nécessitent une étape de vectorisation.</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Vectorisation (si nécessaire)</div><div class="step-desc">Si le fichier est une image bitmap, on le convertit d'abord en SVG via Inkscape ou un outil équivalent.</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Génération des trajectoires avec Processing</div><div class="step-desc">Le programme Processing lit le fichier vectoriel, calcule l'ordre de parcours optimisé des contours et génère les coordonnées X/Y.</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Export G-code</div><div class="step-desc">Le fichier .gcode est généré avec les commandes G0/G1/M3/M5. Il est prêt à être envoyé en série à l'ESP32.</div></div></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Envoi vers l'ESP32</div><div class="step-desc">Le logiciel Sender envoie les lignes de G-code une par une via USB (115200 bauds). L'ESP32 exécute chaque instruction au fur et à mesure.</div></div></div>
   </div>
 
   <h2>Outils utilisés</h2>
   <div class="table-wrap"><table>
     <thead><tr><th>Logiciel</th><th>Rôle</th><th>Plateforme</th></tr></thead>
     <tbody>
-      <tr><td class="td-todo">✏️ ex : Inkscape + extension</td><td>Conversion SVG → G-code</td><td>PC</td></tr>
-      <tr><td class="td-todo">✏️ ex : svg2gcode</td><td class="td-todo">✏️</td><td class="td-todo">✏️</td></tr>
+      <tr><td><strong>Processing</strong></td><td>Génération du G-code à partir du dessin vectoriel — outil principal du projet</td><td>PC</td></tr>
+      <tr><td>Inkscape (+ extension svg2gcode)</td><td>Vectorisation des bitmaps et export G-code alternatif</td><td>PC</td></tr>
+      <tr><td>Logiciel Sender</td><td>Envoi du fichier G-code en série vers l'ESP32</td><td>PC</td></tr>
     </tbody>
   </table></div>
-  <div class="placeholder">✏️ Décris précisément comment vous préparez un fichier — réglages utilisés, unités, dimensions.</div>
 
   <h2>Exemple de G-code généré</h2>
   <pre><span style="color:#5a8a5a">; Dessin d'un carré 50×50 mm</span>
@@ -41,6 +42,8 @@ G0 X0 Y0         <span style="color:#5a8a5a">; Retour origine</span></pre>
       <tr><td>Vitesse d'avance (F)</td><td class="td-todo">✏️ ex : 800 mm/min</td></tr>
       <tr><td>Commande stylo baissé</td><td class="td-mono">M3</td></tr>
       <tr><td>Commande stylo levé</td><td class="td-mono">M5</td></tr>
+      <tr><td>Déplacement rapide (sans tracé)</td><td class="td-mono">G0</td></tr>
+      <tr><td>Déplacement tracé</td><td class="td-mono">G1</td></tr>
     </tbody>
   </table></div>
 
@@ -58,7 +61,6 @@ function toggleTheme(){
   btn.innerHTML = isLight ? '🌙 Sombre' : '☀️ Clair';
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
-// Restore saved theme
 if(localStorage.getItem('theme')==='light'){
   document.documentElement.classList.add('light');
   document.addEventListener('DOMContentLoaded',()=>{
