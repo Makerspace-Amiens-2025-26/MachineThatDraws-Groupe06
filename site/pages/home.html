@@ -1,4 +1,6 @@
 <div class="page active" id="page-home">
+
+  <!-- ========== HERO ========== -->
   <div class="home-hero">
     <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
     <h1 class="home-title">Machine That Draw</h1>
@@ -9,36 +11,164 @@
       <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline">GitHub ↗</a>
     </div>
   </div>
-  <div class="home-body">
-    <div>
-      <h2>Le projet</h2>
-      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.</p>
-      <div class="cards-grid">
-        <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
-        <div class="info-card"><h3>Électronique</h3><p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p></div>
-        <div class="info-card"><h3>Logiciel</h3><p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p></div>
-      </div>
-    </div>
-    <div>
-      <h2>L'équipe</h2>
-      <div class="team-grid">
-        <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
-        <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
-        <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
-        <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
-      </div>
-    </div>
-    <div class="model-wrap">
-      <h2>Modèle 3D</h2>
-      <div class="model-viewer-wrap">
-        <model-viewer
-          src="assets/images/models/machine (2).gltf"
-          camera-controls auto-rotate auto-rotate-delay="1000"
-          rotation-per-second="20deg" shadow-intensity="0"
-          environment-image="neutral" exposure="0.8"
-          alt="Modèle 3D Machine That Draw">
-        </model-viewer>
-      </div>
+
+  <hr class="home-divider" />
+
+  <!-- ========== PROJET ========== -->
+  <div class="home-section">
+    <p class="home-section-label">Le projet</p>
+    <h2>Comment ça marche ?</h2>
+    <p class="home-section-intro">
+      La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet
+      MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.
+    </p>
+    <div class="cards-grid">
+      <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
+      <div class="info-card"><h3>Électronique</h3><p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p></div>
+      <div class="info-card"><h3>Logiciel</h3><p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p></div>
     </div>
   </div>
+
+  <hr class="home-divider" />
+
+  <!-- ========== ÉQUIPE ========== -->
+  <div class="home-section">
+    <p class="home-section-label">L'équipe</p>
+    <h2>Quatre étudiants</h2>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
+      <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
+      <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
+      <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
+    </div>
+  </div>
+
+  <hr class="home-divider" />
+
+  <!-- ========== MODÈLE 3D ========== -->
+  <div class="home-section">
+    <p class="home-section-label">Modèle 3D</p>
+    <h2>Visualisation</h2>
+    <div class="model-viewer-wrap">
+      <model-viewer
+        src="assets/images/models/machine (2).gltf"
+        camera-controls
+        auto-rotate
+        auto-rotate-delay="1000"
+        rotation-per-second="20deg"
+        shadow-intensity="0"
+        environment-image="neutral"
+        exposure="0.8"
+        min-camera-orbit="auto auto 0%"
+        max-camera-orbit="auto auto 200%"
+        min-field-of-view="10deg"
+        max-field-of-view="90deg"
+        interaction-prompt="auto"
+        alt="Modèle 3D Machine That Draw">
+      </model-viewer>
+    </div>
+    <p class="model-hint">
+      🖱 Clic gauche pour tourner · Molette pour zoomer · Clic droit pour déplacer
+    </p>
+  </div>
+
 </div>
+
+<!-- ========== STYLES SPÉCIFIQUES PAGE HOME ========== -->
+<style>
+  /* ---------- hero ---------- */
+  .home-hero {
+    padding: 3rem 0 2.5rem;
+    text-align: center;
+  }
+
+  .home-badge {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--text2, #666);
+    border: 1px solid var(--border, #ddd);
+    border-radius: 99px;
+    padding: 4px 14px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .home-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    color: var(--text1, #111);
+  }
+
+  .home-sub {
+    font-size: 15px;
+    color: var(--text2, #555);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+  }
+
+  .home-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  /* ---------- séparateur ---------- */
+  .home-divider {
+    border: none;
+    border-top: 1px solid var(--border, #e5e5e5);
+    margin: 0;
+  }
+
+  /* ---------- sections ---------- */
+  .home-section {
+    padding: 2.5rem 0;
+  }
+
+  .home-section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text2, #888);
+    margin: 0 0 0.4rem;
+  }
+
+  .home-section h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    color: var(--text1, #111);
+  }
+
+  .home-section-intro {
+    font-size: 14px;
+    color: var(--text2, #555);
+    line-height: 1.8;
+    margin-bottom: 1.75rem;
+  }
+
+  /* ---------- model viewer ---------- */
+  .model-viewer-wrap {
+    width: 100%;
+    height: 420px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border, #e5e5e5);
+    background: var(--surface, #f7f7f7);
+  }
+
+  .model-viewer-wrap model-viewer {
+    width: 100%;
+    height: 100%;
+    --poster-color: transparent;
+  }
+
+  .model-hint {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text2, #999);
+    text-align: center;
+  }
+</style>
