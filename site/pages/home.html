@@ -4,7 +4,7 @@
   <div class="home-hero">
     <div class="home-badge">Makerspace Amiens · Groupe 06 · 2025-2026</div>
     <h1 class="home-title">Machine That Draw</h1>
-    <p class="home-sub">Machine dessinatrice à commande numérique — conçue et fabriquée de A à Z par 4 étudiants.</p>
+    <p class="home-sub">Machine dessinatrice à commande numérique —<br>conçue et fabriquée de A à Z par 4 étudiants.</p>
     <div class="home-btns">
       <button class="btn btn-primary" onclick="showPage('presentation')">Découvrir le projet</button>
       <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Modèle 3D OnShape ↗</a>
@@ -17,15 +17,27 @@
   <!-- ========== PROJET ========== -->
   <div class="home-section">
     <p class="home-section-label">Le projet</p>
-    <h2>Comment ça marche ?</h2>
+    <h2 class="home-section-title">Comment ça marche ?</h2>
     <p class="home-section-intro">
       La <strong>MachineThatDraw</strong> est un traceur vectoriel automatisé conçu dans le cadre du projet
       MakerSpace 2025-2026. Elle reproduit n'importe quel fichier numérique sous forme de tracé physique sur papier.
     </p>
-    <div class="cards-grid">
-      <div class="info-card"><h3>Mécanique</h3><p>Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p></div>
-      <div class="info-card"><h3>Électronique</h3><p>ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p></div>
-      <div class="info-card"><h3>Logiciel</h3><p>Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p></div>
+    <div class="home-cards-grid">
+      <div class="home-info-card">
+        <div class="home-card-icon">⚙️</div>
+        <h3 class="home-card-title">Mécanique</h3>
+        <p class="home-card-text">Structure cartésienne X/Y, guidages linéaires, courroies GT2 et pièces imprimées en 3D.</p>
+      </div>
+      <div class="home-info-card">
+        <div class="home-card-icon">🔌</div>
+        <h3 class="home-card-title">Électronique</h3>
+        <p class="home-card-text">ESP32-S3-UNO, drivers A4988, PCB sur-mesure conçu sous KiCad 9.</p>
+      </div>
+      <div class="home-info-card">
+        <div class="home-card-icon">💻</div>
+        <h3 class="home-card-title">Logiciel</h3>
+        <p class="home-card-text">Conversion vectorielle en G-code et firmware pour piloter les moteurs pas-à-pas.</p>
+      </div>
     </div>
   </div>
 
@@ -34,12 +46,36 @@
   <!-- ========== ÉQUIPE ========== -->
   <div class="home-section">
     <p class="home-section-label">L'équipe</p>
-    <h2>Quatre étudiants</h2>
-    <div class="team-grid">
-      <div class="team-card"><div class="team-avatar">AA</div><div><div class="team-name">Avsin ATAC</div></div></div>
-      <div class="team-card"><div class="team-avatar">PV</div><div><div class="team-name">Pierre VILLAIN</div></div></div>
-      <div class="team-card"><div class="team-avatar">DM</div><div><div class="team-name">Djaher MADIALI</div></div></div>
-      <div class="team-card"><div class="team-avatar">EV</div><div><div class="team-name">Emilien VITRY-LHOTTE</div></div></div>
+    <h2 class="home-section-title">Quatre étudiants</h2>
+    <div class="home-team-grid">
+      <div class="home-team-card">
+        <div class="home-team-avatar">AA</div>
+        <div class="home-team-info">
+          <div class="home-team-name">Avsin ATAC</div>
+          <div class="home-team-role">Étudiant</div>
+        </div>
+      </div>
+      <div class="home-team-card">
+        <div class="home-team-avatar">PV</div>
+        <div class="home-team-info">
+          <div class="home-team-name">Pierre VILLAIN</div>
+          <div class="home-team-role">Étudiant</div>
+        </div>
+      </div>
+      <div class="home-team-card">
+        <div class="home-team-avatar">DM</div>
+        <div class="home-team-info">
+          <div class="home-team-name">Djaher MADIALI</div>
+          <div class="home-team-role">Étudiant</div>
+        </div>
+      </div>
+      <div class="home-team-card">
+        <div class="home-team-avatar">EV</div>
+        <div class="home-team-info">
+          <div class="home-team-name">Emilien VITRY-LHOTTE</div>
+          <div class="home-team-role">Étudiant</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -48,8 +84,8 @@
   <!-- ========== MODÈLE 3D ========== -->
   <div class="home-section">
     <p class="home-section-label">Modèle 3D</p>
-    <h2>Visualisation</h2>
-    <div class="model-viewer-wrap">
+    <h2 class="home-section-title">Visualisation interactive</h2>
+    <div class="home-model-wrap">
       <model-viewer
         src="assets/images/models/machine (2).gltf"
         camera-controls
@@ -67,108 +103,183 @@
         alt="Modèle 3D Machine That Draw">
       </model-viewer>
     </div>
-    <p class="model-hint">
-      🖱 Clic gauche pour tourner · Molette pour zoomer · Clic droit pour déplacer
-    </p>
+    <p class="home-model-hint">🖱 Clic gauche pour tourner · Molette pour zoomer · Clic droit pour déplacer</p>
   </div>
 
 </div>
 
-<!-- ========== STYLES SPÉCIFIQUES PAGE HOME ========== -->
+<!-- ========== STYLES PAGE HOME ========== -->
 <style>
-  /* ---------- hero ---------- */
+  /* ----- hero ----- */
   .home-hero {
-    padding: 3rem 0 2.5rem;
+    padding: 4rem 2rem 3.5rem;
     text-align: center;
   }
-
   .home-badge {
     display: inline-block;
-    font-size: 12px;
-    color: var(--text2, #666);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text2, #777);
     border: 1px solid var(--border, #ddd);
     border-radius: 99px;
-    padding: 4px 14px;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.04em;
+    padding: 5px 16px;
+    margin-bottom: 1.75rem;
   }
-
   .home-title {
-    font-size: 2.4rem;
-    font-weight: 600;
-    margin: 0 0 0.75rem;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 1rem;
     color: var(--text1, #111);
   }
-
   .home-sub {
-    font-size: 15px;
-    color: var(--text2, #555);
-    line-height: 1.7;
-    max-width: 480px;
-    margin: 0 auto 2rem;
+    font-size: 16px;
+    color: var(--text2, #666);
+    line-height: 1.8;
+    max-width: 440px;
+    margin: 0 auto 2.25rem;
   }
-
   .home-btns {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
   }
 
-  /* ---------- séparateur ---------- */
+  /* ----- divider ----- */
   .home-divider {
     border: none;
-    border-top: 1px solid var(--border, #e5e5e5);
+    border-top: 1px solid var(--border, #ebebeb);
     margin: 0;
   }
 
-  /* ---------- sections ---------- */
+  /* ----- sections ----- */
   .home-section {
-    padding: 2.5rem 0;
+    padding: 3.5rem 2rem;
   }
-
   .home-section-label {
+    display: block;
     font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text2, #888);
-    margin: 0 0 0.4rem;
-  }
-
-  .home-section h2 {
-    font-size: 1.4rem;
     font-weight: 600;
-    margin: 0 0 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent, #c0392b);
+    margin: 0 0 0.6rem;
+  }
+  .home-section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
     color: var(--text1, #111);
   }
-
   .home-section-intro {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text2, #555);
-    line-height: 1.8;
-    margin-bottom: 1.75rem;
+    line-height: 1.85;
+    max-width: 680px;
+    margin: 0 0 2.25rem;
   }
 
-  /* ---------- model viewer ---------- */
-  .model-viewer-wrap {
+  /* ----- info cards ----- */
+  .home-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .home-info-card {
+    background: var(--surface, #f8f8f8);
+    border: 1px solid var(--border, #e8e8e8);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+  .home-info-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .home-card-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .home-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text1, #111);
+    margin: 0 0 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .home-card-text {
+    font-size: 14px;
+    color: var(--text2, #666);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* ----- team cards ----- */
+  .home-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .home-team-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface, #f8f8f8);
+    border: 1px solid var(--border, #e8e8e8);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+  .home-team-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .home-team-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-bg, #fdecea);
+    color: var(--accent, #c0392b);
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .home-team-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text1, #111);
+    margin-bottom: 3px;
+  }
+  .home-team-role {
+    font-size: 12px;
+    color: var(--text2, #999);
+  }
+
+  /* ----- model viewer ----- */
+  .home-model-wrap {
     width: 100%;
-    height: 420px;
-    border-radius: 12px;
+    height: 460px;
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid var(--border, #e5e5e5);
-    background: var(--surface, #f7f7f7);
+    border: 1px solid var(--border, #e8e8e8);
+    background: var(--surface, #f5f5f5);
   }
-
-  .model-viewer-wrap model-viewer {
+  .home-model-wrap model-viewer {
     width: 100%;
     height: 100%;
     --poster-color: transparent;
   }
-
-  .model-hint {
-    margin-top: 10px;
+  .home-model-hint {
+    margin-top: 12px;
     font-size: 12px;
-    color: var(--text2, #999);
+    color: var(--text2, #aaa);
     text-align: center;
+    letter-spacing: 0.02em;
   }
 </style>
