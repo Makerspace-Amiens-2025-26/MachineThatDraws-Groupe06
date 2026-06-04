@@ -7,6 +7,19 @@
 
   <div class="callout"><strong>Défi du groupe :</strong> Faire tenir l'ensemble de la chaîne de fabrication — de la modélisation 3D au premier tracé réel — dans le calendrier d'un projet académique d'un an.</div>
 
+  <h2>Cahier des charges</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Exigence</th><th>Détail</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fonctionnalité</strong></td><td>Contrôler deux axes X et Y pour déplacer le stylo, plus un axe Z géré par un servomoteur pour lever et baisser le stylo — assurant le contact avec la feuille.</td></tr>
+      <tr><td><strong>Performance — Précision</strong></td><td>Respecter les échelles et les proportions du dessin de départ.</td></tr>
+      <tr><td><strong>Performance — Fiabilité</strong></td><td>Mouvements fluides, sans saut de pas des moteurs.</td></tr>
+      <tr><td><strong>Logiciel</strong></td><td>Chaîne numérique cohérente : création du dessin (Inkscape) → génération du G-code → envoi vers l'Arduino → interprétation par les drivers.</td></tr>
+      <tr><td><strong>Contraintes techniques</strong></td><td>Utiliser uniquement des composants pilotables par Arduino. Garder des pièces modulaires pour pouvoir modifier la machine ultérieurement.</td></tr>
+      <tr><td><strong>Pédagogie</strong></td><td>Maîtriser toute la chaîne de fabrication : conception numérique, fabrication des pièces, assemblage, programmation et calibration.</td></tr>
+    </tbody>
+  </table></div>
+
   <h2>Objectifs techniques</h2>
   <div class="obj-grid">
     <div class="obj-card"><div class="obj-icon">⚙️</div><div class="obj-title">Automatisation</div><div class="obj-desc">Reproduire des formes et des caractères de manière autonome à partir d'un fichier G-code, sans intervention humaine pendant le tracé.</div></div>
