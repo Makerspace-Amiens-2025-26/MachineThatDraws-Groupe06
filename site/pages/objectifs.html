@@ -6,29 +6,13 @@
   <p class="page-lead">L'objectif principal était de concevoir et réaliser une machine à dessiner fonctionnelle, capable de traduire un fichier vectoriel en un dessin au stylo avec précision. Le projet couvrait également la maîtrise de la conception CAO sur OnShape, la création de la carte électronique sous KiCad (schéma + routage PCB), et la programmation du microcontrôleur.</p>
 
   <h2>Cahier des charges</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Exigence</th><th>Détail</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Fonctionnalité</strong></td><td>Contrôler deux axes X et Y pour déplacer le stylo, plus un axe Z géré par un servomoteur pour lever et baisser le stylo — assurant le contact avec la feuille.</td></tr>
-      <tr><td><strong>Performance — Précision</strong></td><td>Respecter les échelles et les proportions du dessin de départ.</td></tr>
-      <tr><td><strong>Performance — Fiabilité</strong></td><td>Mouvements fluides, sans saut de pas des moteurs.</td></tr>
-      <tr><td><strong>Logiciel</strong></td><td>Chaîne numérique cohérente : création du dessin (Inkscape) → génération du G-code → envoi vers l'Arduino → interprétation par les drivers.</td></tr>
-      <tr><td><strong>Contraintes techniques</strong></td><td>Utiliser uniquement des composants pilotables par Arduino. Garder des pièces modulaires pour pouvoir modifier la machine ultérieurement.</td></tr>
-      <tr><td><strong>Pédagogie</strong></td><td>Maîtriser toute la chaîne de fabrication : conception numérique, fabrication des pièces, assemblage, programmation et calibration.</td></tr>
-    </tbody>
-  </table></div>
+  <p><strong>Fonctionnalité :</strong> la machine doit contrôler deux axes X et Y pour déplacer le stylo, plus un axe Z géré par un servomoteur pour lever et baisser le stylo — assurant le contact avec la feuille.</p>
+  <p><strong>Performance :</strong> respecter les échelles et les proportions du dessin de départ, avec des mouvements fluides et sans saut de pas des moteurs.</p>
+  <p><strong>Logiciel :</strong> utiliser une chaîne numérique cohérente — création du dessin (Inkscape), génération du G-code, envoi vers l'Arduino, interprétation par les drivers.</p>
+  <p><strong>Contraintes techniques :</strong> utiliser uniquement des composants pilotables par Arduino et garder des pièces modulaires pour pouvoir modifier la machine ultérieurement.</p>
+  <p><strong>Pédagogie :</strong> maîtriser toute la chaîne de fabrication — conception numérique, fabrication des pièces, assemblage, programmation et calibration.</p>
 
   <h2>Contraintes imposées</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Contrainte</th><th>Détail</th></tr></thead>
-    <tbody>
-      <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO — pilote l'ensemble des actionneurs via le firmware</td></tr>
-      <tr><td>Moteurs axes X/Y</td><td>2× NEMA 17 (moteurs pas-à-pas) pilotés par drivers A4988</td></tr>
-      <tr><td>Axe Z (stylo)</td><td>Servo-moteur (SG90 / MG90S) — lève et abaisse le stylo via un système pignon-crémaillère</td></tr>
-      <tr><td>Fabrication mécanique</td><td>Pièces modélisées sous OnShape et imprimées 3D au MakerSpace d'UniLaSalle Amiens</td></tr>
-      <tr><td>Électronique</td><td>PCB sur-mesure conçu sous KiCad 9 — tous les composants sont pilotables par microcontrôleur</td></tr>
-      <tr><td>Modularité</td><td>Pièces conçues pour être remplaçables et modifiables indépendamment</td></tr>
-    </tbody>
-  </table></div>
+  <p>Le microcontrôleur utilisé est l'ESP32-S3-UNO, qui pilote l'ensemble des actionneurs via le firmware. Les axes X et Y sont entraînés par deux moteurs pas-à-pas NEMA 17 pilotés par des drivers A4988. L'axe Z (montée/descente du stylo) est géré par un servo-moteur SG90/MG90S via un système pignon-crémaillère. Toutes les pièces mécaniques ont été modélisées sous OnShape et imprimées 3D au MakerSpace d'UniLaSalle Amiens. Le PCB sur-mesure a été conçu sous KiCad 9. Les pièces sont conçues pour être remplaçables et modifiables indépendamment.</p>
 </div>
 </div>
