@@ -3,9 +3,7 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Introduction</div>
   <div class="page-eyebrow">Introduction — 02</div>
   <h1 class="page-title">Objectifs du projet</h1>
-  <p class="page-lead">Le projet nous a imposé de livrer une machine fonctionnelle en partant de zéro : aucun kit, aucune solution toute faite. Chaque sous-système — mécanique, électronique, firmware — a dû être dimensionné, conçu et validé par l'équipe.</p>
-
-  <div class="callout"><strong>Défi du groupe :</strong> Faire tenir l'ensemble de la chaîne de fabrication — de la modélisation 3D au premier tracé réel — dans le calendrier d'un projet académique d'un an.</div>
+  <p class="page-lead">L'objectif principal était de concevoir et réaliser une machine à dessiner fonctionnelle, capable de traduire un fichier vectoriel en un dessin au stylo avec précision. Le projet couvrait également la maîtrise de la conception CAO sur OnShape, la création de la carte électronique sous KiCad (schéma + routage PCB), et la programmation du microcontrôleur.</p>
 
   <h2>Cahier des charges</h2>
   <div class="table-wrap"><table>
@@ -20,29 +18,17 @@
     </tbody>
   </table></div>
 
-  <h2>Objectifs techniques</h2>
-  <div class="obj-grid">
-    <div class="obj-card"><div class="obj-icon">⚙️</div><div class="obj-title">Automatisation</div><div class="obj-desc">Reproduire des formes et des caractères de manière autonome à partir d'un fichier G-code, sans intervention humaine pendant le tracé.</div></div>
-    <div class="obj-card"><div class="obj-icon">🎯</div><div class="obj-title">Précision</div><div class="obj-desc">Respecter les échelles et les proportions du dessin initial. Assurer des mouvements fluides sans saut de pas des moteurs NEMA 17.</div></div>
-    <div class="obj-card"><div class="obj-icon">🖊️</div><div class="obj-title">Polyvalence</div><div class="obj-desc">Permettre l'utilisation de différents types de stylos ou feutres grâce à un manchon adaptable sur la tête porte-stylo.</div></div>
-    <div class="obj-card"><div class="obj-icon">📦</div><div class="obj-title">Compacité & modularité</div><div class="obj-desc">Concevoir une machine facilement transportable, avec des pièces modulaires permettant des modifications ultérieures.</div></div>
-  </div>
-
   <h2>Contraintes imposées</h2>
   <div class="table-wrap"><table>
     <thead><tr><th>Contrainte</th><th>Détail</th></tr></thead>
     <tbody>
-      <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO</td></tr>
-      <tr><td>Moteurs axes X/Y</td><td>2× NEMA 17 (moteurs pas-à-pas)</td></tr>
-      <tr><td>Axe Z (stylo)</td><td>Servo-moteur (SG90 / MG90S)</td></tr>
-      <tr><td>Format d'entrée</td><td>Fichier G-code (G0, G1, M3, M5)</td></tr>
-      <tr><td>Budget</td><td>Budget contenu — composants pilotables par Arduino</td></tr>
-      <tr><td>Fabrication</td><td>Pièces imprimées 3D au MakerSpace d'UniLaSalle Amiens</td></tr>
+      <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO — pilote l'ensemble des actionneurs via le firmware</td></tr>
+      <tr><td>Moteurs axes X/Y</td><td>2× NEMA 17 (moteurs pas-à-pas) pilotés par drivers A4988</td></tr>
+      <tr><td>Axe Z (stylo)</td><td>Servo-moteur (SG90 / MG90S) — lève et abaisse le stylo via un système pignon-crémaillère</td></tr>
+      <tr><td>Fabrication mécanique</td><td>Pièces modélisées sous OnShape et imprimées 3D au MakerSpace d'UniLaSalle Amiens</td></tr>
+      <tr><td>Électronique</td><td>PCB sur-mesure conçu sous KiCad 9 — tous les composants sont pilotables par microcontrôleur</td></tr>
+      <tr><td>Modularité</td><td>Pièces conçues pour être remplaçables et modifiables indépendamment</td></tr>
     </tbody>
   </table></div>
-
-  <h2>Ce que nous avons appris</h2>
-  <p>Ce projet nous a appris à faire dialoguer trois univers différents : l'informatique, l'électronique et la mécanique. Chaque détail compte : une petite erreur de montage mécanique peut bloquer tout le programme informatique, et inversement. Nous avons aussi compris la valeur des solutions open-source éprouvées, qui nous ont fait gagner un temps précieux.</p>
-  <div class="callout">Après nos premiers tests, nous avons identifié plusieurs pistes d'amélioration : utiliser des drivers TMC2208/2209 (plus silencieux, meilleure gestion thermique), remplacer l'Arduino Uno par un Nano (4× moins cher, même performance GRBL), et opter pour des capteurs optiques plutôt que des switches mécaniques pour le homing.</div>
 </div>
 </div>
