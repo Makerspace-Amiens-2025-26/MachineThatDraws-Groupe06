@@ -3,44 +3,26 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
   <div class="page-eyebrow">05 — Programmer</div>
   <h1 class="page-title">Programmer</h1>
-  <p class="page-lead">La chaîne logicielle se décompose en deux grandes parties : la génération du G-code côté PC (avec Processing), et l'interprétation côté microcontrôleur. L'utilisation de Processing pour générer le G-code est une exigence du projet.</p>
+  <p class="page-lead">La machine fonctionne avec une chaîne de traitement numérique complète : du fichier vectoriel sur le PC jusqu'au tracé physique sur papier.</p>
 
-  <h2>Flux de données — de l'idée au tracé</h2>
-  <pre>[1. Création du contenu — PC]
-  Fichier numérique : dessin vectoriel (SVG, DXF) ou bitmap (PNG, JPG)
-  → Logiciel de traitement : Processing ou Inkscape
-  → Vectorisation si besoin (bitmap → SVG)
-  → Génération du G-code : liste de coordonnées (X, Y) et instructions de mouvement
+  <h2>Chaîne logicielle complète — 6 étapes</h2>
 
-[2. Transmission — PC → ESP32]
-  Envoi via port série (USB)
-  Le logiciel "Sender" envoie les lignes de G-code une par une
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Création du fichier (PC)</div><div class="step-desc">On part d'un fichier vectoriel (.SVG, .DXF) créé sur Inkscape ou tout autre logiciel de dessin vectoriel.</div></div></div>
 
-[3. Traitement — ESP32 + Firmware]
-  Réception et interprétation du G-code
-  Calcul du nombre de pas STEP/DIR par axe pour atteindre chaque coordonnée cible
-  Génération des signaux électriques
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Génération du G-code</div><div class="step-desc">Le fichier vectoriel est converti en G-code — une suite de coordonnées (X, Y) et d'instructions de mouvement (vitesse, levée/descente du stylo).</div></div></div>
 
-[4. Amplification — Drivers A4988]
-  Le signal logique ESP32 (trop faible) est amplifié
-  Le driver puise dans l'alimentation 12V externe
-  → Impulsions de courant haute intensité vers les bobines des moteurs
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Transmission PC → ESP32</div><div class="step-desc">Le PC communique via le port série (USB). Le logiciel "Sender" envoie les lignes de code une par une vers la carte.</div></div></div>
 
-[5. Action mécanique — NEMA 17 + Courroies]
-  Rotations précises des moteurs ("pas")
-  Transmises via courroies GT2 aux chariots
-  → Le stylo trace le dessin sur la feuille</pre>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Interprétation — Firmware GRBL</div><div class="step-desc">L'ESP32 fait tourner le firmware GRBL. GRBL traduit chaque ligne de G-code en impulsions électriques précises. Il calcule pour chaque moteur le nombre de pas nécessaires pour atteindre la coordonnée cible.</div></div></div>
 
-  <h2>Logiciels utilisés</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Outil</th><th>Rôle</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Processing</strong></td><td>Création du dessin et génération du G-code — outil principal du projet</td></tr>
-      <tr><td>Inkscape (+ extension)</td><td>Création de fichiers vectoriels SVG et export G-code alternatif</td></tr>
-      <tr><td>Logiciel Sender G-code</td><td>Envoi du fichier G-code en série vers l'ESP32</td></tr>
-      <tr><td>Arduino IDE / PlatformIO</td><td>Développement et upload du firmware sur l'ESP32-S3-UNO</td></tr>
-    </tbody>
-  </table></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Distribution du signal</div><div class="step-desc">Le PCB distribue les signaux proprement vers les deux drivers A4988. Il gère aussi l'alimentation 12V nécessaire aux moteurs.</div></div></div>
+
+    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Action mécanique</div><div class="step-desc">Les drivers amplifient le signal vers les moteurs NEMA 17. Les rotations sont transmises via les courroies GT2 pour déplacer le chariot et le stylo sur la feuille.</div></div></div>
+  </div>
+
+  <h2>Pourquoi GRBL et pas tout coder soi-même ?</h2>
+  <p>Tout coder aurait donné plus de liberté mais aurait pris trop de temps. GRBL est une solution open-source éprouvée et bien documentée qui nous a évité de tout reprogrammer.</p>
 
   <hr>
 
@@ -81,17 +63,6 @@ void loop() {
     parseGCode(cmd);
   }
 }</pre>
-
-  <hr>
-
-  <h2>Conversion G-code avec Processing</h2>
-  <div class="steps-list">
-    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Préparation du fichier source</div><div class="step-desc">Dessin vectoriel (SVG, DXF) ou image bitmap (PNG, JPG). Les SVG sont directement utilisables ; les bitmaps nécessitent une étape de vectorisation.</div></div></div>
-    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Vectorisation (si nécessaire)</div><div class="step-desc">Si le fichier est une image bitmap, on le convertit d'abord en SVG via Inkscape ou un outil équivalent.</div></div></div>
-    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Génération des trajectoires avec Processing</div><div class="step-desc">Le programme Processing lit le fichier vectoriel, calcule l'ordre de parcours optimisé des contours et génère les coordonnées X/Y.</div></div></div>
-    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Export G-code</div><div class="step-desc">Le fichier .gcode est généré avec les commandes G0/G1/M3/M5. Il est prêt à être envoyé en série à l'ESP32.</div></div></div>
-    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Envoi vers l'ESP32</div><div class="step-desc">Le logiciel Sender envoie les lignes de G-code une par une via USB (115200 bauds). L'ESP32 exécute chaque instruction au fur et à mesure.</div></div></div>
-  </div>
 
   <h2>Exemple de G-code généré</h2>
   <pre><span style="color:#5a8a5a">; Dessin d'un carré 50×50 mm</span>

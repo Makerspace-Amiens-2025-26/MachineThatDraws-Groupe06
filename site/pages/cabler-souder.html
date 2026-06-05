@@ -3,18 +3,10 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
   <div class="page-eyebrow">04 — Câbler &amp; Souder</div>
   <h1 class="page-title">Câbler &amp; Souder</h1>
-  <p class="page-lead">Cette étape couvre la conception du PCB sous KiCad, la soudure des composants et le câblage complet de la machine.</p>
-
-  <h2>Étapes de montage</h2>
-  <p>Nous avons commencé par souder les composants sur le PCB — connecteurs de moteurs, d'alimentation et de capteurs. Après la soudure, un test de continuité au multimètre a été effectué pour valider l'absence de court-circuit avant toute mise sous tension. Les drivers A4988 ont ensuite été connectés aux moteurs, et le servomoteur a été raccordé sur la broche PWM de l'ESP32. Enfin, le firmware a été uploadé et chaque axe a été testé indépendamment avant de lancer un tracé complet.</p>
-
-  <h2>Difficultés rencontrées</h2>
-  <p>Lors du montage des drivers A4988, nous les avons placés dans le mauvais sens sur le PCB. Cette erreur a créé des problèmes par la suite lors des premiers tests de la machine, ce qui nous a obligés à corriger le branchement.</p>
-
-  <hr>
+  <p class="page-lead">Notre carte électronique a été entièrement conçue sur KiCad 9, de la réalisation du schéma jusqu'au routage du PCB et à la soudure des composants.</p>
 
   <h2>Schéma électronique</h2>
-  <p>Le schéma a été conçu sous KiCad 9. Il regroupe l'ensemble des composants sur une carte de contrôle sur-mesure avec séparation entre zone de puissance (moteurs, 12V) et zone logique (ESP32).</p>
+  <p>Dessin de l'architecture complète en reliant l'ESP32 à tous les autres blocs. Intégration des composants : 2× drivers A4988, lecteur carte SD, connecteurs moteurs et capteurs. Gestion des connexions logiques : communication SPI pour la carte SD, signaux Step/Dir pour les moteurs.</p>
   <pre>Alimentation 12V
         │
         ├─── Régulateur R-78E5.0-1.0 ──→ 5V → ESP32-S3-UNO
@@ -29,26 +21,32 @@ ESP32-S3-UNO
         ├─── PWM ──────────→ Servomoteur (stylo)
         └─── GPIO ─────────→ Capteurs fin de course</pre>
 
-  <h2>Composants principaux</h2>
-  <div class="bom-cards">
-    <div class="bom-card"><div class="bom-ref">U1</div><div><div class="bom-name">ESP32-S3-UNO</div><div class="bom-desc">Microcontrôleur principal — génère les signaux STEP/DIR et le PWM servo.</div></div></div>
-    <div class="bom-card"><div class="bom-ref">A1/A2</div><div><div class="bom-name">Module A4988</div><div class="bom-desc">Drivers moteurs pas-à-pas — 5V logique, 12V puissance. Micro-pas jusqu'au 1/16.</div></div></div>
-    <div class="bom-card"><div class="bom-ref">U2</div><div><div class="bom-name">R-78E5.0-1.0</div><div class="bom-desc">Régulateur DC/DC — convertit 12V en 5V pour l'alimentation logique.</div></div></div>
-    <div class="bom-card"><div class="bom-ref">J1</div><div><div class="bom-name">Barrel Jack + interrupteur</div><div class="bom-desc">Connecteur alimentation 12V DC avec interrupteur de mise sous tension.</div></div></div>
-  </div>
+  <hr>
+
+  <h2>PCB — Routage</h2>
+  <ul>
+    <li>Placement stratégique : séparation de la zone de puissance (moteurs, alimentation) et de la zone logique sensible (ESP32)</li>
+    <li>Pistes larges pour les lignes de puissance afin de supporter le courant des moteurs sans chauffer</li>
+    <li>Plan de masse continu pour éviter les interférences et stabiliser les signaux de la carte SD</li>
+    <li>Routage des 4 capteurs de fin de course (Xmin, Xmax, Ymin, Ymax) pour un homing précis</li>
+  </ul>
+  <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline" style="display:inline-flex;margin-bottom:8px;">Fichiers KiCad sur GitHub ↗</a>
 
   <hr>
 
-  <h2>Conception du PCB</h2>
-  <p>Le PCB a été routé sous KiCad 9 sur deux couches. La zone de puissance (moteurs, alimentation 12V) et la zone logique (ESP32) sont séparées pour éviter les interférences. Des pistes larges ont été utilisées sur les lignes de puissance pour supporter le courant des moteurs. Un test de continuité au multimètre a validé la carte avant la première mise sous tension.</p>
-  <div class="table-wrap"><table>
-    <tbody>
-      <tr><td>Nombre de couches</td><td>2</td></tr>
-      <tr><td>Épaisseur carte</td><td>1.6 mm</td></tr>
-      <tr><td>Logiciel de conception</td><td>KiCad 9</td></tr>
-    </tbody>
-  </table></div>
-  <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline" style="margin-top:8px;display:inline-flex">Fichiers KiCad sur GitHub ↗</a>
+  <h2>Soudure</h2>
+  <p>Technique mixte : composants CMS pour la partie logique, traversants pour les pièces robustes (connecteurs moteurs). Soudure soignée des connecteurs pour résister aux branchements répétés. Test de continuité au multimètre avant la mise sous tension finale pour valider le fonctionnement de la carte.</p>
+  <p>Lors du montage des drivers A4988, nous les avons placés dans le mauvais sens sur le PCB. Cette erreur a créé des problèmes par la suite lors des premiers tests, ce qui nous a obligés à corriger le branchement.</p>
+
+  <hr>
+
+  <h2>Câblage final</h2>
+  <ul>
+    <li>ESP32 → 2× Drivers A4988 (STEP, DIR, ENABLE)</li>
+    <li>Drivers → Moteurs NEMA 17 (4 fils par moteur)</li>
+    <li>ESP32 → Servomoteur porte-stylo</li>
+    <li>Alimentation 12V → PCB</li>
+  </ul>
 
   <hr>
 

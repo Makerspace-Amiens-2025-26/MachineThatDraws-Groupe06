@@ -3,19 +3,35 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
   <div class="page-eyebrow">07 — Aller plus loin</div>
   <h1 class="page-title">Aller plus loin</h1>
-  <p class="page-lead">Au cours du projet, nous avons identifié plusieurs pistes d'amélioration et des alternatives techniques qui pourraient améliorer les performances de la machine dans une future version.</p>
+  <p class="page-lead">Un bilan honnête du projet — ce qui a bien fonctionné, ce qui aurait pu être mieux, et les pistes pour une version améliorée.</p>
 
-  <h2>Pistes d'amélioration mécaniques</h2>
+  <h2>Ce qui a bien fonctionné</h2>
   <ul>
-    <li>Stabilité axe Y — utiliser deux supports de barre au lieu d'un seul améliore significativement la rigidité. Une amélioration similaire pourrait bénéficier à l'axe X.</li>
+    <li>La chaîne logicielle GRBL est fiable et facile à utiliser</li>
+    <li>Le système pignon-crémaillère du porte-stylo est précis et reproductible</li>
+    <li>Le PCB custom a bien fonctionné dès les premiers tests</li>
+    <li>La machine dessine avec une précision satisfaisante</li>
   </ul>
 
-  <h2>Alternatives électroniques identifiées</h2>
-  <div class="callout">
-    <strong>TMC2208 / TMC2209</strong> — remplacement des A4988 recommandé pour une future version. Avantages : bien plus silencieux, meilleure gestion thermique, interpolation jusqu'au 1/256 micro-pas, amélioration directe de la qualité du tracé.
-  </div>
+  <h2>Ce qui aurait pu être mieux</h2>
+  <ul>
+    <li>Stabilité de l'axe Y : deux supports au lieu d'un a amélioré les choses, mais l'axe X mériterait la même amélioration</li>
+    <li>Bruit des moteurs : la machine est assez bruyante, des drivers plus silencieux (TMC2209) réduiraient le bruit</li>
+    <li>Pas de fin de course sur la version actuelle : ajouter des capteurs Xmin/Xmax/Ymin/Ymax permettrait un homing automatique</li>
+  </ul>
 
-  <h2>Évolutions logicielles</h2>
-  <p>La chaîne G-code + firmware pourrait être améliorée pour prendre en charge l'optimisation des trajectoires (minimiser les déplacements à vide), et ajouter une gestion du homing automatique via les capteurs fin de course déjà présents sur le PCB.</p>
+  <h2>Améliorations possibles</h2>
+  <ul>
+    <li>Remplacer les drivers A4988 par des TMC2209 (plus silencieux, meilleure gestion du courant)</li>
+    <li>Ajouter des fins de course sur les 4 axes pour un homing automatique précis</li>
+    <li>Intégrer une interface web via le Wi-Fi de l'ESP32 pour envoyer des fichiers sans câble USB</li>
+    <li>Remplacer les tiges acier par des rails linéaires MGN12 pour plus de précision</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>Ce projet nous a permis de transformer une simple idée en une machine bien réelle et totalement fonctionnelle.</p>
+  <p>Partir d'une feuille blanche pour construire une machine capable de dessiner de manière autonome a été un défi enrichissant et formateur.</p>
+  <p>On a appris que dans un tel système, chaque détail compte : une petite erreur de montage mécanique peut bloquer tout le programme, et inversement.</p>
+  <p>La vraie difficulté n'était pas technique — c'était de faire dialoguer trois univers différents : l'informatique, l'électronique et la mécanique.</p>
 </div>
 </div>

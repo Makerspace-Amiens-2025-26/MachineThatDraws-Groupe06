@@ -3,13 +3,26 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
   <div class="page-eyebrow">06 — Calibrer &amp; Tester</div>
   <h1 class="page-title">Calibrer &amp; Tester</h1>
-  <p class="page-lead">Une fois la machine assemblée et câblée, nous avons validé le fonctionnement axe par axe avant de lancer les premiers tracés. La machine est fonctionnelle : elle se déplace avec fluidité, respecte les proportions et lève ou baisse son stylo exactement au bon moment.</p>
+  <p class="page-lead">Une fois la machine assemblée et câblée, nous avons validé le fonctionnement axe par axe avant de lancer les premiers tracés.</p>
 
   <h2>Tests réalisés</h2>
-  <p>L'alimentation 12V a été vérifiée au multimètre avant la première mise sous tension. Les mouvements des axes X et Y sont stables et fonctionnels. La levée du stylo est précise, mais la descente du stylo reste encore imprécise et nécessite des ajustements supplémentaires.</p>
 
-  <h2>Résultats &amp; bilan</h2>
-  <p>La machine est fonctionnelle et capable de réaliser des tracés. Les premiers dessins obtenus montrent que la machine suit correctement les trajectoires envoyées.</p>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Déplacement manuel des axes</div><div class="step-desc">Vérification du glissement fluide des chariots sur les tiges. Résultat : OK après ajustement des bagues et tension des courroies.</div></div></div>
+
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Test des moteurs à vide</div><div class="step-desc">Envoi de commandes G-code simples (déplacement X seul, Y seul). Résultat : déplacement correct sur les deux axes.</div></div></div>
+
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Test du porte-stylo</div><div class="step-desc">Commande du servomoteur pour lever/abaisser le stylo. Résultat : mouvement précis et reproductible.</div></div></div>
+
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Tracé complet</div><div class="step-desc">Envoi d'un fichier vectoriel complet à la machine. Résultat : la machine a réussi à reproduire le tracé sur papier. Elle se déplace avec fluidité, respecte les proportions et lève ou baisse son stylo exactement au bon moment.</div></div></div>
+  </div>
+
+  <h2>Problèmes rencontrés pendant les tests</h2>
+  <ul>
+    <li>Saut de pas sur l'axe Y — corrigé en ajustant le courant des drivers A4988</li>
+    <li>Stylo qui glisse — corrigé en ajustant la pression du servomoteur sur l'axe Z</li>
+    <li>Courroie qui se détend — corrigé avec tendeur imprimé</li>
+  </ul>
 
   <h2>Vidéo de la machine en fonctionnement</h2>
   <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin:16px 0;">

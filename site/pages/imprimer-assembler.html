@@ -3,44 +3,33 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
   <div class="page-eyebrow">03 — Imprimer &amp; Assembler</div>
   <h1 class="page-title">Imprimer &amp; Assembler</h1>
-  <p class="page-lead">Toutes les pièces structurelles ont été modélisées sous OnShape puis imprimées en 3D au Makerspace d'UniLaSalle Amiens. L'assemblage mécanique repose sur une structure cartésienne guidée par des tiges linéaires et entraînée par des courroies GT2.</p>
+  <p class="page-lead">Toutes les pièces structurelles ont été modélisées sous OnShape puis imprimées en PLA au Makerspace d'UniLaSalle Amiens. L'assemblage mécanique repose sur une structure cartésienne guidée par des tiges linéaires et entraînée par des courroies GT2.</p>
 
-  <h2>Impression 3D — pièces imprimées</h2>
-  <p>Voici les principales pièces que nous avons imprimées en 3D pour assembler la machine :</p>
+  <h2>Impression 3D des pièces</h2>
+  <p>Paramètres utilisés :</p>
   <ul>
-    <li>Chariot axe X — plateforme mobile qui se déplace sur les tiges de guidage</li>
-    <li>Support moteur X et support moteur Y — maintien des deux moteurs NEMA 17</li>
-    <li>Supports de tiges — fixation et alignement des tiges de guidage</li>
-    <li>Tête porte-stylo — accueille le servomoteur et le système pignon-crémaillère</li>
-    <li>Rail crémaillère et pignon — mécanisme de levée/descente du stylo</li>
-    <li>Tendeurs de courroie — réglage de la tension des courroies GT2</li>
-    <li>Plaque de maintien axe Y — fixation des barres côté opposé au moteur</li>
+    <li>Matériau : PLA</li>
+    <li>Hauteur de couche : 0.2 mm</li>
+    <li>Remplissage : 20%</li>
+    <li>Supports : selon la pièce</li>
   </ul>
-  <p>Lors de l'impression des pièces, certains composants n'avaient pas été bien imprimés, déformation ou dimensions incorrectes, et il a donc fallu les réimprimer. Cela a pris du temps supplémentaire mais nous a permis d'obtenir des pièces correctement ajustées pour l'assemblage final.</p>
+  <p>Certaines pièces nécessitaient une précision dimensionnelle élevée (logements pour bagues, passage des tiges). Quand l'impression n'était pas correcte, il fallait ajuster les tolérances sur OnShape et réimprimer les pièces problématiques.</p>
 
   <hr>
 
-  <h2>Composants mécaniques</h2>
-  <ul>
-    <li>4 tiges linéaires en acier — guidage des axes X et Y</li>
-    <li>2 courroies GT2 — transmission du mouvement axes X et Y</li>
-    <li>5 poulies GT2 — montées sur l'arbre des moteurs et en renvoi</li>
-    <li>2 moteurs NEMA 17 — entraînement X et Y</li>
-    <li>1 servomoteur — levée/abaissement du stylo (axe Z)</li>
-  </ul>
+  <h2>Assemblage mécanique</h2>
 
-  <h2>Étapes d'assemblage</h2>
   <div class="steps-list">
-    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Montage du châssis</div><div class="step-desc">Assemblage des pieds et supports principaux imprimés en 3D. L'axe X doit être entièrement finalisé avant de commencer l'axe Y.</div></div></div>
-    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Pose des tiges axe X</div><div class="step-desc">Fixation et alignement des tiges de guidage Ø6 mm sur le châssis. Les deux barres sont placées horizontalement à la même hauteur pour favoriser la stabilité.</div></div></div>
-    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Installation du moteur X + courroie</div><div class="step-desc">Fixation du NEMA 17, alignement de la poulie GT2, enfilement et mise en tension de la courroie GT2.</div></div></div>
-    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Montage du chariot axe X</div><div class="step-desc">Vérification du glissement fluide. La plateforme X sert de base pour l'axe Y.</div></div></div>
-    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Installation de l'axe Y sur le chariot X</div><div class="step-desc">La structure Y s'appuie sur le chariot X. Utilisation de deux supports de barre à chaque extrémité (au lieu d'un seul) pour maximiser la rigidité et résoudre les problèmes de stabilité.</div></div></div>
-    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Installation du moteur Y + courroie</div><div class="step-desc">Fixation du NEMA 17 avec ses poulies de renvoi (disposées pour maximiser l'adhérence de la courroie), mise en tension.</div></div></div>
-    <div class="step-item"><div class="step-num">7</div><div class="step-body"><div class="step-title">Montage de la tête porte-stylo</div><div class="step-desc">Fixation du servomoteur, montage du système pignon-crémaillère dans le rail, installation du manchon stylo. La plaque de maintien à l'autre extrémité fixe les barres et sert de point d'attache pour la courroie Y.</div></div></div>
-  </div>
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Châssis de base</div><div class="step-desc">Pose du plateau. Fixation des supports aux coins pour maintenir les tiges de guidage.</div></div></div>
 
-  <p>Le principal défi a été la <strong>stabilité de l'axe Y</strong>. Le problème a été résolu en passant à deux supports de barre par extrémité au lieu d'un seul.</p>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Axe X</div><div class="step-desc">Insertion des tiges Ø6 mm dans les supports. Montage des bagues de glissement sur le chariot. La plateforme mobile coulisse sur deux barres entraînées par une courroie reliée au moteur 1 via une poulie.</div></div></div>
+
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Axe Y</div><div class="step-desc">L'axe Y s'appuie directement sur le chariot de l'axe X. Structure dédiée avec second moteur pas-à-pas, jeu de poulies et supports pour les deux barres horizontales.<br><br><strong>Problème majeur rencontré :</strong> l'axe Y était instable. Il fallait que l'axe X soit entièrement terminé avant de commencer l'axe Y. Solution : utiliser deux supports de barre au lieu d'un seul, ce qui a nettement amélioré la stabilité.</div></div></div>
+
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Porte-stylo (effecteur)</div><div class="step-desc">Mécanisme de levage : un servomoteur couplé à un système pignon-crémaillère glissant dans un rail. Ce système lève et baisse le stylo avec précision au bon moment.<br><br>Maintien structurel : une plaque de maintien fixe les barres pour garantir la rigidité maximale et sert de point d'attache pour la courroie de l'axe Y.</div></div></div>
+
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Tension des courroies</div><div class="step-desc">Réglage de la tension sur les deux axes. Une courroie trop lâche = imprécision du tracé. Une courroie trop tendue = saut de pas moteur.</div></div></div>
+  </div>
 
   <hr>
 
