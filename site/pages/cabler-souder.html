@@ -6,20 +6,8 @@
   <p class="page-lead">Notre carte électronique a été entièrement conçue sur KiCad 9, de la réalisation du schéma jusqu'au routage du PCB et à la soudure des composants.</p>
 
   <h2>Schéma électronique</h2>
-  <p>Dessin de l'architecture complète en reliant l'ESP32 à tous les autres blocs. Intégration des composants : 2× drivers A4988, lecteur carte SD, connecteurs moteurs et capteurs. Gestion des connexions logiques : communication SPI pour la carte SD, signaux Step/Dir pour les moteurs.</p>
-  <pre>Alimentation 12V
-        │
-        ├─── Régulateur R-78E5.0-1.0 ──→ 5V → ESP32-S3-UNO
-        │
-        ├─── Driver A4988 #1 (12V) ──→ Moteur NEMA 17 (Axe X)
-        │
-        └─── Driver A4988 #2 (12V) ──→ Moteur NEMA 17 (Axe Y)
-
-ESP32-S3-UNO
-        ├─── GPIO STEP/DIR ──→ A4988 #1 (Axe X)
-        ├─── GPIO STEP/DIR ──→ A4988 #2 (Axe Y)
-        ├─── PWM ──────────→ Servomoteur (stylo)
-        └─── GPIO ─────────→ Capteurs fin de course</pre>
+  <p>Dessin de l'architecture complète en reliant l'ESP32 à tous les autres blocs. Intégration des composants : 2× drivers A4988, connecteurs moteurs et capteurs. Gestion des connexions logiques : signaux Step/Dir pour les moteurs.</p>
+  <img src="/MachineThatDraws-Groupe06/images/schemaelec.png" alt="Schéma électronique KiCad" style="width:100%;max-width:680px;border-radius:8px;display:block;margin:16px 0;">
 
   <hr>
 
