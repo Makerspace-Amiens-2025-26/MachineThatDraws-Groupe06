@@ -1,0 +1,21 @@
+<div class="page" id="page-aller-plus-loin">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
+  <div class="page-eyebrow">07 — Aller plus loin</div>
+  <h1 class="page-title">Aller plus loin</h1>
+  <p class="page-lead">Au cours du projet, nous avons identifié plusieurs pistes d'amélioration et des alternatives techniques qui pourraient améliorer les performances de la machine dans une future version.</p>
+
+  <h2>Pistes d'amélioration mécaniques</h2>
+  <ul>
+    <li>Stabilité axe Y — utiliser deux supports de barre au lieu d'un seul améliore significativement la rigidité. Une amélioration similaire pourrait bénéficier à l'axe X.</li>
+  </ul>
+
+  <h2>Alternatives électroniques identifiées</h2>
+  <div class="callout">
+    <strong>TMC2208 / TMC2209</strong> — remplacement des A4988 recommandé pour une future version. Avantages : bien plus silencieux, meilleure gestion thermique, interpolation jusqu'au 1/256 micro-pas, amélioration directe de la qualité du tracé.
+  </div>
+
+  <h2>Évolutions logicielles</h2>
+  <p>La chaîne G-code + firmware pourrait être améliorée pour prendre en charge l'optimisation des trajectoires (minimiser les déplacements à vide), et ajouter une gestion du homing automatique via les capteurs fin de course déjà présents sur le PCB.</p>
+</div>
+</div>

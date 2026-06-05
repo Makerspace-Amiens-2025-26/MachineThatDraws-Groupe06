@@ -1,0 +1,80 @@
+<div class="page" id="page-imprimer-assembler">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
+  <div class="page-eyebrow">03 — Imprimer &amp; Assembler</div>
+  <h1 class="page-title">Imprimer &amp; Assembler</h1>
+  <p class="page-lead">Toutes les pièces structurelles ont été modélisées sous OnShape puis imprimées en 3D au Makerspace d'UniLaSalle Amiens. L'assemblage mécanique repose sur une structure cartésienne guidée par des tiges linéaires et entraînée par des courroies GT2.</p>
+
+  <h2>Impression 3D — pièces imprimées</h2>
+  <p>Voici les principales pièces que nous avons imprimées en 3D pour assembler la machine :</p>
+  <ul>
+    <li>Chariot axe X — plateforme mobile qui se déplace sur les tiges de guidage</li>
+    <li>Support moteur X et support moteur Y — maintien des deux moteurs NEMA 17</li>
+    <li>Supports de tiges — fixation et alignement des tiges de guidage</li>
+    <li>Tête porte-stylo — accueille le servomoteur et le système pignon-crémaillère</li>
+    <li>Rail crémaillère et pignon — mécanisme de levée/descente du stylo</li>
+    <li>Tendeurs de courroie — réglage de la tension des courroies GT2</li>
+    <li>Plaque de maintien axe Y — fixation des barres côté opposé au moteur</li>
+  </ul>
+  <p>Lors de l'impression des pièces, certains composants n'avaient pas été bien imprimés, déformation ou dimensions incorrectes, et il a donc fallu les réimprimer. Cela a pris du temps supplémentaire mais nous a permis d'obtenir des pièces correctement ajustées pour l'assemblage final.</p>
+
+  <hr>
+
+  <h2>Composants mécaniques</h2>
+  <ul>
+    <li>4 tiges linéaires en acier — guidage des axes X et Y</li>
+    <li>2 courroies GT2 — transmission du mouvement axes X et Y</li>
+    <li>5 poulies GT2 — montées sur l'arbre des moteurs et en renvoi</li>
+    <li>2 moteurs NEMA 17 — entraînement X et Y</li>
+    <li>1 servomoteur — levée/abaissement du stylo (axe Z)</li>
+  </ul>
+
+  <h2>Étapes d'assemblage</h2>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Montage du châssis</div><div class="step-desc">Assemblage des pieds et supports principaux imprimés en 3D. L'axe X doit être entièrement finalisé avant de commencer l'axe Y.</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Pose des tiges axe X</div><div class="step-desc">Fixation et alignement des tiges de guidage Ø6 mm sur le châssis. Les deux barres sont placées horizontalement à la même hauteur pour favoriser la stabilité.</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Installation du moteur X + courroie</div><div class="step-desc">Fixation du NEMA 17, alignement de la poulie GT2, enfilement et mise en tension de la courroie GT2.</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Montage du chariot axe X</div><div class="step-desc">Vérification du glissement fluide. La plateforme X sert de base pour l'axe Y.</div></div></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Installation de l'axe Y sur le chariot X</div><div class="step-desc">La structure Y s'appuie sur le chariot X. Utilisation de deux supports de barre à chaque extrémité (au lieu d'un seul) pour maximiser la rigidité et résoudre les problèmes de stabilité.</div></div></div>
+    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Installation du moteur Y + courroie</div><div class="step-desc">Fixation du NEMA 17 avec ses poulies de renvoi (disposées pour maximiser l'adhérence de la courroie), mise en tension.</div></div></div>
+    <div class="step-item"><div class="step-num">7</div><div class="step-body"><div class="step-title">Montage de la tête porte-stylo</div><div class="step-desc">Fixation du servomoteur, montage du système pignon-crémaillère dans le rail, installation du manchon stylo. La plaque de maintien à l'autre extrémité fixe les barres et sert de point d'attache pour la courroie Y.</div></div></div>
+  </div>
+
+  <p>Le principal défi a été la <strong>stabilité de l'axe Y</strong>. Le problème a été résolu en passant à deux supports de barre par extrémité au lieu d'un seul.</p>
+
+  <hr>
+
+  <h2>Modèles 3D des pièces imprimées</h2>
+  <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline" style="margin-bottom:24px;display:inline-flex">Ouvrir le modèle complet OnShape ↗</a>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:16px 0;">
+    <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+      <model-viewer src="https://raw.githubusercontent.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06/main/site/assets/images/models/axe%20A.gltf" camera-controls auto-rotate shadow-intensity="0.5" tone-mapping="commerce" exposure="1.4" style="width:100%;height:260px;display:block;"></model-viewer>
+      <div style="padding:12px 14px;">
+        <p style="font-weight:600;margin-bottom:4px;">Axe A (axe principal)</p>
+        <p style="font-size:0.83rem;">L'axe A assure le déplacement longitudinal de la tête de dessin via deux tiges de guidage et une courroie GT2.</p>
+      </div>
+    </div>
+    <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+      <model-viewer src="https://raw.githubusercontent.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06/main/site/assets/images/models/Support%20moteur%202.gltf" camera-controls auto-rotate shadow-intensity="0.5" tone-mapping="commerce" exposure="1.4" style="width:100%;height:260px;display:block;"></model-viewer>
+      <div style="padding:12px 14px;">
+        <p style="font-weight:600;margin-bottom:4px;">Support moteur</p>
+        <p style="font-size:0.83rem;">Maintient le moteur pas-à-pas en position fixe et assure le renvoi de la courroie GT2.</p>
+      </div>
+    </div>
+    <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+      <model-viewer src="https://raw.githubusercontent.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06/main/site/assets/images/models/support%20feuille%20pour%20assemblage.gltf" camera-controls auto-rotate shadow-intensity="0.5" tone-mapping="commerce" exposure="1.4" style="width:100%;height:260px;display:block;"></model-viewer>
+      <div style="padding:12px 14px;">
+        <p style="font-weight:600;margin-bottom:4px;">Support papier</p>
+        <p style="font-size:0.83rem;">Plaque maintenue par des clips aux quatre coins pour garder la feuille à plat pendant le tracé.</p>
+      </div>
+    </div>
+    <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+      <model-viewer src="https://raw.githubusercontent.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06/main/site/assets/images/models/portestylos.gltf" camera-controls auto-rotate shadow-intensity="0.5" tone-mapping="commerce" exposure="1.4" style="width:100%;height:260px;display:block;"></model-viewer>
+      <div style="padding:12px 14px;">
+        <p style="font-weight:600;margin-bottom:4px;">Porte-stylo</p>
+        <p style="font-size:0.83rem;">Système pignon-crémaillère entraîné par un servomoteur pour lever et abaisser le stylo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

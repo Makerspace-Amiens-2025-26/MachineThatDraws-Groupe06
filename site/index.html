@@ -369,58 +369,13 @@ pre code{background:none;padding:0;color:inherit}
   </div>
   <nav>
     <a class="nav-item active" onclick="showPage('home')">Accueil</a>
-
-    <div class="nav-section">Introduction</div>
-    <div class="nav-group-toggle open" onclick="toggleGroup(this)">
-      <span>Introduction</span><span class="nav-arrow">›</span>
-    </div>
-    <div class="nav-children open">
-      <a class="nav-item sub" onclick="showPage('presentation')">Présentation générale</a>
-      <a class="nav-item sub" onclick="showPage('objectifs')">Objectifs du projet</a>
-      <a class="nav-item sub" onclick="showPage('etude')">Étude et choix techniques</a>
-    </div>
-
-    <div class="nav-section">Fabrication</div>
-    <div class="nav-group-toggle" onclick="toggleGroup(this)">
-      <span>Étapes de fabrication</span><span class="nav-arrow">›</span>
-    </div>
-    <div class="nav-children">
-      <a class="nav-item sub" onclick="showPage('fab-impression')">1. Impression 3D</a>
-      <a class="nav-item sub" onclick="showPage('fab-mecanique')">2. Mécanique</a>
-      <a class="nav-item sub" onclick="showPage('fab-electronique')">3. Électronique & Câblage</a>
-      <a class="nav-item sub" onclick="showPage('fab-tests')">4. Tests & Mise au point</a>
-    </div>
-
-    <div class="nav-section">Conception CAO</div>
-    <div class="nav-group-toggle" onclick="toggleGroup(this)">
-      <span>Conception CAO</span><span class="nav-arrow">›</span>
-    </div>
-    <div class="nav-children">
-      <a class="nav-item sub" onclick="showPage('cao-structure')">Structure générale</a>
-      <a class="nav-item sub" onclick="showPage('cao-axe-x')">L'axe X</a>
-      <a class="nav-item sub" onclick="showPage('cao-axe-y')">L'axe Y</a>
-      <a class="nav-item sub" onclick="showPage('cao-tete')">Tête porte-stylo</a>
-    </div>
-
-    <div class="nav-section">Électronique</div>
-    <div class="nav-group-toggle" onclick="toggleGroup(this)">
-      <span>Électronique & PCB</span><span class="nav-arrow">›</span>
-    </div>
-    <div class="nav-children">
-      <a class="nav-item sub" onclick="showPage('elec-schema')">Schéma électronique</a>
-      <a class="nav-item sub" onclick="showPage('elec-pcb')">Routage du PCB</a>
-      <a class="nav-item sub" onclick="showPage('elec-composants')">Liste des composants</a>
-    </div>
-
-    <div class="nav-section">Logiciels</div>
-    <div class="nav-group-toggle" onclick="toggleGroup(this)">
-      <span>Fonctionnement logiciel</span><span class="nav-arrow">›</span>
-    </div>
-    <div class="nav-children">
-      <a class="nav-item sub" onclick="showPage('log-architecture')">Architecture logicielle</a>
-      <a class="nav-item sub" onclick="showPage('log-firmware')">Firmware ESP32</a>
-      <a class="nav-item sub" onclick="showPage('log-gcode')">Conversion G-code</a>
-    </div>
+    <a class="nav-item" onclick="showPage('le-projet')">Le projet</a>
+    <a class="nav-item" onclick="showPage('avant-de-commencer')">Avant de commencer</a>
+    <a class="nav-item" onclick="showPage('imprimer-assembler')">Imprimer &amp; Assembler</a>
+    <a class="nav-item" onclick="showPage('cabler-souder')">Câbler &amp; Souder</a>
+    <a class="nav-item" onclick="showPage('programmer')">Programmer</a>
+    <a class="nav-item" onclick="showPage('calibrer-tester')">Calibrer &amp; Tester</a>
+    <a class="nav-item" onclick="showPage('aller-plus-loin')">Aller plus loin</a>
   </nav>
   <div class="sidebar-footer">
     <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank">GitHub ↗</a>
@@ -435,7 +390,7 @@ pre code{background:none;padding:0;color:inherit}
 
 <script>
 // ── Pages list ──
-const PAGES = ['home', 'presentation', 'objectifs', 'etude', 'fab-impression', 'fab-mecanique', 'fab-electronique', 'fab-tests', 'cao-structure', 'cao-axe-x', 'cao-axe-y', 'cao-tete', 'elec-schema', 'elec-pcb', 'elec-composants', 'log-architecture', 'log-firmware', 'log-gcode'];
+const PAGES = ['home', 'le-projet', 'avant-de-commencer', 'imprimer-assembler', 'cabler-souder', 'programmer', 'calibrer-tester', 'aller-plus-loin'];
 
 // ── Theme ──
 function toggleTheme(){

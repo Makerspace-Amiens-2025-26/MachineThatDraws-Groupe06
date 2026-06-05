@@ -1,0 +1,49 @@
+<div class="page" id="page-le-projet">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
+  <div class="page-eyebrow">01 — Le projet</div>
+  <h1 class="page-title">Le projet</h1>
+  <p class="page-lead">Le Groupe 06 a conçu et assemblé cette machine au MakerSpace d'UniLaSalle Amiens au cours de l'année 2025-2026. Toutes les pièces structurelles ont été modélisées sous OnShape puis imprimées en 3D, et le PCB de contrôle a été conçu sous KiCad.</p>
+
+  <h2>Qu'est-ce que la MachineThatDraw ?</h2>
+  <p>La MachineThatDraw est une CNC cartésienne à deux axes pilotée par un <strong>ESP32-S3-UNO</strong>. Deux moteurs NEMA 17 déplacent le chariot en X et en Y, tandis qu'un servomoteur lève ou abaisse le stylo pour contrôler le contact avec le papier. Elle est capable de traduire un fichier vectoriel en un dessin au stylo avec précision, en s'appuyant sur la chaîne G-code + firmware.</p>
+
+  <h2>Photo de la machine</h2>
+  <img src="/MachineThatDraws-Groupe06/images/machinecomplet.jpeg" alt="Machine That Draw — vue complète" style="width:100%;max-width:420px;border-radius:8px;display:block;">
+
+  <h2>Nos sources d'inspiration</h2>
+  <ul>
+    <li>Machines du commerce : <strong>Axidraw</strong> (traceur/plotter de référence)</li>
+    <li>Projets open-source partagés par des communautés de makers</li>
+    <li>Documentation Open Hardware pour la cinématique des axes et le pilotage GRBL</li>
+  </ul>
+
+  <h2>Modèle 3D</h2>
+  <p>Notre modèle 3D complet est disponible sur OnShape :</p>
+  <a href="https://cad.onshape.com/documents/f85f35a7b123fd4b19e50d84/w/c95c821d145ea73101043f36/e/c8cf3c6fac028151a842f9c9" target="_blank" class="btn btn-outline">Ouvrir le modèle OnShape ↗</a>
+
+  <h2>Fiche technique</h2>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>Zone de dessin</td><td class="td-todo">✏️ ___ mm × ___ mm</td></tr>
+      <tr><td>Format papier</td><td class="td-todo">✏️ ex : A4</td></tr>
+      <tr><td>Microcontrôleur</td><td class="td-mono">ESP32-S3-UNO</td></tr>
+      <tr><td>Drivers moteurs</td><td class="td-mono">2× A4988</td></tr>
+      <tr><td>Alimentation</td><td>12V DC</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Objectifs du projet</h2>
+  <p>L'objectif principal était de concevoir et réaliser une machine à dessiner fonctionnelle, capable de traduire un fichier vectoriel en un dessin au stylo avec précision. Le projet couvrait également la maîtrise de la conception CAO sur OnShape, la création de la carte électronique sous KiCad (schéma + routage PCB), et la programmation du microcontrôleur.</p>
+
+  <h2>Cahier des charges</h2>
+  <p><strong>Fonctionnalité :</strong> la machine doit contrôler deux axes X et Y pour déplacer le stylo, plus un axe Z géré par un servomoteur pour lever et baisser le stylo — assurant le contact avec la feuille.</p>
+  <p><strong>Performance :</strong> respecter les échelles et les proportions du dessin de départ, avec des mouvements fluides et sans saut de pas des moteurs.</p>
+  <p><strong>Logiciel :</strong> utiliser une chaîne numérique cohérente — création du dessin (Inkscape), génération du G-code, envoi vers l'Arduino, interprétation par les drivers.</p>
+  <p><strong>Contraintes techniques :</strong> utiliser uniquement des composants pilotables par Arduino et garder des pièces modulaires pour pouvoir modifier la machine ultérieurement.</p>
+  <p><strong>Pédagogie :</strong> maîtriser toute la chaîne de fabrication — conception numérique, fabrication des pièces, assemblage, programmation et calibration.</p>
+
+  <h2>Contraintes imposées</h2>
+  <p>Le microcontrôleur utilisé est l'ESP32-S3-UNO, qui pilote l'ensemble des actionneurs via le firmware. Les axes X et Y sont entraînés par deux moteurs pas-à-pas NEMA 17 pilotés par des drivers A4988. L'axe Z (montée/descente du stylo) est géré par un servomoteur SG90/MG90S via un système pignon-crémaillère. Toutes les pièces mécaniques ont été modélisées sous OnShape et imprimées 3D au MakerSpace d'UniLaSalle Amiens. Le PCB sur-mesure a été conçu sous KiCad 9. Les pièces sont conçues pour être remplaçables et modifiables indépendamment.</p>
+</div>
+</div>

@@ -1,0 +1,107 @@
+<div class="page" id="page-programmer">
+<div class="page-content">
+  <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span></div>
+  <div class="page-eyebrow">05 — Programmer</div>
+  <h1 class="page-title">Programmer</h1>
+  <p class="page-lead">La chaîne logicielle se décompose en deux grandes parties : la génération du G-code côté PC (avec Processing), et l'interprétation côté microcontrôleur. L'utilisation de Processing pour générer le G-code est une exigence du projet.</p>
+
+  <h2>Flux de données — de l'idée au tracé</h2>
+  <pre>[1. Création du contenu — PC]
+  Fichier numérique : dessin vectoriel (SVG, DXF) ou bitmap (PNG, JPG)
+  → Logiciel de traitement : Processing ou Inkscape
+  → Vectorisation si besoin (bitmap → SVG)
+  → Génération du G-code : liste de coordonnées (X, Y) et instructions de mouvement
+
+[2. Transmission — PC → ESP32]
+  Envoi via port série (USB)
+  Le logiciel "Sender" envoie les lignes de G-code une par une
+
+[3. Traitement — ESP32 + Firmware]
+  Réception et interprétation du G-code
+  Calcul du nombre de pas STEP/DIR par axe pour atteindre chaque coordonnée cible
+  Génération des signaux électriques
+
+[4. Amplification — Drivers A4988]
+  Le signal logique ESP32 (trop faible) est amplifié
+  Le driver puise dans l'alimentation 12V externe
+  → Impulsions de courant haute intensité vers les bobines des moteurs
+
+[5. Action mécanique — NEMA 17 + Courroies]
+  Rotations précises des moteurs ("pas")
+  Transmises via courroies GT2 aux chariots
+  → Le stylo trace le dessin sur la feuille</pre>
+
+  <h2>Logiciels utilisés</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Outil</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Processing</strong></td><td>Création du dessin et génération du G-code — outil principal du projet</td></tr>
+      <tr><td>Inkscape (+ extension)</td><td>Création de fichiers vectoriels SVG et export G-code alternatif</td></tr>
+      <tr><td>Logiciel Sender G-code</td><td>Envoi du fichier G-code en série vers l'ESP32</td></tr>
+      <tr><td>Arduino IDE / PlatformIO</td><td>Développement et upload du firmware sur l'ESP32-S3-UNO</td></tr>
+    </tbody>
+  </table></div>
+
+  <hr>
+
+  <h2>Commandes G-code supportées</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Commande</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td class="td-mono">G0 X__ Y__</td><td>Déplacement rapide sans tracé (stylo levé)</td></tr>
+      <tr><td class="td-mono">G1 X__ Y__ F__</td><td>Déplacement avec tracé (stylo baissé). F = vitesse en mm/min</td></tr>
+      <tr><td class="td-mono">M3</td><td>Baisser le stylo</td></tr>
+      <tr><td class="td-mono">M5</td><td>Lever le stylo</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Firmware — code principal</h2>
+  <pre><span style="color:#5a8a5a">// Machine That Draw — Groupe 06
+// Makerspace Amiens 2025-2026</span>
+
+#include &lt;Stepper.h&gt;
+#include &lt;Servo.h&gt;
+
+const int STEPS = 200;
+Stepper motorX(STEPS, 8, 9, 10, 11);
+Stepper motorY(STEPS, 4, 5, 6, 7);
+Servo penServo;
+
+void setup() {
+  Serial.begin(115200);
+  motorX.setSpeed(60);
+  motorY.setSpeed(60);
+  penServo.attach(12);
+  penServo.write(90); <span style="color:#5a8a5a">// Stylo levé</span>
+}
+
+void loop() {
+  if (Serial.available()) {
+    String cmd = Serial.readStringUntil('\n');
+    parseGCode(cmd);
+  }
+}</pre>
+
+  <hr>
+
+  <h2>Conversion G-code avec Processing</h2>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Préparation du fichier source</div><div class="step-desc">Dessin vectoriel (SVG, DXF) ou image bitmap (PNG, JPG). Les SVG sont directement utilisables ; les bitmaps nécessitent une étape de vectorisation.</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Vectorisation (si nécessaire)</div><div class="step-desc">Si le fichier est une image bitmap, on le convertit d'abord en SVG via Inkscape ou un outil équivalent.</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Génération des trajectoires avec Processing</div><div class="step-desc">Le programme Processing lit le fichier vectoriel, calcule l'ordre de parcours optimisé des contours et génère les coordonnées X/Y.</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Export G-code</div><div class="step-desc">Le fichier .gcode est généré avec les commandes G0/G1/M3/M5. Il est prêt à être envoyé en série à l'ESP32.</div></div></div>
+    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Envoi vers l'ESP32</div><div class="step-desc">Le logiciel Sender envoie les lignes de G-code une par une via USB (115200 bauds). L'ESP32 exécute chaque instruction au fur et à mesure.</div></div></div>
+  </div>
+
+  <h2>Exemple de G-code généré</h2>
+  <pre><span style="color:#5a8a5a">; Dessin d'un carré 50×50 mm</span>
+G0 X0 Y0         <span style="color:#5a8a5a">; Aller à l'origine</span>
+M3               <span style="color:#5a8a5a">; Baisser le stylo</span>
+G1 X50 Y0 F800   <span style="color:#5a8a5a">; Ligne horizontale 50 mm</span>
+G1 X50 Y50       <span style="color:#5a8a5a">; Ligne verticale 50 mm</span>
+G1 X0 Y50        <span style="color:#5a8a5a">; Ligne horizontale retour</span>
+G1 X0 Y0         <span style="color:#5a8a5a">; Fermer le carré</span>
+M5               <span style="color:#5a8a5a">; Lever le stylo</span>
+G0 X0 Y0         <span style="color:#5a8a5a">; Retour origine</span></pre>
+</div>
+</div>
