@@ -6,27 +6,23 @@
   <p class="page-lead">L'assemblage mécanique repose sur une structure cartésienne : deux axes indépendants guidés par des tiges linéaires et entraînés par des courroies GT2. L'axe Y est entièrement inclus sur l'axe X — il a donc fallu terminer complètement l'axe X avant de commencer l'axe Y.</p>
 
   <h2>Composants mécaniques</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Composant</th><th>Quantité</th><th>Rôle</th></tr></thead>
-    <tbody>
-      <tr><td>Tiges linéaires Ø6 mm (acier)</td><td class="td-todo">✏️ ex : 4</td><td>Guidage axes X et Y</td></tr>
-      <tr><td>Bagues LM6UU</td><td class="td-todo">✏️ ex : 4</td><td>Glissement précis sur les tiges</td></tr>
-      <tr><td>Courroies GT2 (2 mm)</td><td>2</td><td>Transmission du mouvement axes X et Y</td></tr>
-      <tr><td>Poulies GT2 20 dents</td><td>2+</td><td>Montées sur l'arbre des moteurs + poulies de renvoi</td></tr>
-      <tr><td>Moteurs NEMA 17</td><td>2</td><td>Entraînement X et Y</td></tr>
-      <tr><td>Servo SG90 / MG90S</td><td>1</td><td>Levée/abaissement du stylo (axe Z)</td></tr>
-    </tbody>
-  </table></div>
+  <ul>
+    <li>4 tiges linéaires en acier — guidage des axes X et Y</li>
+    <li>2 courroies GT2 — transmission du mouvement axes X et Y</li>
+    <li>5 poulies GT2 — montées sur l'arbre des moteurs et en renvoi</li>
+    <li>2 moteurs NEMA 17 — entraînement X et Y</li>
+    <li>1 servomoteur — levée/abaissement du stylo (axe Z)</li>
+  </ul>
 
   <h2>Étapes d'assemblage</h2>
   <div class="steps-list">
     <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Montage du châssis</div><div class="step-desc">Assemblage des pieds et supports principaux imprimés en 3D. L'axe X doit être entièrement finalisé avant de commencer l'axe Y.</div></div></div>
     <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Pose des tiges axe X</div><div class="step-desc">Fixation et alignement des tiges de guidage Ø6 mm sur le châssis. Les deux barres sont placées horizontalement à la même hauteur pour favoriser la stabilité.</div></div></div>
-    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Installation du moteur X + courroie</div><div class="step-desc">Fixation du NEMA 17, alignement de la poulie GT2 20 dents, enfilement et mise en tension de la courroie GT2.</div></div></div>
-    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Montage du chariot axe X</div><div class="step-desc">Insertion des bagues LM6UU, vérification du glissement fluide. La plateforme X sert de base pour l'axe Y.</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Installation du moteur X + courroie</div><div class="step-desc">Fixation du NEMA 17, alignement de la poulie GT2, enfilement et mise en tension de la courroie GT2.</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Montage du chariot axe X</div><div class="step-desc">Vérification du glissement fluide. La plateforme X sert de base pour l'axe Y.</div></div></div>
     <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Installation de l'axe Y sur le chariot X</div><div class="step-desc">La structure Y s'appuie sur le chariot X. Utilisation de deux supports de barre à chaque extrémité (au lieu d'un seul) pour maximiser la rigidité et résoudre les problèmes de stabilité.</div></div></div>
     <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Installation du moteur Y + courroie</div><div class="step-desc">Fixation du NEMA 17 avec ses poulies de renvoi (disposées pour maximiser l'adhérence de la courroie), mise en tension.</div></div></div>
-    <div class="step-item"><div class="step-num">7</div><div class="step-body"><div class="step-title">Montage de la tête porte-stylo</div><div class="step-desc">Fixation du servo SG90/MG90S, montage du système pignon-crémaillère dans le rail, installation du manchon stylo. La plaque de maintien à l'autre extrémité fixe les barres et sert de point d'attache pour la courroie Y.</div></div></div>
+    <div class="step-item"><div class="step-num">7</div><div class="step-body"><div class="step-title">Montage de la tête porte-stylo</div><div class="step-desc">Fixation du servomoteur, montage du système pignon-crémaillère dans le rail, installation du manchon stylo. La plaque de maintien à l'autre extrémité fixe les barres et sert de point d'attache pour la courroie Y.</div></div></div>
     <div class="step-item"><div class="step-num">8</div><div class="step-body"><div class="step-title">Installation des capteurs de fin de course</div><div class="step-desc">Pose des 4 limit switches (Xmin, Xmax, Ymin, Ymax) pour le homing précis de la machine.</div></div></div>
   </div>
 
