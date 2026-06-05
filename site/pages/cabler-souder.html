@@ -20,7 +20,6 @@ ESP32-S3-UNO
         ├─── GPIO STEP/DIR ──→ A4988 #2 (Axe Y)
         ├─── PWM ──────────→ Servomoteur (stylo)
         └─── GPIO ─────────→ Capteurs fin de course</pre>
-  <img src="/MachineThatDraws-Groupe06/images/schemaelec.png" alt="Schéma électronique KiCad" style="width:100%;max-width:680px;border-radius:8px;display:block;margin:16px 0;">
 
   <hr>
 
@@ -53,19 +52,6 @@ ESP32-S3-UNO
   <hr>
 
   <h2>Liste des composants</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Référence</th><th>Composant</th><th>Modèle</th><th>Qté</th></tr></thead>
-    <tbody>
-      <tr><td class="td-mono">U1</td><td>Microcontrôleur</td><td>ESP32-S3-UNO</td><td>1</td></tr>
-      <tr><td class="td-mono">A1, A2</td><td>Driver moteur pas-à-pas</td><td>A4988</td><td>2</td></tr>
-      <tr><td class="td-mono">U2</td><td>Régulateur DC/DC</td><td>R-78E5.0-1.0</td><td>1</td></tr>
-      <tr><td class="td-mono">J1</td><td>Connecteur alim. avec inter.</td><td>Barrel Jack Switch</td><td>1</td></tr>
-      <tr><td class="td-mono">J2, J3</td><td>Connecteur moteur</td><td>Conn_01x04</td><td>2</td></tr>
-      <tr><td class="td-mono">C1, C2</td><td>Condensateur</td><td>10µF, 100µF</td><td>2</td></tr>
-      <tr><td class="td-mono">M1</td><td>Servomoteur (axe Z)</td><td>SG90 / MG90S</td><td>1</td></tr>
-      <tr><td class="td-mono">SW1</td><td>Bouton d'urgence</td><td>—</td><td>1</td></tr>
-      <tr><td class="td-mono">S1–S4</td><td>Capteurs fin de course</td><td>Limit switch mécanique</td><td>4</td></tr>
-    </tbody>
-  </table></div>
+  <p>La carte utilise 1 microcontrôleur ESP32-S3-UNO et 2 drivers A4988 pour piloter les moteurs pas-à-pas. Un régulateur R-78E5.0-1.0 convertit le 12V en 5V pour l'alimentation logique. On retrouve aussi 1 connecteur barrel jack avec interrupteur, 2 connecteurs moteurs, 2 condensateurs de filtrage, 1 servomoteur SG90/MG90S pour l'axe Z, 1 bouton d'urgence et 4 capteurs de fin de course.</p>
 </div>
 </div>

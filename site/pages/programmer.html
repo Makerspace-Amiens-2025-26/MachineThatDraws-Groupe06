@@ -24,55 +24,8 @@
   <h2>Pourquoi GRBL et pas tout coder soi-même ?</h2>
   <p>Tout coder aurait donné plus de liberté mais aurait pris trop de temps. GRBL est une solution open-source éprouvée et bien documentée qui nous a évité de tout reprogrammer.</p>
 
-  <hr>
 
-  <h2>Commandes G-code supportées</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Commande</th><th>Action</th></tr></thead>
-    <tbody>
-      <tr><td class="td-mono">G0 X__ Y__</td><td>Déplacement rapide sans tracé (stylo levé)</td></tr>
-      <tr><td class="td-mono">G1 X__ Y__ F__</td><td>Déplacement avec tracé (stylo baissé). F = vitesse en mm/min</td></tr>
-      <tr><td class="td-mono">M3</td><td>Baisser le stylo</td></tr>
-      <tr><td class="td-mono">M5</td><td>Lever le stylo</td></tr>
-    </tbody>
-  </table></div>
-
-  <h2>Firmware — code principal</h2>
-  <pre><span style="color:#5a8a5a">// Machine That Draw — Groupe 06
-// Makerspace Amiens 2025-2026</span>
-
-#include &lt;Stepper.h&gt;
-#include &lt;Servo.h&gt;
-
-const int STEPS = 200;
-Stepper motorX(STEPS, 8, 9, 10, 11);
-Stepper motorY(STEPS, 4, 5, 6, 7);
-Servo penServo;
-
-void setup() {
-  Serial.begin(115200);
-  motorX.setSpeed(60);
-  motorY.setSpeed(60);
-  penServo.attach(12);
-  penServo.write(90); <span style="color:#5a8a5a">// Stylo levé</span>
-}
-
-void loop() {
-  if (Serial.available()) {
-    String cmd = Serial.readStringUntil('\n');
-    parseGCode(cmd);
-  }
-}</pre>
-
-  <h2>Exemple de G-code généré</h2>
-  <pre><span style="color:#5a8a5a">; Dessin d'un carré 50×50 mm</span>
-G0 X0 Y0         <span style="color:#5a8a5a">; Aller à l'origine</span>
-M3               <span style="color:#5a8a5a">; Baisser le stylo</span>
-G1 X50 Y0 F800   <span style="color:#5a8a5a">; Ligne horizontale 50 mm</span>
-G1 X50 Y50       <span style="color:#5a8a5a">; Ligne verticale 50 mm</span>
-G1 X0 Y50        <span style="color:#5a8a5a">; Ligne horizontale retour</span>
-G1 X0 Y0         <span style="color:#5a8a5a">; Fermer le carré</span>
-M5               <span style="color:#5a8a5a">; Lever le stylo</span>
-G0 X0 Y0         <span style="color:#5a8a5a">; Retour origine</span></pre>
+  <h2>Difficultés rencontrées</h2>
+  <p>La principale difficulté a été de calibrer correctement le nombre de pas par millimètre pour que les déplacements soient précis. Il a fallu ajuster les paramètres du firmware plusieurs fois avant d'obtenir des tracés fidèles au fichier d'origine. La communication entre le logiciel Sender et l'ESP32 a également nécessité quelques réglages au niveau du port série.</p>
 </div>
 </div>
