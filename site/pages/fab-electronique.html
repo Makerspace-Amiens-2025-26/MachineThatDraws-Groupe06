@@ -3,44 +3,12 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Fabrication</div>
   <div class="page-eyebrow">Fabrication — 03</div>
   <h1 class="page-title">Électronique & Câblage</h1>
-  <p class="page-lead">Cette étape couvre la soudure des composants sur le PCB KiCad et le câblage complet de la machine. Une technique mixte a été utilisée : CMS (composants montés en surface) pour la logique, traversants pour les connecteurs.</p>
+  <p class="page-lead">Cette étape couvre la soudure des composants sur le PCB KiCad et le câblage complet de la machine.</p>
 
   <h2>Étapes de montage</h2>
-  <div class="steps-list">
-    <div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Soudure des composants CMS</div><div class="step-desc">Soudure des composants montés en surface (résistances, condensateurs) pour la partie logique. Technique fine requise.</div></div></div>
-    <div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Soudure des composants traversants</div><div class="step-desc">Connecteurs de moteurs, d'alimentation et de capteurs soudés avec soin pour résister aux branchements répétés.</div></div></div>
-    <div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Test de continuité</div><div class="step-desc">Test au multimètre avant la mise sous tension finale pour valider l'absence de court-circuit.</div></div></div>
-    <div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Test des tensions</div><div class="step-desc">Vérification : 12V en entrée (Barrel Jack), 5V en sortie du régulateur R-78E5.0.</div></div></div>
-    <div class="step-item"><div class="step-num">5</div><div class="step-body"><div class="step-title">Réglage du courant A4988</div><div class="step-desc">Potentiomètre Vref réglé selon le courant nominal des NEMA 17. Formule : Vref = I_max × 8 × R_sense</div></div></div>
-    <div class="step-item"><div class="step-num">6</div><div class="step-body"><div class="step-title">Connexion des drivers et moteurs</div><div class="step-desc">A4988 raccordés aux moteurs via les connecteurs déportés Conn_01x04.</div></div></div>
-    <div class="step-item"><div class="step-num">7</div><div class="step-body"><div class="step-title">Câblage du servo</div><div class="step-desc">Servo-moteur SG90/MG90S connecté sur la broche PWM de l'ESP32.</div></div></div>
-    <div class="step-item"><div class="step-num">8</div><div class="step-body"><div class="step-title">Upload du firmware & tests</div><div class="step-desc">Upload du firmware puis test axe par axe avant de lancer un tracé complet.</div></div></div>
-  </div>
-
-  <h2>Brochage ESP32-S3-UNO</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Signal</th><th>Broche ESP32</th><th>Connecté à</th></tr></thead>
-    <tbody>
-      <tr><td>STEP moteur X</td><td class="td-todo">✏️ GPIO 14</td><td>A4988 #1 — STEP</td></tr>
-      <tr><td>DIR moteur X</td><td class="td-todo">✏️ GPIO 13</td><td>A4988 #1 — DIR</td></tr>
-      <tr><td>STEP moteur Y</td><td class="td-todo">✏️ GPIO 27</td><td>A4988 #2 — STEP</td></tr>
-      <tr><td>DIR moteur Y</td><td class="td-todo">✏️ GPIO 26</td><td>A4988 #2 — DIR</td></tr>
-      <tr><td>PWM servo</td><td class="td-todo">✏️ GPIO 12</td><td>Servo-moteur signal</td></tr>
-    </tbody>
-  </table></div>
-
-  <h2>Réglage du courant A4988</h2>
-  <div class="table-wrap"><table>
-    <tbody>
-      <tr><td>Courant nominal NEMA 17</td><td class="td-todo">✏️ ex : 1.2 A</td></tr>
-      <tr><td>Vref visée</td><td class="td-todo">✏️ ex : 0.6 V</td></tr>
-      <tr><td>Formule</td><td class="td-mono">Vref = I_max × 8 × R_sense</td></tr>
-    </tbody>
-  </table></div>
+  <p>Nous avons commencé par souder les composants sur le PCB — connecteurs de moteurs, d'alimentation et de capteurs. Après la soudure, un test de continuité au multimètre a été effectué pour valider l'absence de court-circuit avant toute mise sous tension. Les drivers A4988 ont ensuite été connectés aux moteurs, et le servomoteur a été raccordé sur la broche PWM de l'ESP32. Enfin, le firmware a été uploadé et chaque axe a été testé indépendamment avant de lancer un tracé complet.</p>
 
   <h2>Difficultés rencontrées</h2>
-  <div class="placeholder">✏️ Courts-circuits, mauvaise soudure, A4988 qui chauffe, moteur qui vibre sans bouger ?</div>
-  <h2>Photos du câblage</h2>
-  <div class="placeholder">📷 Ajoute des photos du PCB soudé et du câblage final</div>
+  <p>Lors du montage des drivers A4988, nous les avons placés dans le mauvais sens sur le PCB. Cette erreur a créé des problèmes par la suite lors des premiers tests de la machine, ce qui nous a obligés à corriger le branchement.</p>
 </div>
 </div>
