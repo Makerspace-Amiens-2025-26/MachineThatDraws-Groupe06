@@ -32,27 +32,17 @@
   <p>Le mouvement est transmis par des <strong>courroies crantées GT2</strong> entraînées par des poulies 20 dents montées sur les moteurs NEMA 17. Les guidages sont assurés par des tiges linéaires Ø6 mm avec bagues LM6UU. La courroie crantée est rapide, légère et précise pour du dessin ; son seul défaut est de pouvoir se détendre, mais elle se règle facilement.</p>
 
   <h2>Motorisation</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Actionneur</th><th>Rôle</th><th>Justification</th></tr></thead>
-    <tbody>
-      <tr><td>2× Moteur NEMA 17</td><td>Déplacement axes X et Y</td><td>Précision : avance d'un angle fixe (un « pas »), contrôle exact de la position. Couple suffisant pour déplacer le stylo sans saut de pas.</td></tr>
-      <tr><td>1× Servo SG90/MG90S</td><td>Lever/baisser le stylo (axe Z)</td><td>Gestion simple du contact stylo/feuille via signal PWM. Système pignon-crémaillère pour garder le stylo toujours vertical.</td></tr>
-    </tbody>
-  </table></div>
+  <p><strong>2× Moteur NEMA 17</strong> — déplacement des axes X et Y. Précision : avance d'un angle fixe (un « pas »), contrôle exact de la position. Couple suffisant pour déplacer le stylo sans saut de pas.</p>
+  <p><strong>1× Servomoteur</strong> — lève et abaisse le stylo (axe Z) via signal PWM. Système pignon-crémaillère pour garder le stylo toujours vertical.</p>
 
   <h2>Électronique choisie</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Composant</th><th>Rôle</th><th>Coût</th></tr></thead>
-    <tbody>
-      <tr><td class="td-mono">ESP32-S3-UNO</td><td>Microcontrôleur principal, génère les signaux STEP/DIR et PWM servo</td><td>~29 €</td></tr>
-      <tr><td class="td-mono">2× A4988</td><td>Drivers moteurs pas-à-pas — 5V logique, 12V puissance. Micro-pas jusqu'au 1/16</td><td>~17 €</td></tr>
-      <tr><td class="td-mono">R-78E5.0-1.0</td><td>Régulateur DC/DC 12V → 5V pour l'alimentation logique</td><td>—</td></tr>
-      <tr><td>PCB sur-mesure</td><td>Intégration de tous les composants (KiCad 9)</td><td>—</td></tr>
-      <tr><td>Servo SG90/MG90S</td><td>Levée/abaissement du stylo</td><td>7–10 €</td></tr>
-      <tr><td>Bouton d'urgence</td><td>Arrêt d'urgence matériel</td><td>~3,30 €</td></tr>
-      <tr><td>Limit switch</td><td>Fin de course pour le homing</td><td>~1,20 €</td></tr>
-    </tbody>
-  </table></div>
+  <p><strong>ESP32-S3-UNO</strong> — microcontrôleur principal, génère les signaux STEP/DIR et PWM servo.</p>
+  <p><strong>2× A4988</strong> — drivers moteurs pas-à-pas, 5V logique, 12V puissance, micro-pas jusqu'au 1/16.</p>
+  <p><strong>R-78E5.0-1.0</strong> — régulateur DC/DC 12V → 5V pour l'alimentation logique.</p>
+  <p><strong>PCB</strong> — intégration de tous les composants, conçu sous KiCad.</p>
+  <p><strong>Servomoteur</strong> — levée/abaissement du stylo.</p>
+  <p><strong>Bouton d'urgence</strong> — arrêt d'urgence matériel.</p>
+  <p><strong>Limit switch</strong> — fin de course pour le homing.</p>
 
   <h2>Pistes d'amélioration identifiées</h2>
   <ul>
