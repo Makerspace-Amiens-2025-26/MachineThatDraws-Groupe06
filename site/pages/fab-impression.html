@@ -3,47 +3,22 @@
   <div class="breadcrumb"><a onclick="showPage('home')">Accueil</a><span>›</span> Fabrication</div>
   <div class="page-eyebrow">Fabrication — 01</div>
   <h1 class="page-title">Impression 3D</h1>
-  <p class="page-lead">Toutes les pièces structurelles de la MachineThatDraw ont été modélisées sous OnShape puis imprimées au Makerspace d'UniLaSalle Amiens. Deux matériaux ont été utilisés selon les contraintes mécaniques de chaque pièce.</p>
-
-  <h2>Matériaux utilisés</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Matériau</th><th>Pièces concernées</th><th>Justification</th></tr></thead>
-    <tbody>
-      <tr><td class="td-mono">PLA</td><td>Châssis, supports fixes, tendeurs de courroie, supports de tiges</td><td>Rigide, facile à imprimer, bon marché — idéal pour les pièces structurelles non sollicitées thermiquement</td></tr>
-      <tr><td class="td-mono">PETG</td><td>Chariots, tête porte-stylo</td><td>Meilleure résistance mécanique et à la chaleur — utilisé pour les pièces en mouvement et les pièces proches des moteurs</td></tr>
-    </tbody>
-  </table></div>
+  <p class="page-lead">Toutes les pièces structurelles de la MachineThatDraw ont été modélisées sous OnShape puis imprimées au Makerspace d'UniLaSalle Amiens. Nous avons utilisé les imprimantes 3D disponibles sur place, notamment la BambuLab.</p>
 
   <h2>Liste des pièces imprimées</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Pièce</th><th>Qté</th><th>Matériau</th><th>Rôle</th></tr></thead>
-    <tbody>
-      <tr><td>Chariot axe X</td><td class="td-todo">✏️</td><td class="td-mono">PETG</td><td>Plateforme mobile sur les tiges Y — support bagues LM6UU et point d'attache courroie</td></tr>
-      <tr><td>Support moteur X</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td>Maintien du NEMA 17 axe X et alignement de la poulie GT2</td></tr>
-      <tr><td>Support moteur Y</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td>Maintien du NEMA 17 axe Y et poulies de renvoi</td></tr>
-      <tr><td>Supports de tiges (×2 par extrémité)</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td>Maintien et alignement des tiges de guidage Ø6 mm — 2 supports par extrémité sur l'axe Y pour la rigidité</td></tr>
-      <tr><td>Tête porte-stylo</td><td class="td-todo">✏️</td><td class="td-mono">PETG</td><td>Support du servo, du rail crémaillère et du manchon stylo</td></tr>
-      <tr><td>Rail crémaillère + pignon</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td>Mécanisme de levée/descente du stylo — maintient la verticalité</td></tr>
-      <tr><td>Tendeurs courroie X/Y</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td>Réglage de la tension des courroies GT2</td></tr>
-      <tr><td>Plaque de maintien axe Y</td><td class="td-todo">✏️</td><td class="td-mono">PLA</td><td>Fixation des barres côté opposé au moteur + point d'attache courroie Y</td></tr>
-    </tbody>
-  </table></div>
-
-  <h2>Paramètres d'impression</h2>
-  <div class="table-wrap"><table>
-    <tbody>
-      <tr><td>Imprimante</td><td class="td-todo">✏️ ex : Prusa MK4, Bambu Lab X1C...</td></tr>
-      <tr><td>Hauteur de couche</td><td class="td-todo">✏️ ex : 0.2 mm</td></tr>
-      <tr><td>Remplissage</td><td class="td-todo">✏️ ex : 20 %</td></tr>
-      <tr><td>Température buse PLA</td><td class="td-todo">✏️ ex : 215 °C</td></tr>
-      <tr><td>Température buse PETG</td><td class="td-todo">✏️ ex : 235 °C</td></tr>
-      <tr><td>Température plateau</td><td class="td-todo">✏️ ex : 60 °C (PLA) / 70 °C (PETG)</td></tr>
-      <tr><td>Logiciel de découpe</td><td class="td-todo">✏️ ex : PrusaSlicer, Cura, Bambu Studio</td></tr>
-    </tbody>
-  </table></div>
+  <p>Voici les principales pièces que nous avons imprimées en 3D pour assembler la machine :</p>
+  <ul>
+    <li>Chariot axe X — plateforme mobile qui se déplace sur les tiges de guidage</li>
+    <li>Support moteur X et support moteur Y — maintien des deux moteurs NEMA 17</li>
+    <li>Supports de tiges — fixation et alignement des tiges de guidage</li>
+    <li>Tête porte-stylo — accueille le servomoteur et le système pignon-crémaillère</li>
+    <li>Rail crémaillère et pignon — mécanisme de levée/descente du stylo</li>
+    <li>Tendeurs de courroie — réglage de la tension des courroies GT2</li>
+    <li>Plaque de maintien axe Y — fixation des barres côté opposé au moteur</li>
+  </ul>
 
   <h2>Difficultés rencontrées</h2>
-  <div class="placeholder">✏️ Y a-t-il eu des pièces à réimprimer ? Problèmes de warping, de fit, de tolérances ?</div>
+  <p>Lors de l'impression des pièces, certains composants n'avaient pas été bien imprimés — mauvaise adhérence, déformation ou dimensions incorrectes — et il a donc fallu les réimprimer. Cela a pris du temps supplémentaire mais nous a permis d'obtenir des pièces correctement ajustées pour l'assemblage final.</p>
 
   <h2>Photos des pièces</h2>
   <div class="placeholder">📷 Ajoute des photos des pièces imprimées — sur le plateau et après enlèvement des supports</div>
