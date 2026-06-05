@@ -6,15 +6,15 @@
   <p class="page-lead">Avant de commencer la fabrication, nous avons étudié les différentes architectures possibles pour notre machine et comparé les solutions existantes.</p>
 
   <h2>État de l'art — solutions existantes</h2>
-  <p>Une machine qui dessine toute seule porte un nom : un traceur, ou <em>plotter</em>. Avant de concevoir la nôtre, nous avons étudié ce qui existait déjà. La solution principale est le <strong>traceur cartésien à axes X-Y</strong> : le stylo se déplace sur deux axes perpendiculaires, comme une imprimante. C'est le principe de l'<strong>Axidraw</strong>, la machine du commerce qui nous a servi de référence, et de nombreux projets open-source.</p>
+  <p>Avant de concevoir notre machine, nous avons étudié ce qui existait déjà. La solution principale est le traceur cartésien à axes X-Y : le stylo se déplace sur deux axes perpendiculaires, comme une imprimante. C'est le principe de l'Axidraw, la machine du commerce qui nous a servi de référence, et de nombreux projets open-source.</p>
 
   <h2>Architecture : le choix cartésien</h2>
-  <p>Nous avons choisi une <strong>architecture cartésienne pure</strong> (un axe X indépendant sur un axe Y). Ce choix offre :</p>
+  <p>Nous avons choisi une architecture cartésienne (un axe X indépendant sur un axe Y). Ce choix offre :</p>
   <ul>
-    <li><strong>Précision régulière</strong> — le stylo garde la même qualité de tracé sur toute la feuille.</li>
-    <li><strong>Simplicité de contrôle</strong> — un moteur correspond à une seule direction, la commande est directe.</li>
-    <li><strong>Compatibilité matérielle</strong> — parfaitement adapté à l'Arduino, au CNC Shield et au firmware GRBL.</li>
-    <li><strong>Facilité de débogage</strong> — les axes étant découplés, les problèmes sont faciles à isoler.</li>
+    <li>Précision régulière — le stylo garde la même qualité de tracé sur toute la feuille.</li>
+    <li>Simplicité de contrôle — un moteur correspond à une seule direction, la commande est directe.</li>
+    <li>Compatibilité matérielle — parfaitement adapté à l'Arduino, au CNC Shield et au firmware GRBL.</li>
+    <li>Facilité de débogage — les axes étant découplés, les problèmes sont faciles à isoler.</li>
   </ul>
 
   <h2>Analyse comparative</h2>
@@ -29,27 +29,24 @@
   </table></div>
 
   <h2>Guidage et transmission</h2>
-  <p>Le mouvement est transmis par des <strong>courroies crantées GT2</strong> entraînées par des poulies 20 dents montées sur les moteurs NEMA 17. Les guidages sont assurés par des tiges linéaires Ø6 mm avec bagues LM6UU. La courroie crantée est rapide, légère et précise pour du dessin ; son seul défaut est de pouvoir se détendre, mais elle se règle facilement.</p>
+  <p>Le mouvement est transmis par des courroies crantées GT2 entraînées par les moteurs NEMA 17. Les guidages sont assurés par des tiges linéaires sur lesquelles coulisse le chariot. La courroie crantée est rapide, légère et précise pour du dessin.</p>
 
   <h2>Motorisation</h2>
-  <p><strong>2× Moteur NEMA 17</strong> — déplacement des axes X et Y. Précision : avance d'un angle fixe (un « pas »), contrôle exact de la position. Couple suffisant pour déplacer le stylo sans saut de pas.</p>
-  <p><strong>1× Servomoteur</strong> — lève et abaisse le stylo (axe Z) via signal PWM. Système pignon-crémaillère pour garder le stylo toujours vertical.</p>
+  <p>2× Moteur NEMA 17 — déplacement des axes X et Y. Couple suffisant pour déplacer le stylo sans saut de pas.</p>
+  <p>1× Servomoteur — lève et abaisse le stylo (axe Z) via signal PWM. Système pignon-crémaillère pour garder le stylo toujours vertical.</p>
 
   <h2>Électronique choisie</h2>
-  <p><strong>ESP32-S3-UNO</strong> — microcontrôleur principal, génère les signaux STEP/DIR et PWM servo.</p>
-  <p><strong>2× A4988</strong> — drivers moteurs pas-à-pas, 5V logique, 12V puissance, micro-pas jusqu'au 1/16.</p>
-  <p><strong>R-78E5.0-1.0</strong> — régulateur DC/DC 12V → 5V pour l'alimentation logique.</p>
-  <p><strong>PCB</strong> — intégration de tous les composants, conçu sous KiCad.</p>
-  <p><strong>Servomoteur</strong> — levée/abaissement du stylo.</p>
-  <p><strong>Bouton d'urgence</strong> — arrêt d'urgence matériel.</p>
-  <p><strong>Limit switch</strong> — fin de course pour le homing.</p>
+  <p>ESP32-S3-UNO — microcontrôleur principal, génère les signaux STEP/DIR et PWM servo.</p>
+  <p>2× A4988 — drivers moteurs pas-à-pas, 5V logique, 12V puissance, micro-pas jusqu'au 1/16.</p>
+  <p>R-78E5.0-1.0 — régulateur DC/DC 12V → 5V pour l'alimentation logique.</p>
+  <p>PCB — intégration de tous les composants, conçu sous KiCad.</p>
+  <p>Servomoteur — levée/abaissement du stylo.</p>
+  <p>Bouton d'urgence — arrêt d'urgence matériel.</p>
+  <p>Limit switch — fin de course pour le homing.</p>
 
   <h2>Pistes d'amélioration identifiées</h2>
   <ul>
-    <li><strong>Drivers TMC2208/TMC2209</strong> (~5–6 € pièce) — plus silencieux, meilleure gestion thermique, interpolation jusqu'au 1/256 micro-pas : amélioration directe de la qualité du tracé.</li>
-    <li><strong>Arduino Nano</strong> (~5–8 €) à la place de l'Uno (~29 €) — même performance GRBL pour 4× moins cher.</li>
-    <li><strong>Capteurs optiques</strong> à la place des limit switches mécaniques — plus fiables sur le long terme, sans rebond (bouncing).</li>
-    <li><strong>Stabilité axe Y</strong> — utiliser deux supports de barre au lieu d'un seul (comme déjà appliqué) améliore significativement la rigidité.</li>
+    <li>Stabilité axe Y — utiliser deux supports de barre au lieu d'un seul améliore significativement la rigidité.</li>
   </ul>
 </div>
 </div>
