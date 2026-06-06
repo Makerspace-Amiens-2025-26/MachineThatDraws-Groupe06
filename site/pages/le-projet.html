@@ -6,7 +6,7 @@
   <p class="page-lead">Le projet Machine That Draw nous a été proposé dans le cadre du module MakerSpace 2025-2026 à UniLaSalle Amiens. L'objectif : concevoir et construire de A à Z une machine de dessin automatisée fonctionnelle, en touchant à trois domaines simultanément — la mécanique, l'électronique et la programmation.</p>
 
   <h2>Contexte</h2>
-  <p>On est partis d'une feuille blanche, des ressources du MakerSpace et de machines existantes comme l'AxiDraw comme source d'inspiration.</p>
+  <p>Nous sommes partis d'une feuille blanche, des ressources du MakerSpace et de machines existantes comme l'AxiDraw comme source d'inspiration.</p>
 
   <h2>Photo de la machine</h2>
   <img src="/MachineThatDraws-Groupe06/images/machinecomplet.jpeg" alt="Machine That Draw — vue complète" style="width:100%;max-width:420px;border-radius:8px;display:block;">
@@ -14,10 +14,10 @@
   <h2>Équipe — Groupe 06</h2>
   <p>Avsin Atac s'est chargé de la documentation et du site GitHub.</p>
   <p>Pierre Villain et Emilien Vitry-Lhotte se sont occupés de l'impression 3D des composants, du montage mécanique et de la modélisation sur OnShape.</p>
-  <p>Djaher Madi Ali a géré la partie électronique, le schéma électrique et le PCB.</p>
+  <p>Djaher Madi Ali a géré la partie électronique, le schéma électronique et le PCB.</p>
 
   <h2>Fiche technique</h2>
-  <p>La machine dessine sur du papier format A4. Elle est pilotée par un microcontrôleur ESP32-S3-UNO qui centralise tous les signaux de la machine. Deux drivers A4988 gèrent chacun un moteur pas-à-pas. L'ensemble est alimenté en 12V DC.</p>
+  <p>La machine dessine sur du papier format A4. Elle est pilotée par un microcontrôleur Arduino Uno qui centralise tous les signaux de la machine. Deux drivers A4988 gèrent chacun un moteur pas-à-pas. L'ensemble est alimenté en 12V DC.</p>
 
   <h2>Modèle 3D</h2>
   <p>Notre modèle 3D complet est disponible sur OnShape :</p>
@@ -29,14 +29,14 @@
 
   <p><strong>2. Performance</strong><br>Deux exigences : la précision (respect des échelles et proportions du dessin) et la fiabilité (mouvements fluides, sans saut de pas moteur).</p>
 
-  <p><strong>3. Logiciel</strong><br>Utiliser une chaîne de traitement cohérente : Inkscape → génération G-code → envoi vers l'ESP32 → interprétation par les drivers.</p>
+  <p><strong>3. Logiciel</strong><br>Utiliser une chaîne de traitement cohérente : Inkscape → génération G-code → envoi vers l'Arduino Uno → interprétation par les drivers.</p>
 
   <p><strong>4. Contraintes techniques</strong><br>N'utiliser que des composants compatibles Arduino/ESP32, respecter un budget contenu, garder des pièces modulaires pour modifier la machine plus tard.</p>
 
   <p><strong>5. Pédagogie</strong><br>Maîtriser toute la chaîne : conception numérique, fabrication des pièces, assemblage, programmation et calibration.</p>
 
   <h2>Pourquoi un traceur cartésien ?</h2>
-  <p>On a comparé plusieurs architectures avant de faire notre choix. Le traceur cartésien X-Y a été retenu parce qu'il est précis, simple à piloter et qu'un moteur correspond à une seule direction, ce qui le rend directement compatible avec le firmware GRBL. L'architecture delta a été rejetée car elle est trop complexe à calibrer. L'architecture polaire a été écartée parce qu'elle est difficile à programmer.</p>
+  <p>Nous avons comparé plusieurs architectures avant de faire notre choix. Le traceur cartésien X-Y a été retenu parce qu'il est précis, simple à piloter et qu'un moteur correspond à une seule direction, ce qui le rend directement compatible avec le firmware GRBL. L'architecture delta a été rejetée car elle est trop complexe à calibrer. L'architecture polaire a été écartée parce qu'elle est difficile à programmer.</p>
   <p>Le traceur cartésien était la solution la plus adaptée à notre objectif et au matériel disponible au MakerSpace.</p>
 </div>
 </div>
