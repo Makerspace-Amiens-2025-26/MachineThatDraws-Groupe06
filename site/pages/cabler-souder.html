@@ -12,12 +12,7 @@
   <hr>
 
   <h2>PCB — Routage</h2>
-  <ul>
-    <li>Placement stratégique : séparation de la zone de puissance (moteurs, alimentation) et de la zone logique sensible (ESP32)</li>
-    <li>Pistes larges pour les lignes de puissance afin de supporter le courant des moteurs sans chauffer</li>
-    <li>Plan de masse continu pour éviter les interférences et stabiliser les signaux de la carte SD</li>
-    <li>Routage des 4 capteurs de fin de course (Xmin, Xmax, Ymin, Ymax) pour un homing précis</li>
-  </ul>
+  <p>Le placement a été pensé pour séparer la zone de puissance (moteurs, alimentation) de la zone logique sensible autour de l'ESP32. Les pistes de puissance ont été élargies pour supporter le courant des moteurs sans chauffer. Un plan de masse continu a été ajouté pour éviter les interférences et stabiliser les signaux. Le routage intègre également les 4 capteurs de fin de course pour un homing précis.</p>
   <img src="/MachineThatDraws-Groupe06/images/pcb.png" alt="Routage PCB KiCad" style="width:100%;max-width:680px;border-radius:8px;display:block;margin:16px 0;">
   <a href="https://github.com/Makerspace-Amiens-2025-26/MachineThatDraws-Groupe06" target="_blank" class="btn btn-outline" style="display:inline-flex;margin-bottom:8px;">Fichiers KiCad sur GitHub ↗</a>
 
@@ -39,7 +34,12 @@
 
   <hr>
 
+  <h2>Photo de la carte assemblée</h2>
+  <img src="/MachineThatDraws-Groupe06/images/carte-électronique.jpeg" alt="Carte électronique assemblée" style="width:100%;max-width:380px;border-radius:8px;display:block;margin:16px 0;">
+
+  <hr>
+
   <h2>Liste des composants</h2>
-  <p>La carte utilise 1 microcontrôleur ESP32-S3-UNO et 2 drivers A4988 pour piloter les moteurs pas-à-pas. Un régulateur R-78E5.0-1.0 convertit le 12V en 5V pour l'alimentation logique. On retrouve aussi 1 connecteur barrel jack avec interrupteur, 2 connecteurs moteurs, 2 condensateurs de filtrage, 1 servomoteur SG90/MG90S pour l'axe Z, 1 bouton d'urgence et 4 capteurs de fin de course.</p>
+  <p>La carte utilise 1 microcontrôleur ESP32-S3-UNO et 2 drivers A4988 pour piloter les moteurs pas-à-pas. Un régulateur R-78E5.0-1.0 convertit le 12V en 5V pour l'alimentation logique. On retrouve aussi 1 connecteur barrel jack avec interrupteur, 2 connecteurs moteurs, 2 condensateurs de filtrage, 1 servomoteur pour l'axe Z, 1 bouton d'urgence et 4 capteurs de fin de course.</p>
 </div>
 </div>
